@@ -1,0 +1,1 @@
+Spróbuję teraz zrobić program, który rysuje pomarańczowy trójkąt statyczny, oraz drugi trójkąt, którym można sterować na strzałkach

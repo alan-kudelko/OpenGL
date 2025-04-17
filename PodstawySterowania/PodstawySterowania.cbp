@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PodstawySterowania" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/PodstawySterowania" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add library="lib/libglfw3.a" />
+					<Add library="lib/libglfw3dll.a" />
+					<Add library="lib/OpenGL32.Lib" />
+					<Add library="lib/gdi32.lib" />
+					<Add library="lib/User32.Lib" />
+					<Add directory="lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/PodstawySterowania" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="include/GLFW/glfw3.h" />
+		<Unit filename="include/GLFW/glfw3native.h" />
+		<Unit filename="include/KHR/khrplatform.h" />
+		<Unit filename="include/glad.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="include/glad/glad.h" />
+		<Unit filename="include/stb_c_lexer.h" />
+		<Unit filename="include/stb_connected_components.h" />
+		<Unit filename="include/stb_divide.h" />
+		<Unit filename="include/stb_ds.h" />
+		<Unit filename="include/stb_dxt.h" />
+		<Unit filename="include/stb_easy_font.h" />
+		<Unit filename="include/stb_herringbone_wang_tile.h" />
+		<Unit filename="include/stb_hexwave.h" />
+		<Unit filename="include/stb_image.h" />
+		<Unit filename="include/stb_image_resize2.h" />
+		<Unit filename="include/stb_image_write.h" />
+		<Unit filename="include/stb_include.h" />
+		<Unit filename="include/stb_leakcheck.h" />
+		<Unit filename="include/stb_perlin.h" />
+		<Unit filename="include/stb_rect_pack.h" />
+		<Unit filename="include/stb_sprintf.h" />
+		<Unit filename="include/stb_textedit.h" />
+		<Unit filename="include/stb_tilemap_editor.h" />
+		<Unit filename="include/stb_truetype.h" />
+		<Unit filename="include/stb_vorbis.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="include/stb_voxel_render.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

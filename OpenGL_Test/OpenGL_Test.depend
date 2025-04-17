@@ -1,0 +1,149 @@
+# depslib dependency file v1.0
+1744619414 source:d:\projekty\opengl_test\main.cpp
+	<GLFW/glfw3.h>
+	<glad/glad.h>
+	<iostream>
+
+1708703617 d:\projekty\opengl_test\src\glfw\glfw3.h
+	<stddef.h>
+	<stdint.h>
+	<vulkan/vulkan.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GLES2/gl2.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl3.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl31.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl32.h>
+	<GLES2/gl2ext.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl3ext.h>
+	<GL/glcorearb.h>
+	<GL/glext.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glext.h>
+
+1744388694 d:\projekty\opengl_test\src\glad\glad.h
+	<KHR/khrplatform.h>
+
+1744388694 d:\projekty\opengl_test\src\khr\khrplatform.h
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
+
+1708703617 d:\projekty\opengl_test\include\glfw\glfw3.h
+	<stddef.h>
+	<stdint.h>
+	<vulkan/vulkan.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GLES2/gl2.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl3.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl31.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl32.h>
+	<GLES2/gl2ext.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl3ext.h>
+	<GL/glcorearb.h>
+	<GL/glext.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glext.h>
+
+1744390918 d:\projekty\opengl_test\include\glad\glad.h
+	<KHR/khrplatform.h>
+
+1744390918 d:\projekty\opengl_test\include\khr\khrplatform.h
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
+
+1744388694 source:d:\projekty\opengl_test\include\glad.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<glad/glad.h>
+	<windows.h>
+	<winapifamily.h>
+	<dlfcn.h>
+
+1741980454 source:d:\projekty\opengl_test\include\stb_vorbis.c
+	<stdio.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<math.h>
+	<malloc.h>
+	<alloca.h>
+	<limits.h>
+	<crtdbg.h>
+
+1744388694 source:d:\projekty\opengl\opengl_test\include\glad.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<glad/glad.h>
+	<windows.h>
+	<winapifamily.h>
+	<dlfcn.h>
+
+1744390918 d:\projekty\opengl\opengl_test\include\glad\glad.h
+	<KHR/khrplatform.h>
+
+1744390918 d:\projekty\opengl\opengl_test\include\khr\khrplatform.h
+	<stdint.h>
+	<inttypes.h>
+	<stdint.h>
+
+1741980454 source:d:\projekty\opengl\opengl_test\include\stb_vorbis.c
+	<stdio.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<math.h>
+	<malloc.h>
+	<alloca.h>
+	<limits.h>
+	<crtdbg.h>
+
+1744619414 source:d:\projekty\opengl\opengl_test\main.cpp
+	<GLFW/glfw3.h>
+	<glad/glad.h>
+	<iostream>
+
+1708703617 d:\projekty\opengl\opengl_test\include\glfw\glfw3.h
+	<stddef.h>
+	<stdint.h>
+	<vulkan/vulkan.h>
+	<GLES/gl.h>
+	<GLES/glext.h>
+	<GLES2/gl2.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl3.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl31.h>
+	<GLES2/gl2ext.h>
+	<GLES3/gl32.h>
+	<GLES2/gl2ext.h>
+	<OpenGL/gl3.h>
+	<OpenGL/gl3ext.h>
+	<GL/glcorearb.h>
+	<GL/glext.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glext.h>
+
