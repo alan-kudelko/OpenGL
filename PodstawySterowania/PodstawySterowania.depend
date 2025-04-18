@@ -176,13 +176,14 @@
 	<limits.h>
 	<crtdbg.h>
 
-1744997680 source:d:\projekty\opengl\podstawysterowania\main.cpp
+1745005168 source:d:\projekty\opengl\podstawysterowania\main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<iostream>
 	<fstream>
 	<string>
 	<sstream>
+	"ak/GL_SHAPES.h"
 
 1708703617 d:\projekty\opengl\podstawysterowania\include\glfw\glfw3.h
 	<stddef.h>
@@ -207,4 +208,14 @@
 	<OpenGL/gl.h>
 	<GL/gl.h>
 	<GL/glext.h>
+
+1745004978 d:\projekty\opengl\podstawysterowania\ak\gl_shapes.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<cmath>
+	<string>
+	<iostream>
+
+1745004446 source:d:\projekty\opengl\podstawysterowania\ak\gl_shapes.cpp
+	"GL_SHAPES.h"
 
