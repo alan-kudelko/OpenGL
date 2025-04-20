@@ -7,7 +7,6 @@
 #include <sstream>
 
 #include "GLS/GL_SHAPES.h"
-#include "GLS/GL_GPUResourceTracker.h"
 
 enum{WINDOW_SIZE_X=600,WINDOW_SIZE_Y=600};
 const char*vertexShaderPath="shaders/basic_vertex_shader.vert";
@@ -120,8 +119,9 @@ int main(){
     glBindBuffer(GL_ARRAY_BUFFER,0);
     glBindVertexArray(0);
 
-    //GLS::GL_TRIANGLE t1(vertices,sizeof(vertices)/sizeof(float)/3,"Werdon",basicShader,2,2,GL_STATIC_DRAW);
-    GLS::GL_RECTANGLE r1(vertices2,sizeof(vertices2)/sizeof(float)/3,"Werdon",basicShader,3,3,GL_STATIC_DRAW);
+    GLS::GL_TRIANGLE t1(vertices,"name",basicShader,GL_STATIC_DRAW);
+
+    std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
 
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
@@ -130,7 +130,7 @@ int main(){
         //glUseProgram(basicShader);
         //glBindVertexArray(VAO);
         //glDrawArrays(GL_TRIANGLES,0,3);
-        r1.GL_drawShape(window);
+        t1.GLdrawShape(window);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
