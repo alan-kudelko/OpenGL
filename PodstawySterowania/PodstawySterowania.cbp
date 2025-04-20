@@ -41,6 +41,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="GLS/GL_GPUResourceTracker.cpp" />
+		<Unit filename="GLS/GL_GPUResourceTracker.h">
+			<Option compile="1" />
+			<Option link="1" />
+		</Unit>
+		<Unit filename="GLS/GL_SHAPES.cpp" />
+		<Unit filename="GLS/GL_SHAPES.h" />
 		<Unit filename="include/GLFW/glfw3.h" />
 		<Unit filename="include/GLFW/glfw3native.h" />
 		<Unit filename="include/KHR/khrplatform.h" />

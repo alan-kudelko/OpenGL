@@ -176,14 +176,15 @@
 	<limits.h>
 	<crtdbg.h>
 
-1745005168 source:d:\projekty\opengl\podstawysterowania\main.cpp
+1745136113 source:d:\projekty\opengl\podstawysterowania\main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<iostream>
 	<fstream>
 	<string>
 	<sstream>
-	"ak/GL_SHAPES.h"
+	"GLS/GL_SHAPES.h"
+	"GLS/GL_GPUResourceTracker.h"
 
 1708703617 d:\projekty\opengl\podstawysterowania\include\glfw\glfw3.h
 	<stddef.h>
@@ -209,13 +210,38 @@
 	<GL/gl.h>
 	<GL/glext.h>
 
-1745004978 d:\projekty\opengl\podstawysterowania\ak\gl_shapes.h
+1745005821 d:\projekty\opengl\podstawysterowania\ak\gl_shapes.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
 	<string>
 	<iostream>
 
-1745004446 source:d:\projekty\opengl\podstawysterowania\ak\gl_shapes.cpp
+1745005862 source:d:\projekty\opengl\podstawysterowania\ak\gl_shapes.cpp
 	"GL_SHAPES.h"
+
+1745136044 d:\projekty\opengl\podstawysterowania\gls\gl_shapes.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<cmath>
+	<string>
+	<iostream>
+
+1745136081 source:d:\projekty\opengl\podstawysterowania\gls\gl_shapes.cpp
+	"GL_SHAPES.h"
+
+1745107128 d:\projekty\opengl\podstawysterowania\gls\gl_gpuresourcetracker.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<vector>
+	<string>
+
+1745078978 source:d:\projekty\opengl\podstawysterowania\gls\gl_gpuresourcetracker.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<vector>
+	<string>
+
+1745098583 source:d:\projekty\opengl\podstawysterowania\gls\gl_gpuresourcetracker.cpp
+	"GL_GPUResourceTracker.h"
 

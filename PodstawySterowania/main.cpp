@@ -6,7 +6,8 @@
 #include <string>
 #include <sstream>
 
-#include "ak/GL_SHAPES.h"
+#include "GLS/GL_SHAPES.h"
+#include "GLS/GL_GPUResourceTracker.h"
 
 enum{WINDOW_SIZE_X=600,WINDOW_SIZE_Y=600};
 const char*vertexShaderPath="shaders/basic_vertex_shader.vert";
@@ -55,7 +56,6 @@ GLuint createShaderProgram(const char*vertexShaderPath,const char*fragmentShader
         std::cerr<<infoLog<<std::endl;
         return 0;
     }
-
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
     return shaderProgram;
@@ -69,6 +69,12 @@ float vertices[]{
     -0.5f, -0.5f, 0.0f,
     0.5f, -0.5f, 0.0f,
     0.0f,  0.5f, 0.0f
+};
+float vertices2[]{
+       0.5f,  0.5f, 0.0f,  // top right
+         0.5f, -0.5f, 0.0f,  // bottom right
+        -0.5f, -0.5f, 0.0f,  // bottom left
+        -0.5f,  0.5f, 0.0f   // top left
 };
 
 int main(){
@@ -114,7 +120,8 @@ int main(){
     glBindBuffer(GL_ARRAY_BUFFER,0);
     glBindVertexArray(0);
 
-    ak::GL_SHAPE t1(vertices,sizeof(vertices)/sizeof(float)/3,"Werdon",basicShader,2,2,GL_STATIC_DRAW);
+    //GLS::GL_TRIANGLE t1(vertices,sizeof(vertices)/sizeof(float)/3,"Werdon",basicShader,2,2,GL_STATIC_DRAW);
+    GLS::GL_RECTANGLE r1(vertices2,sizeof(vertices2)/sizeof(float)/3,"Werdon",basicShader,3,3,GL_STATIC_DRAW);
 
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
@@ -123,7 +130,7 @@ int main(){
         //glUseProgram(basicShader);
         //glBindVertexArray(VAO);
         //glDrawArrays(GL_TRIANGLES,0,3);
-        t1.GL_drawShape(window);
+        r1.GL_drawShape(window);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
