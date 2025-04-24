@@ -6,6 +6,11 @@
 #include <string>
 #include <sstream>
 
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "GLS/GL_SHAPES.h"
 
 enum{WINDOW_SIZE_X=600,WINDOW_SIZE_Y=600};
@@ -63,6 +68,9 @@ void framebuffer_keyboard_input_callback(GLFWwindow*window,GLint key,GLint scanC
     if(key==GLFW_KEY_W&&action==GLFW_PRESS){
         glfwSetWindowShouldClose(window,GLFW_TRUE);
     }
+    if(key==GLFW_KEY_S&&action==GLFW_PRESS){
+
+    }
 }
 float vertices[]{
     -0.5f, -0.5f, 0.0f,
@@ -119,8 +127,8 @@ int main(){
     glBindBuffer(GL_ARRAY_BUFFER,0);
     glBindVertexArray(0);
 
-    GLS::GL_TRIANGLE t1(vertices,"name",basicShader,GL_STATIC_DRAW);
-
+    GLS::GL_RECTANGLE r1(vertices2,"name",basicShader,GL_DYNAMIC_DRAW);
+    GLS::GL_TRIANGLE t1(vertices,"name",basicShader,GL_DYNAMIC_DRAW);
     std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
 
     while(!glfwWindowShouldClose(window)){
@@ -130,7 +138,12 @@ int main(){
         //glUseProgram(basicShader);
         //glBindVertexArray(VAO);
         //glDrawArrays(GL_TRIANGLES,0,3);
+        r1.GLrotate(glm::vec3(0,0,glfwGetTime()/10));
+        r1.GLdrawShape(window);
+
+        t1.GLtransform(glm::vec3(glfwGetTime()/10,0,0));
         t1.GLdrawShape(window);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

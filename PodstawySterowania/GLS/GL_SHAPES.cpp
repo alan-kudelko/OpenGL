@@ -17,6 +17,16 @@ GLS::GL_SHAPE::~GL_SHAPE(){
 	GL_GPUresourceTracker.removeVAO(_VAO);
 	GL_GPUresourceTracker.removeVAO(_VBO);
 }
+void GLS::GL_SHAPE::GLtransform(glm::vec3 transformVector){
+	glm::mat4 model=glm::mat4(1.0f);
+	model=glm::translate(model,glm::vec3(transformVector.x,transformVector.y,transformVector.z));
+	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, "model"),1,GL_FALSE,glm::value_ptr(model));
+}
+void GLS::GL_SHAPE::GLrotate(glm::vec3 rotationVector){
+	glm::mat4 model=glm::mat4(1.0f);
+	model=glm::rotate(model,glm::degrees(rotationVector.z),glm::vec3(0,0,1));
+	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
+}
 std::string GLS::GL_SHAPE::GLgetName()const{
 	return _name;
 }
@@ -60,7 +70,12 @@ void GLS::GL_TRIANGLE::GLdrawShape(GLFWwindow*window){
 }
 /////////////////////////////////////////////////////////////
 GLS::GL_RECTANGLE::GL_RECTANGLE(GLfloat*vertices,std::string name,GLuint shaderProgram,GLenum memoryLocation):GL_SHAPE(name,shaderProgram,memoryLocation){
-	_EBO=1;
+	_vertN=4;
+	_vertices=new GLfloat[4*3];
+	for(GLuint i=0;i<_vertN*3;i++)
+		_vertices[i]=vertices[i];
+
+	_EBO=GL_GPUresourceTracker.addEBO();
 	glGenVertexArrays(1,&_VAO);
 	glGenBuffers(1,&_VBO);
 	glGenBuffers(1,&_EBO);
@@ -84,5 +99,4 @@ void GLS::GL_RECTANGLE::GLdrawShape(GLFWwindow*window){
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);
 	glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
-	//glDrawArrays(GL_TRIANGLES,0,3);
 }
