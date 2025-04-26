@@ -223,12 +223,12 @@
 1745005862 source:d:\projekty\opengl\podstawysterowania\ak\gl_shapes.cpp
 	"GL_SHAPES.h"
 
-1745521186 d:\projekty\opengl\podstawysterowania\gls\gl_shapes.h
+1745683700 d:\projekty\opengl\podstawysterowania\gls\gl_shapes.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
-	<string>
 	<iostream>
+	<new>
 	<glm/vec3.hpp>
 	<glm/vec4.hpp>
 	<glm/mat4x4.hpp>
@@ -236,10 +236,10 @@
 	<glm/gtc/type_ptr.hpp>
 	"GL_GPUResourceTracker.h"
 
-1745521878 source:d:\projekty\opengl\podstawysterowania\gls\gl_shapes.cpp
+1745684027 source:d:\projekty\opengl\podstawysterowania\gls\gl_shapes.cpp
 	"GL_SHAPES.h"
 
-1745145370 d:\projekty\opengl\podstawysterowania\gls\gl_gpuresourcetracker.h
+1745527241 d:\projekty\opengl\podstawysterowania\gls\gl_gpuresourcetracker.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<vector>

@@ -1,15 +1,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
 
 #include "GLS/GL_SHAPES.h"
 
@@ -72,16 +72,22 @@ void framebuffer_keyboard_input_callback(GLFWwindow*window,GLint key,GLint scanC
 
     }
 }
-float vertices[]{
-    -0.5f, -0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    0.0f,  0.5f, 0.0f
-};
-float vertices2[]{
-       0.5f,  0.5f, 0.0f,  // top right
-         0.5f, -0.5f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  // bottom left
-        -0.5f,  0.5f, 0.0f   // top left
+GLS::GL_VertexData vertices[]{
+    {
+        {0.5f,0.5f,0.0f},
+        {1.0f,0.0f,0.0f,0.0f},
+        {0.0f,0.0f}
+    },
+    {
+        {0.5f,-0.5f,0.0f},
+        {1.0f,0.0f,0.0f,0.0f},
+        {0.0f,0.0f}
+    },
+    {
+        {-0.5f,-0.5f,0.0f},
+        {1.0f,0.0f,0.0f,0.0f},
+        {0.0f,0.0f}
+    },
 };
 
 int main(){
@@ -120,15 +126,14 @@ int main(){
     glBindBuffer(GL_ARRAY_BUFFER,VBO);
     glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
 
-
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),(void*)nullptr);
     glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER,0);
     glBindVertexArray(0);
 
-    GLS::GL_RECTANGLE r1(vertices2,"name",basicShader,GL_DYNAMIC_DRAW);
-    GLS::GL_TRIANGLE t1(vertices,"name",basicShader,GL_DYNAMIC_DRAW);
+   // GLS::GL_RECTANGLE r1(vertices2,"name",basicShader,GL_DYNAMIC_DRAW);
+    GLS::GL_TRIANGLE t1(vertices,basicShader,GL_DYNAMIC_DRAW);
     std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
 
     while(!glfwWindowShouldClose(window)){
@@ -138,8 +143,8 @@ int main(){
         //glUseProgram(basicShader);
         //glBindVertexArray(VAO);
         //glDrawArrays(GL_TRIANGLES,0,3);
-        r1.GLrotate(glm::vec3(0,0,glfwGetTime()/10));
-        r1.GLdrawShape(window);
+        //r1.GLrotate(glm::vec3(0,0,glfwGetTime()/10));
+        //r1.GLdrawShape(window);
 
         t1.GLtransform(glm::vec3(glfwGetTime()/10,0,0));
         t1.GLdrawShape(window);

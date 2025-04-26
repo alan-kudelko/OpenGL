@@ -46,4 +46,3 @@ namespace GLS{
 		GLuint removeShader(GLuint Shader);
 	};
 }
-
