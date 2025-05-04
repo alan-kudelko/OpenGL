@@ -1,0 +1,8 @@
+#include "GL_SHADER.h"
+
+GLS::GL_SHADER::GL_SHADER(){
+	
+}
+GLS::GL_SHADER::~GL_SHADER(){
+	
+}

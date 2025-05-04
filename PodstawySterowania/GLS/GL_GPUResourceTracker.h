@@ -3,9 +3,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <vector>
-#include <string>
-
 namespace GLS{
 	class GL_GPUResourceTracker{
 		GLboolean*_VAO_List;

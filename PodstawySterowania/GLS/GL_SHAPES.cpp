@@ -227,5 +227,5 @@ GLS::GL_POLYGON::~GL_POLYGON(){
 void GLS::GL_POLYGON::GLdrawShape()const{
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
 }

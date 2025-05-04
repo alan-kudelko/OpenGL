@@ -4,7 +4,6 @@
 #include <GLFW/glfw3.h>
 #include <cmath>
 #include <iostream>
-#include <new>
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -106,15 +105,8 @@ informacje o użytych rejestrach VBO,VAO oraz EBO
 informacje o liczbie wierzchołków
 informacja o trybie rysowania jako GLenum
 
-
-
-public:
-Konstruktor domyślny generujący kształty foremne oparte na jakimś okręgu
-
 interfejs do pobierania oraz ustawiania informacji o wierzchołkach
 interfejs do pobierania oraz ustawiania współrzędnych środka bryły
-interfejs do pobierania oraz ustawiania wykorzystanego shadera
-interfejs do pobierania aktualnie wykorzystanego VAO, VBO oraz EBO
 interfejs do pobierania oraz ustawiania wykorzystywanej tekstury
 interfejs do zmiany i pobierania trybu rysowania na podstawie typu wyliczeniowego
 
