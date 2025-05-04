@@ -28,8 +28,6 @@ namespace GLS{
 		glm::vec3 GLgetXYZ()const;
 		glm::vec4 GLgetRGBA()const;
 		glm::vec2 GLgetUV()const;
-		GLuint GLgetVertexSize()const;
-
 		void GLsetVertexData(glm::vec3 xyz={},glm::vec4 rgba={},glm::vec2 uv={});
 		void GLsetVertexData(GLfloat*vertexData);
 		void GLsetXYZ(glm::vec3 xyz);
@@ -39,7 +37,7 @@ namespace GLS{
 		GL_VertexData&operator=(const GLS::GL_VertexData&vertexData);
 		GL_VertexData&operator+(const GLS::GL_VertexData&vertexData);
 		GL_VertexData&operator-(const GLS::GL_VertexData&vertexData);
-		
+
 		enum{GL_VERTEX_SIZE=9}; //Total number of attributes 3+4+2
 	};
 
@@ -51,11 +49,11 @@ namespace GLS{
 		GLuint _shaderProgram;
 		GL_VertexData*_vertices;
 		GLuint _vertN;
-    public:
+	public:
         GL_SHAPE(GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
         virtual ~GL_SHAPE();
 
-        virtual void GLdrawShape(GLFWwindow*window)=0;
+        virtual void GLdrawShape()const=0;
 		void GLtransform(glm::vec3 transformVector);
 		void GLrotate(glm::vec3 rotationVector);
 		void GLscale(glm::vec3 scaleVector);
@@ -66,21 +64,28 @@ namespace GLS{
         GLS::GL_VertexData GLgetVertices()const;
     };
 	class GL_TRIANGLE:public GL_SHAPE{
-		public:
+	public:
 		GL_TRIANGLE(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_DYNAMIC_DRAW);
 		GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
 		~GL_TRIANGLE();
-		void GLdrawShape(GLFWwindow*window)override;
+		void GLdrawShape()const override;
+	};
+	class GL_POLYGON:public GL_SHAPE{
+		GLuint _EBO;
+		GLuint*_indices;
+		GLuint _indicesN;
+	public:
+		GL_POLYGON(GLuint vertN,GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
+		GL_POLYGON(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
+		~GL_POLYGON();
+		void GLdrawShape()const override;
 	};
 }
 /*
 	Utworzyć nowy interfejs klasy, który będzie później fragmentem całości
 	Obiekt typu bazowego GL_SHAPE powinien:
 	1. umożliwić interfejs zmiany wierzchołków w trakcie działania programu
-	2. Udostępniać domyślny konstruktor, generujący w sposób automatyczny wierzchołki najlepiej jakby znajdowały się np. na okręgu o danym domyślnym promieniu tj. pierwiastki równań zespolonych wyższych stopni
 	3. Rozważyć funkcję zaprzyjaźnioną GLS::GLTransform korzystającą z biblioteki glm
-	6. Do punktu 4, lepiej stworzyć strukturę, która będzie przekazywana i zwracana do/z obiektu
-	7. Pola w strukturze powinny zawierać współrzędne, normalne, pozycję tekstury to na razie wystarczy, w przyszłości to może być również obiektowe w zależności ile atrybutów będzie potrzebnych
 	8. Biblioteka STB.h do tekstur
 
 	GL_SHAPE(GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);

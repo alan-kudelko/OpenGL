@@ -176,17 +176,17 @@
 	<limits.h>
 	<crtdbg.h>
 
-1745521872 source:d:\projekty\opengl\podstawysterowania\main.cpp
+1746381199 source:d:\projekty\opengl\podstawysterowania\main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
-	<iostream>
-	<fstream>
-	<string>
-	<sstream>
 	<glm/vec3.hpp>
 	<glm/vec4.hpp>
 	<glm/mat4x4.hpp>
 	<glm/gtc/matrix_transform.hpp>
+	<iostream>
+	<fstream>
+	<string>
+	<sstream>
 	"GLS/GL_SHAPES.h"
 
 1708703617 d:\projekty\opengl\podstawysterowania\include\glfw\glfw3.h
@@ -223,7 +223,7 @@
 1745005862 source:d:\projekty\opengl\podstawysterowania\ak\gl_shapes.cpp
 	"GL_SHAPES.h"
 
-1745683700 d:\projekty\opengl\podstawysterowania\gls\gl_shapes.h
+1746380063 d:\projekty\opengl\podstawysterowania\gls\gl_shapes.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
@@ -236,7 +236,7 @@
 	<glm/gtc/type_ptr.hpp>
 	"GL_GPUResourceTracker.h"
 
-1745684027 source:d:\projekty\opengl\podstawysterowania\gls\gl_shapes.cpp
+1746395965 source:d:\projekty\opengl\podstawysterowania\gls\gl_shapes.cpp
 	"GL_SHAPES.h"
 
 1745527241 d:\projekty\opengl\podstawysterowania\gls\gl_gpuresourcetracker.h

@@ -92,7 +92,7 @@ GLS::GL_VertexData vertices[]{
 
 int main(){
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
     glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
 
@@ -118,43 +118,27 @@ int main(){
     glViewport(0,0,WINDOW_SIZE_X,WINDOW_SIZE_Y);
 
     GLuint basicShader=createShaderProgram(vertexShaderPath,fragmentShaderPath);
-    GLuint VBO,VAO;
-    glGenVertexArrays(1,&VAO);
-    glGenBuffers(1,&VBO);
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER,VBO);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3*sizeof(float),(void*)nullptr);
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER,0);
-    glBindVertexArray(0);
-
-   // GLS::GL_RECTANGLE r1(vertices2,"name",basicShader,GL_DYNAMIC_DRAW);
+    GLS::GL_POLYGON r1(4,basicShader,GL_DYNAMIC_DRAW);
     GLS::GL_TRIANGLE t1(vertices,basicShader,GL_DYNAMIC_DRAW);
-    std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
+    GLS::GL_TRIANGLE t2(basicShader,GL_DYNAMIC_DRAW);
+    //std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
 
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        //glUseProgram(basicShader);
-        //glBindVertexArray(VAO);
         //glDrawArrays(GL_TRIANGLES,0,3);
-        //r1.GLrotate(glm::vec3(0,0,glfwGetTime()/10));
-        //r1.GLdrawShape(window);
+        //t2.GLrotate(glm::vec3(0,0,glfwGetTime()/10));
+        //r1.GLdrawShape();
 
-        t1.GLtransform(glm::vec3(glfwGetTime()/10,0,0));
-        t1.GLdrawShape(window);
+        //t1.GLtransform(glm::vec3(std::sin(glfwGetTime()/2)/3,0,0));
+        t1.GLdrawShape();
+        r1.GLdrawShape();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
-    glDeleteVertexArrays(1,&VAO);
-    glDeleteBuffers(1,&VBO);
     glDeleteProgram(basicShader);
     glfwTerminate();
 
