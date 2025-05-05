@@ -1,0 +1,3 @@
+Error in: shaders/basic_vertex_shader.vert 0(2) : error C7548: 'layout(location)' requires "#extension GL_ARB_separate_shader_objects : enable" before use
+0(2) : error C0000: ... or #version 410
+

@@ -12,58 +12,12 @@
 #include <sstream>
 
 #include "GLS/GL_SHAPES.h"
+#include "GLS/GL_SHADER.h"
 
 enum{WINDOW_SIZE_X=600,WINDOW_SIZE_Y=600};
 const char*vertexShaderPath="shaders/basic_vertex_shader.vert";
 const char*fragmentShaderPath="shaders/basic_fragment_shader.frag";
 
-std::string loadShader(const char*path){
-    std::stringstream sourceCode;
-    std::ifstream file;
-    file.open(path,std::ios_base::in);
-    sourceCode<<file.rdbuf();
-    file.close();
-    return sourceCode.str();
-}
-GLuint compileShader(const char*path,GLenum shaderType){
-    std::string shaderCode=loadShader(path);
-    const char*sourceCode=shaderCode.c_str();
-
-    GLuint shader=glCreateShader(shaderType);
-    glShaderSource(shader,1,&sourceCode,nullptr);
-    glCompileShader(shader);
-
-    int status;
-    glGetShaderiv(shader,GL_COMPILE_STATUS,&status);
-    if(!status){
-        char log[512]{};
-        glGetShaderInfoLog(shader,512,nullptr,log);
-        std::cerr<<log<<std::endl;
-        return 0;
-    }
-    return shader;
-}
-GLuint createShaderProgram(const char*vertexShaderPath,const char*fragmentShaderPath){
-    GLuint vertexShader=compileShader(vertexShaderPath,GL_VERTEX_SHADER);
-    GLuint fragmentShader=compileShader(fragmentShaderPath,GL_FRAGMENT_SHADER);
-
-    GLuint shaderProgram=glCreateProgram();
-    glAttachShader(shaderProgram,vertexShader);
-    glAttachShader(shaderProgram,fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    int status;
-    glGetProgramiv(shaderProgram,GL_LINK_STATUS,&status);
-    if(!status){
-        char infoLog[512]{};
-        glGetProgramInfoLog(shaderProgram,512,nullptr,infoLog);
-        std::cerr<<infoLog<<std::endl;
-        return 0;
-    }
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-    return shaderProgram;
-}
 void framebuffer_keyboard_input_callback(GLFWwindow*window,GLint key,GLint scanCode,GLint action,GLint mods){
     if(key==GLFW_KEY_W&&action==GLFW_PRESS){
         glfwSetWindowShouldClose(window,GLFW_TRUE);
@@ -117,11 +71,18 @@ int main(){
 
     glViewport(0,0,WINDOW_SIZE_X,WINDOW_SIZE_Y);
 
-    GLuint basicShader=createShaderProgram(vertexShaderPath,fragmentShaderPath);
+    //GLuint basicShader=createShaderProgram(vertexShaderPath,fragmentShaderPath);
+    GLS::GL_SHADER basicShader(vertexShaderPath,fragmentShaderPath);
+    if(basicShader.getShaderStatus()){
+        std::cerr<<"Blad shadera"<<std::endl;
+        std::cerr<<basicShader.getShaderStatus()<<std::endl;
+        glfwTerminate();
+        return -1;
+    }
 
-    GLS::GL_POLYGON r1(4,basicShader,GL_DYNAMIC_DRAW);
-    GLS::GL_TRIANGLE t1(vertices,basicShader,GL_DYNAMIC_DRAW);
-    GLS::GL_TRIANGLE t2(basicShader,GL_DYNAMIC_DRAW);
+    GLS::GL_POLYGON r1(4,basicShader.getShaderID(),GL_DYNAMIC_DRAW);
+    //GLS::GL_TRIANGLE t1(vertices,basicShader,GL_DYNAMIC_DRAW);
+    //GLS::GL_TRIANGLE t2(basicShader,GL_DYNAMIC_DRAW);
     //std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
 
     while(!glfwWindowShouldClose(window)){
@@ -133,13 +94,12 @@ int main(){
         //r1.GLdrawShape();
 
         //t1.GLtransform(glm::vec3(std::sin(glfwGetTime()/2)/3,0,0));
-        t1.GLdrawShape();
-        r1.GLdrawShape();
+        //t1.drawShape();
+        r1.drawShape();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-    glDeleteProgram(basicShader);
     glfwTerminate();
 
     return 0;

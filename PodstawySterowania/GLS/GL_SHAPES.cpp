@@ -1,7 +1,5 @@
 #include "GL_SHAPES.h"
 
-GLS::GL_GPUResourceTracker GL_GPUresourceTracker;
-
 GLS::GL_VertexData::GL_VertexData(GLfloat*vertex){
 	if(vertex==nullptr)
 		return;
@@ -18,7 +16,7 @@ GLS::GL_VertexData::GL_VertexData(glm::vec3 xyz,glm::vec4 rgba,glm::vec2 uv){
 	_rgba=_rgba;
 	_uv=uv;
 }
-void GLS::GL_VertexData::GLgetVertexData(GLfloat*vertexData)const{
+void GLS::GL_VertexData::getVertexData(GLfloat*vertexData)const{
 	GLuint i=0;
 	for(;i<3;i++)
 		vertexData[i]=_xyz[i];
@@ -27,36 +25,36 @@ void GLS::GL_VertexData::GLgetVertexData(GLfloat*vertexData)const{
 	for(i=0;i<2;i++)
 		vertexData[i+7]=_xyz[i];
 }
-glm::vec3 GLS::GL_VertexData::GLgetXYZ()const{
+glm::vec3 GLS::GL_VertexData::getXYZ()const{
 	return _xyz;
 }
-glm::vec4 GLS::GL_VertexData::GLgetRGBA()const{
+glm::vec4 GLS::GL_VertexData::getRGBA()const{
 	return _rgba;
 }
-glm::vec2 GLS::GL_VertexData::GLgetUV()const{
+glm::vec2 GLS::GL_VertexData::getUV()const{
 	return _uv;
 }
-void GLS::GL_VertexData::GLsetVertexData(glm::vec3 xyz,glm::vec4 rgba,glm::vec2 uv){
+void GLS::GL_VertexData::setVertexData(glm::vec3 xyz,glm::vec4 rgba,glm::vec2 uv){
 	_xyz=xyz;
 	_rgba=_rgba;
 	_uv=uv;
 }
-void GLS::GL_VertexData::GLsetVertexData(GLfloat*vertexData){
+void GLS::GL_VertexData::setVertexData(GLfloat*vertexData){
 	this->operator=(vertexData);
 }
-void GLS::GL_VertexData::GLsetXYZ(glm::vec3 xyz){
+void GLS::GL_VertexData::setXYZ(glm::vec3 xyz){
 	_xyz=xyz;
 }
-void GLS::GL_VertexData::GLsetRGBA(glm::vec4 rgba){
+void GLS::GL_VertexData::setRGBA(glm::vec4 rgba){
 	_rgba=rgba;
 }
-void GLS::GL_VertexData::GLsetUV(glm::vec2 uv){
+void GLS::GL_VertexData::setUV(glm::vec2 uv){
 	_uv=uv;
 }
 GLS::GL_VertexData&GLS::GL_VertexData::operator=(const GLS::GL_VertexData&vertexData){
-	_xyz=vertexData.GLgetXYZ();
-	_rgba=vertexData.GLgetRGBA();
-	_uv=vertexData.GLgetUV();
+	_xyz=vertexData.getXYZ();
+	_rgba=vertexData.getRGBA();
+	_uv=vertexData.getUV();
 	return *this;
 }
 GLS::GL_VertexData&GLS::GL_VertexData::operator+(const GLS::GL_VertexData&vertexData){
@@ -65,41 +63,37 @@ GLS::GL_VertexData&GLS::GL_VertexData::operator+(const GLS::GL_VertexData&vertex
 /////////////////////////////////////////////////////////////
 GLS::GL_SHAPE::GL_SHAPE(GLuint shaderProgram,GLenum memoryLocation){
 	_shaderProgram=shaderProgram;
-    _VAO=GL_GPUresourceTracker.addVAO();
-	_VBO=GL_GPUresourceTracker.addVBO();
+    _VAO=_VBO=0;
 	_memoryLocation=memoryLocation;
 	_vertN=0;
 }
 GLS::GL_SHAPE::~GL_SHAPE(){
 	glDeleteVertexArrays(1,&_VAO);
 	glDeleteBuffers(1,&_VBO);
-
-	GL_GPUresourceTracker.removeVAO(_VAO);
-	GL_GPUresourceTracker.removeVAO(_VBO);
 }
-void GLS::GL_SHAPE::GLtransform(glm::vec3 transformVector){
+void GLS::GL_SHAPE::transform(glm::vec3 transformVector){
 	glm::mat4 model=glm::mat4(1.0f);
 	model=glm::translate(model,glm::vec3(transformVector.x,transformVector.y,transformVector.z));
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
 }
-void GLS::GL_SHAPE::GLrotate(glm::vec3 rotationVector){
+void GLS::GL_SHAPE::rotate(glm::vec3 rotationVector){
 	glm::mat4 model=glm::mat4(1.0f);
 	model=glm::rotate(model,glm::degrees(rotationVector.z),glm::vec3(0,0,1));
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
 }
-GLenum GLS::GL_SHAPE::GLgetMemoryLocation()const{
+GLenum GLS::GL_SHAPE::getMemoryLocation()const{
 	return _memoryLocation;
 }
-GLuint GLS::GL_SHAPE::GLgetVAO()const{
+GLuint GLS::GL_SHAPE::getVAO()const{
 	return _VAO;
 }
-GLuint GLS::GL_SHAPE::GLgetVBO()const{
+GLuint GLS::GL_SHAPE::getVBO()const{
 	return _VBO;
 }
-GLuint GLS::GL_SHAPE::GLgetShader()const{
+GLuint GLS::GL_SHAPE::getShader()const{
 	return _shaderProgram;
 }
-GLS::GL_VertexData GLS::GL_SHAPE::GLgetVertices()const{
+GLS::GL_VertexData GLS::GL_SHAPE::getVertices()const{
 	return *_vertices;
 }
 /////////////////////////////////////////////////////////////
@@ -140,15 +134,15 @@ GLS::GL_TRIANGLE::GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation):GL_SHA
 	for(GLuint i=0;i<_vertN;i++){
 		xyz[0]=std::sin(angle*M_PI/180.0f)*radius;
 		xyz[1]=std::cos(angle*M_PI/180.0f)*radius;
-		_vertices[i].GLsetXYZ(xyz);
+		_vertices[i].setXYZ(xyz);
 		angle+=angleIncrement;
 	}
 	for(GLuint i=0;i<_vertN;i++)
-		_vertices[i].GLgetVertexData(test+i*GLS::GL_VertexData::GL_VERTEX_SIZE);
+		_vertices[i].getVertexData(test+i*GLS::GL_VertexData::GL_VERTEX_SIZE);
 
 	glGenVertexArrays(1,&_VAO);
 	glBindVertexArray(_VAO);
-	
+
 	glGenBuffers(1,&_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER,_VBO);
 	glBufferData(GL_ARRAY_BUFFER,GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN*sizeof(GLfloat),test,_memoryLocation);
@@ -168,7 +162,7 @@ GLS::GL_TRIANGLE::GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation):GL_SHA
 GLS::GL_TRIANGLE::~GL_TRIANGLE(){
 	delete[]_vertices;
 }
-void GLS::GL_TRIANGLE::GLdrawShape()const{
+void GLS::GL_TRIANGLE::drawShape()const{
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);
 	glDrawArrays(GL_TRIANGLES,0,3);
@@ -181,8 +175,6 @@ GLS::GL_POLYGON::GL_POLYGON(GLuint vertN,GLuint shaderProgram,GLenum memoryLocat
 	_indices=new GLuint[_indicesN]{0,1,3,1,2,3};
 	GLfloat*test=new GLfloat[GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN]{};
 
-	_EBO=GL_GPUresourceTracker.addEBO();
-
 	GLfloat angle=0.0f;
 	GLfloat angleIncrement=360.0f/_vertN;
 	GLfloat radius=0.5f;
@@ -190,20 +182,20 @@ GLS::GL_POLYGON::GL_POLYGON(GLuint vertN,GLuint shaderProgram,GLenum memoryLocat
 
 	for(GLuint i=0;i<_vertN;i++){
 		xyz[0]=std::sin(angle*M_PI/180.0f)*radius;
-		xyz[1]=std::cos(angle*M_PI/180.0f)*radius;	
-		_vertices[i].GLsetXYZ(xyz);
+		xyz[1]=std::cos(angle*M_PI/180.0f)*radius;
+		_vertices[i].setXYZ(xyz);
 		angle+=angleIncrement;
 	}
 	for(GLuint i=0;i<_vertN;i++)
-		_vertices[i].GLgetVertexData(test+i*GLS::GL_VertexData::GL_VERTEX_SIZE);
-	
+		_vertices[i].getVertexData(test+i*GLS::GL_VertexData::GL_VERTEX_SIZE);
+
 	glGenVertexArrays(1,&_VAO);
 	glBindVertexArray(_VAO);
-	
+
 	glGenBuffers(1,&_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER,_VBO);
 	glBufferData(GL_ARRAY_BUFFER,GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN*sizeof(GLfloat),test,_memoryLocation);
-	
+
 	glGenBuffers(1,&_EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(GLuint)*_indicesN,_indices,GL_STATIC_DRAW);
@@ -224,7 +216,7 @@ GLS::GL_POLYGON::GL_POLYGON(GLuint vertN,GLuint shaderProgram,GLenum memoryLocat
 GLS::GL_POLYGON::~GL_POLYGON(){
 	delete[]_indices;
 }
-void GLS::GL_POLYGON::GLdrawShape()const{
+void GLS::GL_POLYGON::drawShape()const{
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);
 	glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);

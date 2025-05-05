@@ -1,4 +1,5 @@
 #include "GL_GPUResourceTracker.h"
+GLS::GL_GPUResourceTracker GL_GPUresourceTracker;
 
 GLS::GL_GPUResourceTracker::GL_GPUResourceTracker(){
 	_VAO_N=0;
