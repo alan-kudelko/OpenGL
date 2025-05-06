@@ -14,7 +14,7 @@
 #include "GLS/GL_SHAPES.h"
 #include "GLS/GL_SHADER.h"
 
-enum{WINDOW_SIZE_X=600,WINDOW_SIZE_Y=600};
+enum{WINDOW_SIZE_X=800,WINDOW_SIZE_Y=800};
 const char*vertexShaderPath="shaders/basic_vertex_shader.vert";
 const char*fragmentShaderPath="shaders/basic_fragment_shader.frag";
 
@@ -76,17 +76,15 @@ int main(){
     GLS::GL_SHADER basicShader2(vertexShaderPath,fragmentShaderPath);
     if(basicShader2.getShaderStatus()){
         std::cerr<<"Blad shadera"<<std::endl;
-        std::cerr<<basicShader2.getShaderStatus()<<std::endl;
         glfwTerminate();
         return -1;
     }
 
-    GLS::GL_POLYGON r1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    GLS::GL_POLYGON r1(7,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
     //GLS::GL_TRIANGLE t2(vertices,basicShader2.getShaderID(),GL_DYNAMIC_DRAW);
-    GLS::GL_TRIANGLE t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    //GLS::GL_TRIANGLE t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
     //std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
-    std::cout<<"R1: "<<r1.getShader()<<std::endl;
-    std::cout<<"T1: "<<t1.getShader()<<std::endl;
+    //std::cout<<"T1: "<<t1.getShader()<<std::endl;
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -95,8 +93,8 @@ int main(){
         r1.rotate(glm::vec3(0,0,glfwGetTime()/10));
         //r1.GLdrawShape();
 
-        t1.transform(glm::vec3(std::sin(glfwGetTime()/2)/3,0,0));
-        t1.drawShape();
+        //t1.transform(glm::vec3(std::sin(glfwGetTime()/2)/3,0,0));
+        //t1.drawShape();
         r1.drawShape();
 
         glfwSwapBuffers(window);

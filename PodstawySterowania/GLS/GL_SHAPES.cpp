@@ -128,7 +128,7 @@ GLS::GL_TRIANGLE::GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation):GL_SHA
 
 	GLfloat angle=0.0f;
 	GLfloat angleIncrement=360.0f/_vertN;
-	GLfloat radius=0.5f;
+	GLfloat radius=0.1f;
 	glm::vec3 xyz{};
 
 	for(GLuint i=0;i<_vertN;i++){
@@ -172,7 +172,17 @@ GLS::GL_POLYGON::GL_POLYGON(GLuint vertN,GLuint shaderProgram,GLenum memoryLocat
 	_vertN=vertN;
 	_vertices=new GL_VertexData[_vertN]{};
 	_indicesN=(_vertN-2)*3;
-	_indices=new GLuint[_indicesN]{0,1,3,1,2,3};
+	_indices=new GLuint[_indicesN]{};
+
+	for(GLuint i=0,j=1;i<_indicesN;i++){
+		if((i%3)==1){
+			_indices[i]=j;
+			j++;
+		}
+		if((i%3)==2)
+			_indices[i]=j;
+	}
+
 	GLfloat*test=new GLfloat[GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN]{};
 
 	GLfloat angle=0.0f;
@@ -219,5 +229,5 @@ GLS::GL_POLYGON::~GL_POLYGON(){
 void GLS::GL_POLYGON::drawShape()const{
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);
-	glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
+	glDrawElements(GL_TRIANGLES,_indicesN,GL_UNSIGNED_INT,0);
 }
