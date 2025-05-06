@@ -72,29 +72,31 @@ int main(){
     glViewport(0,0,WINDOW_SIZE_X,WINDOW_SIZE_Y);
 
     //GLuint basicShader=createShaderProgram(vertexShaderPath,fragmentShaderPath);
-    GLS::GL_SHADER basicShader(vertexShaderPath,fragmentShaderPath);
-    if(basicShader.getShaderStatus()){
+    GLS::GL_SHADER basicShader1(vertexShaderPath,fragmentShaderPath);
+    GLS::GL_SHADER basicShader2(vertexShaderPath,fragmentShaderPath);
+    if(basicShader2.getShaderStatus()){
         std::cerr<<"Blad shadera"<<std::endl;
-        std::cerr<<basicShader.getShaderStatus()<<std::endl;
+        std::cerr<<basicShader2.getShaderStatus()<<std::endl;
         glfwTerminate();
         return -1;
     }
 
-    GLS::GL_POLYGON r1(4,basicShader.getShaderID(),GL_DYNAMIC_DRAW);
-    //GLS::GL_TRIANGLE t1(vertices,basicShader,GL_DYNAMIC_DRAW);
-    //GLS::GL_TRIANGLE t2(basicShader,GL_DYNAMIC_DRAW);
+    GLS::GL_POLYGON r1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    //GLS::GL_TRIANGLE t2(vertices,basicShader2.getShaderID(),GL_DYNAMIC_DRAW);
+    GLS::GL_TRIANGLE t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
     //std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
-
+    std::cout<<"R1: "<<r1.getShader()<<std::endl;
+    std::cout<<"T1: "<<t1.getShader()<<std::endl;
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         //glDrawArrays(GL_TRIANGLES,0,3);
-        //t2.GLrotate(glm::vec3(0,0,glfwGetTime()/10));
+        r1.rotate(glm::vec3(0,0,glfwGetTime()/10));
         //r1.GLdrawShape();
 
-        //t1.GLtransform(glm::vec3(std::sin(glfwGetTime()/2)/3,0,0));
-        //t1.drawShape();
+        t1.transform(glm::vec3(std::sin(glfwGetTime()/2)/3,0,0));
+        t1.drawShape();
         r1.drawShape();
 
         glfwSwapBuffers(window);
