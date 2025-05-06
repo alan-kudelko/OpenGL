@@ -62,6 +62,8 @@ GLS::GL_VertexData&GLS::GL_VertexData::operator+(const GLS::GL_VertexData&vertex
 }
 /////////////////////////////////////////////////////////////
 GLS::GL_SHAPE::GL_SHAPE(GLuint shaderProgram,GLenum memoryLocation){
+	_wordSpaceLocation=_wordSpaceRotation={0.0f,0.0f,0.0f};
+	_width=_height=200;
 	_shaderProgram=shaderProgram;
     _VAO=_VBO=0;
 	_memoryLocation=memoryLocation;
@@ -96,6 +98,12 @@ GLuint GLS::GL_SHAPE::getShader()const{
 GLS::GL_VertexData GLS::GL_SHAPE::getVertices()const{
 	return *_vertices;
 }
+glm::vec3 GLS::GL_SHAPE::getLocation()const{
+	return _wordSpaceLocation;
+}
+glm::vec3 GLS::GL_SHAPE::getRotation()const{
+	return _wordSpaceRotation;
+}
 /////////////////////////////////////////////////////////////
 GLS::GL_TRIANGLE::GL_TRIANGLE(GLS::GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation):GL_SHAPE(shaderProgram,memoryLocation){
 	_vertN=3;
@@ -128,7 +136,7 @@ GLS::GL_TRIANGLE::GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation):GL_SHA
 
 	GLfloat angle=0.0f;
 	GLfloat angleIncrement=360.0f/_vertN;
-	GLfloat radius=0.1f;
+	GLfloat radius=1.0f;
 	glm::vec3 xyz{};
 
 	for(GLuint i=0;i<_vertN;i++){
