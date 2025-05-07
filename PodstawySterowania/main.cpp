@@ -80,28 +80,12 @@ int main(){
     }
 
     GLS::GL_POLYGON t1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
-    //GLS::GL_TRIANGLE t1(vertices,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
-    //GLS::GL_TRIANGLE t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
-    //std::cout<<GL_GPUresourceTracker.getNumberVAO()<<std::endl;
-    //std::cout<<"T1: "<<t1.getShader()<<std::endl;
-    //glm::mat4 projection = glm::ortho(0.0f, 4.0f, 0.0f, 3.0f, 0.1f, 100.0f);
-
-    //glUniform4fv(colorLoc, 1, glm::value_ptr(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f))); // czerwony kolor
-
-    //glm::mat4 projection = glm::ortho(0.0f, 4.0f, 0.0f, 3.0f, 0.1f, 100.0f);
     glm::mat4 projection;
-    //GLuint projectionLoc = glGetUniformLocation(basicShader1.getShaderID(), "projection");
 
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        //glDrawArrays(GL_TRIANGLES,0,3);
-        //t1.rotate(glm::vec3(0,0,glfwGetTime()/1000));
-        //r1.GLdrawShape();
-        //glUniformMatrix4fv(projectionLoc,1,GL_FALSE,glm::value_ptr(projection));
-        //t1.transform(glm::vec3(std::sin(glfwGetTime()/2)/3,0,0));
-        //t1.drawShape();
         t1.drawShape();
 
         glfwSwapBuffers(window);

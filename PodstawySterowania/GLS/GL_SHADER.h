@@ -9,8 +9,10 @@
 #include <string>
 #include <ctime>
 
+#include "GL_Component.h"
+
 namespace GLS{
-	class GL_SHADER{
+	class GL_SHADER:public GL_Component{
 		std::string _vertexShaderPath; // Path fo vertexShader source file
 		std::string _fragmentShaderPath; // Path to fragmentShader source file
 		GLuint _shaderN; // Unique handle for the shader program

@@ -11,6 +11,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "GL_Component.h"
+
 namespace GLS{
 	class GL_VertexData{
 		glm::vec3 _xyz; // Vertex's coordinates
@@ -37,7 +39,7 @@ namespace GLS{
 		enum{GL_VERTEX_SIZE=9}; //Total number of attributes 3+4+2
 	};
 	// Abstract virtual base class describing shape and all of its parameters
-    class GL_SHAPE{
+    class GL_SHAPE:public GL_Component{
 	protected:
 		GLenum _memoryLocation; // Possible values compliant with OpenGL's memory usage modes: GL_STATIC_DRAW, GL_DYNAMIC_DRAW, GL_STREAM_DRAW
         GLuint _VAO; // Unique handle for the Vertex Array Object (VAO)
