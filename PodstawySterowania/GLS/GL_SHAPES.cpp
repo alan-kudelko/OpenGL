@@ -236,8 +236,7 @@ GLS::GL_POLYGON::~GL_POLYGON(){
 }
 void GLS::GL_POLYGON::drawShape()const{
 	glm::mat4 model=glm::mat4(1.0f);
-	model=glm::translate(model,glm::vec3(499.5f,499.5f,0.0f))*glm::rotate(model,glm::radians(0.0f),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(10.0f,10.0f,1.0f));
-    //model=glm::rotate(model,glm::radians(45.0f),glm::vec3(0.0f,0.0f,1.0f));
+	model=glm::translate(model,glm::vec3(299.5f,499.5f,0.0f))*glm::rotate(model,glm::radians(0.0f),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(90.0f,10.0f,1.0f));
 
     glm::mat4 projection=glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f);
 	glm::mat4 mvp=projection*model;

@@ -1,0 +1,4 @@
+Error in: shaders/orto_vertex_shader.vert 0(9) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
+Error in: shaders/orto_vertex_shader.vert 0(9) : error C0000: syntax error, unexpected integer constant at token "<int-const>"
+
