@@ -670,7 +670,7 @@
 1502887718 d:\projekty\opengl\podstawysterowania\include\glm\gtc\type_ptr.inl
 	<cstring>
 
-1746466007 d:\projekty\opengl\podstawysterowania\gls\gl_shader.h
+1746623871 d:\projekty\opengl\podstawysterowania\gls\gl_shader.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<iostream>
