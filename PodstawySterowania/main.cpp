@@ -13,6 +13,7 @@
 
 #include "GLS/GL_SHAPES.h"
 #include "GLS/GL_SHADER.h"
+#include "GLS/GL_GameObject.h"
 
 enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
 const char*vertexShaderPath="shaders/orto_vertex_shader.vert";
@@ -44,7 +45,7 @@ GLS::GL_VertexData vertices[]{
     },
 };
 
-int main(){
+GLFWwindow*initializeOpenGL(){
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
@@ -52,42 +53,52 @@ int main(){
 
     GLFWwindow*window=glfwCreateWindow(WINDOW_SIZE_X,WINDOW_SIZE_Y,"Nazwa",NULL,NULL);
 
-    glfwSetWindowAttrib(window,GLFW_RESIZABLE,GLFW_FALSE);
-
     if(window==nullptr){
-        std::cout<<"GLFW failed to create window"<<std::endl;
+        std::cerr<<"GLFW failed to create a window"<<std::endl;
         glfwTerminate();
-        return -1;
+        return nullptr;
     }
 
+    glfwSetWindowAttrib(window,GLFW_RESIZABLE,GLFW_FALSE);
     glfwMakeContextCurrent(window);
+
     glfwSetKeyCallback(window,framebuffer_keyboard_input_callback);
 
     if(!(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))){
-        std::cout<<"GLAD failed to initialize"<<std::endl;
+        std::cerr<<"GLAD failed to initialize"<<std::endl;
         glfwTerminate();
-        return -1;
+        return nullptr;
     }
 
     glViewport(0,0,WINDOW_SIZE_X,WINDOW_SIZE_Y);
 
+    return window;
+}
+
+int main(){
+    GLFWwindow*window=initializeOpenGL();
+
+    if(window==nullptr)
+        return -1;
+
     GLS::GL_SHADER basicShader1(vertexShaderPath,fragmentShaderPath);
-    GLS::GL_SHADER basicShader2(vertexShaderPath,fragmentShaderPath);
+
     if(basicShader1.getShaderStatus()){
-        std::cerr<<"Blad shadera"<<std::endl;
+        std::cerr<<"Failed to initialize shader"<<std::endl;
         glfwTerminate();
         return -1;
     }
 
     GLS::GL_POLYGON t1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
-    glm::mat4 projection;
+
+    GLS::GL_GameObject gObj1;
+    //gObj1.addComponent();
 
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         t1.drawShape();
-
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

@@ -47,10 +47,6 @@ namespace GLS{
 		GLuint _shaderProgram; // Handle for the currently bonded shaderProgram
 		GL_VertexData*_vertices; // Pointer to primitive's vertices array
 		GLuint _vertN; // Number of primitive's vertices
-		glm::vec3 _wordSpaceLocation;
-		glm::vec3 _wordSpaceRotation;
-		GLfloat _width;
-		GLfloat _height;
 	public:
         GL_SHAPE(GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
         virtual ~GL_SHAPE();
@@ -64,8 +60,6 @@ namespace GLS{
 		GLuint getVBO()const;
 		GLuint getShader()const;
         GLS::GL_VertexData getVertices()const;
-		glm::vec3 getLocation()const;
-		glm::vec3 getRotation()const;
     };
 	class GL_TRIANGLE:public GL_SHAPE{
 	public:

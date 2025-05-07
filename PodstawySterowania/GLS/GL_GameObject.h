@@ -16,11 +16,17 @@
 #include "GL_SHADER.h"
 
 namespace GLS{
+	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2};
 	class GL_GameObject{
 		std::string _name;
-		glm::vec3 _location;
-		glm::vec3 _rotation;
-		GL_SHAPE*_shapeComponent;
+		glm::vec3 _gameObjectLocation;
+		glm::vec3 _gameObjectRotation;
+		
+		glm::vec3*_shapeComponentLocation;
+		glm::vec3*_shapeComponentRotation;
+		glm::vec3*_shapeComponentScale;
+		
+		GL_SHAPE*_shapeComponentPtr;
 		GL_SHADER*_shaderComponentPtr;
 		//GL_TEXTURE*_textureComponentPtr;
 		//GL_INPUT_CONTROLLER*_inputControllerComponentPtr;
@@ -29,16 +35,28 @@ namespace GLS{
 		GL_GameObject(glm::vec3 location={},glm::vec3 rotation={},std::string name="Default");
 		~GL_GameObject();
 
-		glm::vec3 getLocation()const;
-		glm::vec3 getRotation()const;
-
-		const GLS::GL_Component&getComponent(GLS::GL_Component componentType)const;
-
-		glm::vec3 setLocation(glm::vec3 location);
-		glm::vec3 setRotation(glm::vec3 rotation);
+		glm::vec3 getGameObjectLocation()const;
+		glm::vec3 getGameObjectRotation()const;
+		
+		glm::vec3 getShapeComponentLocation()const;
+		glm::vec3 getShapeComponentRotation()const;
+		glm::vec3 getShapeComponentScale()const;
+		
+		void setGameObjectLocation(glm::vec3 gameObjectLocation);
+		void setGameObjectRotation(glm::vec3 gameObjectRotation);
+		
+		void updateGameObjectLocation(glm::vec3 gameObjectLocation);
+		void updateGameObjectRotation(glm::vec3 gameObjectRotation);
+		
+		void setShapeComponentLocation(glm::vec3 shapeComponentLocation);
+		void setShapeComponentRotation(glm::vec3 shapeComponentRotation);
+		void setShapeComponentScale(glm::vec3 shapeComponentScale);
+		
+		const GLS::GL_Component*getComponent(GLS::GL_Component componentType)const;
 
 		GLS::GL_Component&setComponent(GLS::GL_Component componentType)const;
-
-		GLS::GL_Component*createComponent(GLS::GL_Component componentType); // Returns pointer to created component in order to configure it
+		
+		void addComponent(GLS::GL_Component*componentType); // Returns pointer to created component in order to configure it
+		void renderObject()const;
 	};
 }
