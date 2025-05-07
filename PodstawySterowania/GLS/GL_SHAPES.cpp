@@ -193,9 +193,9 @@ GLS::GL_POLYGON::GL_POLYGON(GLuint vertN,GLuint shaderProgram,GLenum memoryLocat
 
 	GLfloat*test=new GLfloat[GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN]{};
 
-	GLfloat angle=0.0f;
+	GLfloat angle=45.0f;
 	GLfloat angleIncrement=360.0f/_vertN;
-	GLfloat radius=0.5f;
+	GLfloat radius=1.0f;
 	glm::vec3 xyz{};
 
 	for(GLuint i=0;i<_vertN;i++){
@@ -235,6 +235,15 @@ GLS::GL_POLYGON::~GL_POLYGON(){
 	delete[]_indices;
 }
 void GLS::GL_POLYGON::drawShape()const{
+	glm::mat4 model=glm::mat4(1.0f);
+	model=glm::translate(model,glm::vec3(100.0f,300.0f,0.0f));
+    model=glm::scale(model,glm::vec3(100.0f,50.0f,1.0f));
+    //model=glm::rotate(model,glm::radians(45.0f),glm::vec3(0.0f,0.0f,1.0f));
+
+    glm::mat4 projection=glm::ortho(0.0f, 800.0f, 0.0f, 800.0f, 1.0f, -1.0f);
+
+	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"projection"),1,GL_FALSE,glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);
 	glDrawElements(GL_TRIANGLES,_indicesN,GL_UNSIGNED_INT,0);

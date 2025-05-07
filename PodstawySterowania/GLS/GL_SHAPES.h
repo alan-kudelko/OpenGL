@@ -13,9 +13,10 @@
 
 namespace GLS{
 	class GL_VertexData{
-		glm::vec3 _xyz;
-		glm::vec4 _rgba;
-		glm::vec2 _uv;
+		glm::vec3 _xyz; // Vertex's coordinates
+		glm::vec4 _rgba; // Vertex's color #RGBA
+		glm::vec2 _uv; // Vertex's texture coordinates
+		// In the future this class can be extended by adding normals, binormals and other verterx parameters if needed
 	public:
 		GL_VertexData(GLfloat*vertex);
 		GL_VertexData(glm::vec3 xyz={},glm::vec4 rgba={},glm::vec2 uv={});
@@ -35,15 +36,15 @@ namespace GLS{
 
 		enum{GL_VERTEX_SIZE=9}; //Total number of attributes 3+4+2
 	};
-
+	// Abstract virtual base class describing shape and all of its parameters
     class GL_SHAPE{
 	protected:
-		GLenum _memoryLocation;
-        GLuint _VAO;
-        GLuint _VBO;
-		GLuint _shaderProgram;
-		GL_VertexData*_vertices;
-		GLuint _vertN;
+		GLenum _memoryLocation; // Possible values compliant with OpenGL's memory usage modes: GL_STATIC_DRAW, GL_DYNAMIC_DRAW, GL_STREAM_DRAW
+        GLuint _VAO; // Unique handle for the Vertex Array Object (VAO)
+        GLuint _VBO; // Unique handle for the Vertex Buffer Object (VBO)
+		GLuint _shaderProgram; // Handle for the currently bonded shaderProgram
+		GL_VertexData*_vertices; // Pointer to primitive's vertices array
+		GLuint _vertN; // Number of primitive's vertices
 		glm::vec3 _wordSpaceLocation;
 		glm::vec3 _wordSpaceRotation;
 		GLfloat _width;
@@ -72,9 +73,9 @@ namespace GLS{
 		void drawShape()const override;
 	};
 	class GL_POLYGON:public GL_SHAPE{
-		GLuint _EBO;
-		GLuint*_indices;
-		GLuint _indicesN;
+		GLuint _EBO; // Handle for the EBO
+		GLuint*_indices; // Potiner to indices array
+		GLuint _indicesN; // Number of elements in the indices array
 	public:
 		GL_POLYGON(GLuint vertN,GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
 		GL_POLYGON(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
