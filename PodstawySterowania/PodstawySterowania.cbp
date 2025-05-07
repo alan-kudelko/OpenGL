@@ -43,6 +43,10 @@
 		</Compiler>
 		<Unit filename="GLS/GL_GPUResourceTracker.cpp" />
 		<Unit filename="GLS/GL_GPUResourceTracker.h" />
+		<Unit filename="GLS/GL_GameObject.cpp" />
+		<Unit filename="GLS/GL_GameObject.h" />
+		<Unit filename="GLS/GL_SHADER.cpp" />
+		<Unit filename="GLS/GL_SHADER.h" />
 		<Unit filename="GLS/GL_SHAPES.cpp" />
 		<Unit filename="GLS/GL_SHAPES.h" />
 		<Unit filename="include/GLFW/glfw3.h" />
