@@ -14,7 +14,7 @@
 #include "GLS/GL_SHAPES.h"
 #include "GLS/GL_SHADER.h"
 
-enum{WINDOW_SIZE_X=800,WINDOW_SIZE_Y=800};
+enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
 const char*vertexShaderPath="shaders/orto_vertex_shader.vert";
 const char*fragmentShaderPath="shaders/basic_fragment_shader.frag";
 

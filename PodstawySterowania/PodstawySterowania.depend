@@ -176,7 +176,7 @@
 	<limits.h>
 	<crtdbg.h>
 
-1746557980 source:d:\projekty\opengl\podstawysterowania\main.cpp
+1746627384 source:d:\projekty\opengl\podstawysterowania\main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
@@ -224,7 +224,7 @@
 1745005862 source:d:\projekty\opengl\podstawysterowania\ak\gl_shapes.cpp
 	"GL_SHAPES.h"
 
-1746554721 d:\projekty\opengl\podstawysterowania\gls\gl_shapes.h
+1746623871 d:\projekty\opengl\podstawysterowania\gls\gl_shapes.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
@@ -235,7 +235,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1746555568 source:d:\projekty\opengl\podstawysterowania\gls\gl_shapes.cpp
+1746628457 source:d:\projekty\opengl\podstawysterowania\gls\gl_shapes.cpp
 	"GL_SHAPES.h"
 
 1746430962 d:\projekty\opengl\podstawysterowania\gls\gl_gpuresourcetracker.h
@@ -681,4 +681,7 @@
 
 1746465501 source:d:\projekty\opengl\podstawysterowania\gls\gl_shader.cpp
 	"GL_SHADER.h"
+
+1746545854 source:d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.cpp
+	"GL_SHAPES.h"
 
