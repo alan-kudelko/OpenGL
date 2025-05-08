@@ -1,5 +1,10 @@
-This repository represents my first experience working with OpenGL. It includes my initial implementation of essential classes and utilities designed to support future projects involving OpenGL and real-time rendering. I am currently working on the implementation of basic classes that will serve as the foundation for building a larger OpenGL project, such as an Arkanoid-style game. My custom classes are located in the GLS folder and include:
+This repository represents my first experience working with OpenGL. It includes my initial implementation of essential classes and utilities designed to support future projects involving OpenGL and real-time rendering. I am currently working on the implementation of basic classes that will serve as the foundation for building a larger OpenGL project, such as an Arkanoid-style game. 
 
-1. GL_SHAPES: a class designed to simplify and automate the construction of geometric primitives,
-2. GL_VERTEX: a class that stores vertex data used by GL_SHAPES,
-3. GL_SHADER: a class responsible for loading, compiling, linking, and debugging shaders.
+My custom classes are located in the GLS folder and include:
+1. GL_VERTEX: stores vertex data used by GL_SHAPES;
+2. GL_SHAPES: a base class for GL_TRIANGLE and GL_POLYGON, designed to simplify and automate the construction of geometric primitives;
+3. GL_SHADER: handles loading, compiling, linking, and debugging of shaders;
+4. GL_Component: a base class for GL_SHAPES, GL_SHADER, and future components, enabling them to be used within the GL_GameObject class;
+5. GL_GameObject: represents a single object in the game.
+
+In the future, a GL_RENDERER class will also be added to handle rendering GL_GameObjects within the scene.
