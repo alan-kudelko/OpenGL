@@ -33,9 +33,15 @@ glm::vec3 GLS::GL_GameObject::getShapeComponentScale()const{
 	return *_shapeComponentScale;
 }
 void GLS::GL_GameObject::setGameObjectLocation(glm::vec3 gameObjectLocation){
-	_gameObjectLocation+=gameObjectLocation;
+	_gameObjectLocation=gameObjectLocation;
 }
 void GLS::GL_GameObject::setGameObjectRotation(glm::vec3 gameObjectRotation){
+	_gameObjectRotation=gameObjectRotation;
+}
+void GLS::GL_GameObject::updateGameObjectLocation(glm::vec3 gameObjectLocation){
+	_gameObjectLocation+=gameObjectLocation;
+}
+void GLS::GL_GameObject::updateGameObjectRotation(glm::vec3 gameObjectRotation){
 	_gameObjectRotation+=gameObjectRotation;
 }
 void GLS::GL_GameObject::setShapeComponentLocation(glm::vec3 shapeComponentLocation){
@@ -60,7 +66,6 @@ const GLS::GL_Component*GLS::GL_GameObject::getComponent(GLS::GL_ComponentType c
 	switch(componentType){
 		case GLS::GL_ComponentType::GL_SHAPE_Component:
 			return _shapeComponentPtr;
-
 		case GLS::GL_ComponentType::GL_SHADER_Component:
 			return _shapeComponentPtr;
 
@@ -71,7 +76,13 @@ const GLS::GL_Component*GLS::GL_GameObject::getComponent(GLS::GL_ComponentType c
 void GLS::GL_GameObject::addComponent(GLS::GL_Component*component){
 	if(dynamic_cast<GLS::GL_SHAPE*>(component)){
 		std::cout<<"Tak, to GL_SHAPE"<<std::endl;
+
 		_shapeComponentPtr=dynamic_cast<GLS::GL_SHAPE*>(component);
+
+		_shapeComponentLocation=new glm::vec3{};
+		_shapeComponentRotation=new glm::vec3{};
+		_shapeComponentScale=new glm::vec3{100.0f,10.0f,1.0f};
+
 	}
 	else if(dynamic_cast<GLS::GL_SHADER*>(component)){
 		// Overengineered for future development of GLS::GL_SHADER class
@@ -87,14 +98,14 @@ void GLS::GL_GameObject::renderObject()const{
 		return;
 	// Temporary for debugging
 	glm::mat4 model=glm::mat4(1.0f);
-	model=glm::translate(model,glm::vec3(299.5f,499.5f,0.0f))*glm::rotate(model,glm::radians(0.0f),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(90.0f,10.0f,1.0f));
+	//model=glm::translate(model,glm::vec3(500.f,500.0f,0.0f))*glm::rotate(model,glm::radians(0.0f),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(90.0f,1.0f,1.0f));
+
+	model=glm::translate(model,_gameObjectLocation)*glm::rotate(model,glm::radians(_gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::translate(model,*_shapeComponentLocation)*glm::rotate(model,glm::radians(_shapeComponentRotation->z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,*_shapeComponentScale);
 
     glm::mat4 projection=glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f);
-	glm::mat4 mvp=projection*model;
 
 	glUniformMatrix4fv(glGetUniformLocation(_shaderComponentPtr->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(projection));
 	glUniformMatrix4fv(glGetUniformLocation(_shaderComponentPtr->getShaderID(),"model"),1,GL_FALSE,glm::value_ptr(model));
-	glUniformMatrix4fv(glGetUniformLocation(_shaderComponentPtr->getShaderID(),"mvp"),1,GL_FALSE,glm::value_ptr(mvp));
 
 	glUseProgram(_shaderComponentPtr->getShaderID());
 	glBindVertexArray(_shapeComponentPtr->getVAO());

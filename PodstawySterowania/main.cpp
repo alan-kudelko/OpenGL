@@ -95,6 +95,8 @@ int main(){
     GLS::GL_GameObject gObj1;
     gObj1.addComponent(&basicShader1);
     gObj1.addComponent(&r1);
+    gObj1.setGameObjectLocation(glm::vec3(300.0f,500.0f,0.0f));
+    gObj1.setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
     //gObj1.addComponent(&t1);
 
     //gObj1.addComponent();
@@ -105,6 +107,7 @@ int main(){
 
         //r1.drawShape();
         gObj1.renderObject();
+        gObj1.updateGameObjectRotation(glm::vec3(0.0f,0.0f,1.0f/glfwGetTime()*10));
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

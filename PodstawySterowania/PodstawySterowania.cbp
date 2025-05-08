@@ -41,6 +41,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="GLS/GL_Component.h" />
 		<Unit filename="GLS/GL_GPUResourceTracker.cpp" />
 		<Unit filename="GLS/GL_GPUResourceTracker.h" />
 		<Unit filename="GLS/GL_GameObject.cpp" />
