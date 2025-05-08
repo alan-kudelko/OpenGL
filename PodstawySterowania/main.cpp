@@ -20,12 +20,52 @@ enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
 const char*vertexShaderPath="shaders/orto_vertex_shader.vert";
 const char*fragmentShaderPath="shaders/basic_fragment_shader.frag";
 
+glm::vec3 locationUpdate{};
+glm::vec3 rotationUpdate{};
+
 void framebuffer_keyboard_input_callback(GLFWwindow*window,GLint key,GLint scanCode,GLint action,GLint mods){
     if(key==GLFW_KEY_W&&action==GLFW_PRESS){
-        glfwSetWindowShouldClose(window,GLFW_TRUE);
+        locationUpdate.y=-10;
     }
     if(key==GLFW_KEY_S&&action==GLFW_PRESS){
+        locationUpdate.y=10;
+    }
+    if(key==GLFW_KEY_A&&action==GLFW_PRESS){
+        locationUpdate.x=-10;
+    }
+    if(key==GLFW_KEY_D&&action==GLFW_PRESS){
+        locationUpdate.x=10;
+    }
+    if(key==GLFW_KEY_E&&action==GLFW_PRESS){
+        rotationUpdate.z=1;
+    }
+    if(key==GLFW_KEY_Q&&action==GLFW_PRESS){
+        rotationUpdate.z=-1;
+    }
 
+
+    if(key==GLFW_KEY_W&&action==GLFW_RELEASE){
+        locationUpdate.y=0;
+    }
+    if(key==GLFW_KEY_S&&action==GLFW_RELEASE){
+        locationUpdate.y=0;
+    }
+    if(key==GLFW_KEY_A&&action==GLFW_RELEASE){
+        locationUpdate.x=0;
+    }
+    if(key==GLFW_KEY_D&&action==GLFW_RELEASE){
+        locationUpdate.x=0;
+    }
+    if(key==GLFW_KEY_E&&action==GLFW_RELEASE){
+        rotationUpdate.z=0;
+    }
+    if(key==GLFW_KEY_Q&&action==GLFW_RELEASE){
+        rotationUpdate.z=0;
+    }
+
+
+    if(key==GLFW_KEY_ESCAPE&&action==GLFW_PRESS){
+        glfwSetWindowShouldClose(window,GLFW_TRUE);
     }
 }
 GLS::GL_VertexData vertices[]{
@@ -72,7 +112,7 @@ GLFWwindow*initializeOpenGL(){
     }
 
     glViewport(0,0,WINDOW_SIZE_X,WINDOW_SIZE_Y);
-    glfwSwapInterval(1); // 1 = VSync (synchronizacja do odœwie¿ania ekranu)
+    glfwSwapInterval(1); // 1 = VSync (synchronizacja do odœwiezania ekranu)
     return window;
 }
 
@@ -95,7 +135,7 @@ int main(){
 
     GLS::GL_GameObject gObj1;
     gObj1.addComponent(&basicShader1);
-    gObj1.addComponent(&t1);
+    gObj1.addComponent(&r1);
     gObj1.setGameObjectLocation(glm::vec3(300.0f,500.0f,0.0f));
     gObj1.setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
     //gObj1.addComponent(&t1);
@@ -116,7 +156,9 @@ int main(){
         sceneRenderer.renderObject(gObj1);
         //r1.drawShape();
         //gObj1.renderObject();
-        gObj1.updateGameObjectRotation(glm::vec3(0.0f,0.0f,400.0f*deltaTime));
+        //gObj1.updateGameObjectRotation(glm::vec3(0.0f,0.0f,400.0f*deltaTime));
+        gObj1.updateGameObjectLocation(locationUpdate);
+        gObj1.updateGameObjectRotation(rotationUpdate);
         //gObj1.setShapeComponentRotation(glm::vec3(0.0f,0.0f,10.0f*glfwGetTime()/1));
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -51,7 +51,6 @@ namespace GLS{
         GL_Shape(GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
         virtual ~GL_Shape();
 
-        virtual void drawShape()const=0;
 		void transform(glm::vec3 transformVector);
 		void rotate(glm::vec3 rotationVector);
 		void scale(glm::vec3 scaleVector);
@@ -66,7 +65,6 @@ namespace GLS{
 		GL_Triangle(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_DYNAMIC_DRAW);
 		GL_Triangle(GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
 		~GL_Triangle();
-		void drawShape()const override;
 	};
 	class GL_Polygon:public GL_Shape{
 		GLuint _EBO; // Handle for the EBO
@@ -78,7 +76,6 @@ namespace GLS{
 		~GL_Polygon();
 		GLuint getEBO()const;
 		GLuint getIndicesN()const;
-		void drawShape()const override;
 	};
 }
 /*

@@ -162,11 +162,6 @@ GLS::GL_Triangle::GL_Triangle(GLuint shaderProgram,GLenum memoryLocation):GL_Sha
 GLS::GL_Triangle::~GL_Triangle(){
 	delete[]_vertices;
 }
-void GLS::GL_Triangle::drawShape()const{
-	glUseProgram(_shaderProgram);
-	glBindVertexArray(_VAO);
-	glDrawArrays(GL_TRIANGLES,0,3);
-}
 /////////////////////////////////////////////////////////////
 GLS::GL_Polygon::GL_Polygon(GLuint vertN,GLuint shaderProgram,GLenum memoryLocation):GL_Shape(shaderProgram,memoryLocation){
 	_vertN=vertN;
@@ -232,18 +227,4 @@ GLuint GLS::GL_Polygon::getEBO()const{
 }
 GLuint GLS::GL_Polygon::getIndicesN()const{
 	return _indicesN;
-}
-void GLS::GL_Polygon::drawShape()const{
-	glm::mat4 model=glm::mat4(1.0f);
-	model=glm::translate(model,glm::vec3(299.5f,499.5f,0.0f))*glm::rotate(model,glm::radians(0.0f),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(90.0f,10.0f,1.0f));
-
-    glm::mat4 projection=glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f);
-	glm::mat4 mvp=projection*model;
-
-	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"projection"),1,GL_FALSE,glm::value_ptr(projection));
-	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
-	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"mvp"),1,GL_FALSE,glm::value_ptr(mvp));
-	glUseProgram(_shaderProgram);
-	glBindVertexArray(_VAO);
-	glDrawElements(GL_TRIANGLES,_indicesN,GL_UNSIGNED_INT,0);
 }
