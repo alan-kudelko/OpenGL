@@ -14,6 +14,7 @@
 #include "GLS/GL_Shape.h"
 #include "GLS/GL_Shader.h"
 #include "GLS/GL_GameObject.h"
+#include "GLS/GL_SceneRenderer.h"
 
 enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
 const char*vertexShaderPath="shaders/orto_vertex_shader.vert";
@@ -90,14 +91,15 @@ int main(){
     }
 
     GLS::GL_Polygon r1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
-    //GLS::GL_TRIANGLE t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    GLS::GL_Triangle t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
 
     GLS::GL_GameObject gObj1;
     gObj1.addComponent(&basicShader1);
-    gObj1.addComponent(&r1);
+    gObj1.addComponent(&t1);
     gObj1.setGameObjectLocation(glm::vec3(300.0f,500.0f,0.0f));
     gObj1.setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
     //gObj1.addComponent(&t1);
+    GLS::GL_SceneRenderer sceneRenderer(glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f));
 
     //gObj1.addComponent();
     double lastFrame=glfwGetTime();
@@ -109,12 +111,11 @@ int main(){
         deltaTime=static_cast<float>(currentFrame-lastFrame);
         lastFrame = currentFrame;
 
-
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
+        sceneRenderer.renderObject(gObj1);
         //r1.drawShape();
-        gObj1.renderObject();
+        //gObj1.renderObject();
         gObj1.updateGameObjectRotation(glm::vec3(0.0f,0.0f,400.0f*deltaTime));
         //gObj1.setShapeComponentRotation(glm::vec3(0.0f,0.0f,10.0f*glfwGetTime()/1));
         glfwSwapBuffers(window);

@@ -16,7 +16,7 @@
 #include "GL_Shader.h"
 
 namespace GLS{
-	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2};
+	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2}; // Enum to indicate component we want to get pointer to
 	class GL_GameObject{
 		std::string _name; // Some kind of identifier to differentiate created objects
 		GLboolean _renderEnable;

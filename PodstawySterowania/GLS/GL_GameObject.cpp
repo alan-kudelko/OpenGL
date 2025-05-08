@@ -80,7 +80,7 @@ const GLS::GL_Component*GLS::GL_GameObject::getComponent(GLS::GL_ComponentType c
 		case GLS::GL_ComponentType::GL_SHAPE_Component:
 			return _shapeComponentPtr;
 		case GLS::GL_ComponentType::GL_SHADER_Component:
-			return _shapeComponentPtr;
+			return _shaderComponentPtr;
 
 		default:
 		return nullptr;
@@ -103,24 +103,4 @@ void GLS::GL_GameObject::addComponent(GLS::GL_Component*component){
 		std::cout<<"Tak, to GL_SHADER"<<std::endl;
 		_shaderComponentPtr=dynamic_cast<GLS::GL_Shader*>(component);
 	}
-}
-void GLS::GL_GameObject::renderObject()const{
-	if(_shaderComponentPtr==nullptr)
-		return;
-	if(_shapeComponentPtr==nullptr)
-		return;
-	// Temporary for debugging
-	glm::mat4 model=glm::mat4(1.0f);
-	//model=glm::translate(model,glm::vec3(500.f,500.0f,0.0f))*glm::rotate(model,glm::radians(0.0f),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(90.0f,1.0f,1.0f));
-
-	model=glm::translate(model,_gameObjectLocation)*glm::rotate(model,glm::radians(_gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::translate(model,*_shapeComponentLocation)*glm::rotate(model,glm::radians(_shapeComponentRotation->z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,*_shapeComponentScale);
-
-    glm::mat4 projection=glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f);
-
-	glUniformMatrix4fv(glGetUniformLocation(_shaderComponentPtr->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(projection));
-	glUniformMatrix4fv(glGetUniformLocation(_shaderComponentPtr->getShaderID(),"model"),1,GL_FALSE,glm::value_ptr(model));
-
-	glUseProgram(_shaderComponentPtr->getShaderID());
-	glBindVertexArray(_shapeComponentPtr->getVAO());
-	glDrawElements(GL_TRIANGLES,_shapeComponentPtr->getIndicesN(),GL_UNSIGNED_INT,0);
 }

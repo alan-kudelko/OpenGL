@@ -162,9 +162,6 @@ GLS::GL_Triangle::GL_Triangle(GLuint shaderProgram,GLenum memoryLocation):GL_Sha
 GLS::GL_Triangle::~GL_Triangle(){
 	delete[]_vertices;
 }
-GLuint GLS::GL_Triangle::getIndicesN()const{
-	return 0;
-}
 void GLS::GL_Triangle::drawShape()const{
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);

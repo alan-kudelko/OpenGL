@@ -11,9 +11,22 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "GL_SceneRenderer.h"
+#include "GL_GameObject.h"
 
 namespace GLS{
-	
+	class GL_SceneRenderer{
+
+		glm::mat4 _projection;
+		//For now let's assume camera is immobile
+	public:
+		GL_SceneRenderer(glm::mat4 projection);
+		~GL_SceneRenderer();
+
+		glm::mat4 getProjectionMatrix()const;
+
+		void setProjectionMatrix(glm::mat4 projection);
+
+		void renderObject(const GLS::GL_GameObject&gameObject);
+	};
 }
 
