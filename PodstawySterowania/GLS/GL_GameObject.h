@@ -14,12 +14,14 @@
 #include "GL_Component.h"
 #include "GL_Shape.h"
 #include "GL_Shader.h"
+#include "GL_Collider.h"
 
 namespace GLS{
-	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2}; // Enum to indicate component we want to get pointer to
+	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2,GL_COLLIDER_Component=3}; // Enum to indicate component we want to get pointer to
 	class GL_GameObject{
 		std::string _name; // Some kind of identifier to differentiate created objects
 		GLboolean _renderEnable;
+		GLboolean _collisionEnable;
 		glm::vec3 _gameObjectLocation; // Location of GL_GameObject object in 2D/3D world
 		glm::vec3 _gameObjectRotation; // Rotation of GL_GameObject object in 2D/3D world
 
@@ -31,9 +33,9 @@ namespace GLS{
 		//glm::mat4
 		GL_Shape*_shapeComponentPtr; // Pointer to existing GL_SHAPE component
 		GL_Shader*_shaderComponentPtr; // Pointer to existing GL_SHADER component
+		GL_Collider*_colliderComponentPtr;
 		//GL_TEXTURE*_textureComponentPtr;
 		//GL_INPUT_CONTROLLER*_inputControllerComponentPtr;
-		//GL_COLIDER*_coliderComponent;
 		public:
 		GL_GameObject(glm::vec3 location={},glm::vec3 rotation={},std::string name="Default");
 		~GL_GameObject();
@@ -56,9 +58,12 @@ namespace GLS{
 		void setShapeComponentScale(glm::vec3 shapeComponentScale); // Sets current GL_SHAPE component scale
 
 		GLboolean shouldRender()const; // Returns whether object is enabled for rendering on screen
-
 		void enableRender(); // Enables rendering on screen
 		void disableRender(); // Disables rendering on screen
+		
+		GLboolean shouldCollide()const; // Returns whether object should be able to collide with other objects
+		void enableCollisions(); // Enables collisions
+		void disableCollisions(); // Disables collisions
 
 		// For now I assumed that there will be only one component of each component type avaible
 		const GLS::GL_Component*getComponent(GLS::GL_ComponentType componentType)const; 
