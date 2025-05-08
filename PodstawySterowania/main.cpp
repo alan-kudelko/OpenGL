@@ -89,16 +89,22 @@ int main(){
         return -1;
     }
 
-    GLS::GL_POLYGON t1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    GLS::GL_POLYGON r1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    //GLS::GL_TRIANGLE t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
 
     GLS::GL_GameObject gObj1;
+    gObj1.addComponent(&basicShader1);
+    gObj1.addComponent(&r1);
+    //gObj1.addComponent(&t1);
+
     //gObj1.addComponent();
 
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        t1.drawShape();
+        //r1.drawShape();
+        gObj1.renderObject();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
