@@ -1,10 +1,10 @@
-#include "GL_SHADER.h"
+#include "GL_Shader.h"
 
 namespace GLS{
     const char*GL_SHADER_LOG_FILENAME="./Log/GL_Shader";
 }
 
-std::string GLS::GL_SHADER::_loadShader(const char*shaderPath){
+std::string GLS::GL_Shader::_loadShader(const char*shaderPath){
     std::stringstream shaderSourceCode;
     std::ifstream shaderFile;
     shaderFile.open(shaderPath);
@@ -21,7 +21,7 @@ std::string GLS::GL_SHADER::_loadShader(const char*shaderPath){
     shaderFile.close();
     return shaderSourceCode.str();
 }
-GLuint GLS::GL_SHADER::_compileShader(const char*shaderPath,GLenum shaderType){
+GLuint GLS::GL_Shader::_compileShader(const char*shaderPath,GLenum shaderType){
     std::string shaderSourceCode=_loadShader(shaderPath);
 	if(shaderSourceCode=="")
 		return 0;
@@ -55,7 +55,7 @@ GLuint GLS::GL_SHADER::_compileShader(const char*shaderPath,GLenum shaderType){
     }
     return shader;
 }
-std::string GLS::GL_SHADER::_getCurrentSystemTime()const{
+std::string GLS::GL_Shader::_getCurrentSystemTime()const{
 	std::time_t t=std::time(0);
 	std::tm*currentTime=std::localtime(&t);
 	std::string currentTimeStr=std::to_string(currentTime->tm_year+1900);
@@ -66,14 +66,14 @@ std::string GLS::GL_SHADER::_getCurrentSystemTime()const{
     currentTimeStr+='_'+((currentTime->tm_sec>9)?std::to_string(currentTime->tm_sec):('0'+std::to_string(currentTime->tm_sec)));
 	return currentTimeStr;
 }
-std::string GLS::GL_SHADER::_getLogFilePath()const{
+std::string GLS::GL_Shader::_getLogFilePath()const{
 	std::string logFileName=GLS::GL_SHADER_LOG_FILENAME;
 	logFileName+='_'+_getCurrentSystemTime();
 	logFileName+=".log";
 
 	return logFileName;
 }
-GLuint GLS::GL_SHADER::_createShaderProgram(const char*vertexShaderPath,const char*fragmentShaderPath){
+GLuint GLS::GL_Shader::_createShaderProgram(const char*vertexShaderPath,const char*fragmentShaderPath){
     GLuint vertexShader=_compileShader(vertexShaderPath,GL_VERTEX_SHADER);
     GLuint fragmentShader=_compileShader(fragmentShaderPath,GL_FRAGMENT_SHADER);
 	GLint status;
@@ -100,24 +100,24 @@ GLuint GLS::GL_SHADER::_createShaderProgram(const char*vertexShaderPath,const ch
     glDeleteShader(fragmentShader);
     return _shaderN;
 }
-GLS::GL_SHADER::GL_SHADER(const char*vertexShaderPath,const char*fragmentShaderPath){
+GLS::GL_Shader::GL_Shader(const char*vertexShaderPath,const char*fragmentShaderPath){
 	_shaderStatus=0;
 	_shaderN=_createShaderProgram(vertexShaderPath,fragmentShaderPath);
 	_vertexShaderPath=vertexShaderPath;
 	_fragmentShaderPath=fragmentShaderPath;
 }
-GLS::GL_SHADER::GL_SHADER(std::string vertexShaderPath,std::string fragmentShaderPath){
+GLS::GL_Shader::GL_Shader(std::string vertexShaderPath,std::string fragmentShaderPath){
 	_shaderStatus=0;
 	_shaderN=_createShaderProgram(vertexShaderPath.c_str(),fragmentShaderPath.c_str());
 	_vertexShaderPath=vertexShaderPath;
 	_fragmentShaderPath=fragmentShaderPath;
 }
-GLS::GL_SHADER::~GL_SHADER(){
+GLS::GL_Shader::~GL_Shader(){
 	glDeleteProgram(_shaderN);
 }
-GLuint GLS::GL_SHADER::getShaderID()const{
+GLuint GLS::GL_Shader::getShaderID()const{
 	return _shaderN;
 }
-GLuint GLS::GL_SHADER::getShaderStatus()const{
+GLuint GLS::GL_Shader::getShaderStatus()const{
 	return _shaderStatus;
 }

@@ -1,4 +1,4 @@
-#include "GL_SHAPES.h"
+#include "GL_Shape.h"
 
 GLS::GL_VertexData::GL_VertexData(GLfloat*vertex){
 	if(vertex==nullptr)
@@ -61,43 +61,43 @@ GLS::GL_VertexData&GLS::GL_VertexData::operator+(const GLS::GL_VertexData&vertex
     return *this;
 }
 /////////////////////////////////////////////////////////////
-GLS::GL_SHAPE::GL_SHAPE(GLuint shaderProgram,GLenum memoryLocation){
+GLS::GL_Shape::GL_Shape(GLuint shaderProgram,GLenum memoryLocation){
 	_shaderProgram=shaderProgram;
     _VAO=_VBO=0;
 	_memoryLocation=memoryLocation;
 	_vertN=0;
 }
-GLS::GL_SHAPE::~GL_SHAPE(){
+GLS::GL_Shape::~GL_Shape(){
 	glDeleteVertexArrays(1,&_VAO);
 	glDeleteBuffers(1,&_VBO);
 }
-void GLS::GL_SHAPE::transform(glm::vec3 transformVector){
+void GLS::GL_Shape::transform(glm::vec3 transformVector){
 	glm::mat4 model=glm::mat4(1.0f);
 	model=glm::translate(model,glm::vec3(transformVector.x,transformVector.y,transformVector.z));
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
 }
-void GLS::GL_SHAPE::rotate(glm::vec3 rotationVector){
+void GLS::GL_Shape::rotate(glm::vec3 rotationVector){
 	glm::mat4 model=glm::mat4(1.0f);
 	model=glm::rotate(model,glm::degrees(rotationVector.z),glm::vec3(0,0,1));
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
 }
-GLenum GLS::GL_SHAPE::getMemoryLocation()const{
+GLenum GLS::GL_Shape::getMemoryLocation()const{
 	return _memoryLocation;
 }
-GLuint GLS::GL_SHAPE::getVAO()const{
+GLuint GLS::GL_Shape::getVAO()const{
 	return _VAO;
 }
-GLuint GLS::GL_SHAPE::getVBO()const{
+GLuint GLS::GL_Shape::getVBO()const{
 	return _VBO;
 }
-GLuint GLS::GL_SHAPE::getShader()const{
+GLuint GLS::GL_Shape::getShader()const{
 	return _shaderProgram;
 }
-GLS::GL_VertexData GLS::GL_SHAPE::getVertices()const{
+GLS::GL_VertexData GLS::GL_Shape::getVertices()const{
 	return *_vertices;
 }
 /////////////////////////////////////////////////////////////
-GLS::GL_TRIANGLE::GL_TRIANGLE(GLS::GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation):GL_SHAPE(shaderProgram,memoryLocation){
+GLS::GL_Triangle::GL_Triangle(GLS::GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation):GL_Shape(shaderProgram,memoryLocation){
 	_vertN=3;
 	_vertices=new GL_VertexData[3]{};
 
@@ -121,7 +121,7 @@ GLS::GL_TRIANGLE::GL_TRIANGLE(GLS::GL_VertexData*vertices,GLuint shaderProgram,G
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	glBindVertexArray(0);
 }
-GLS::GL_TRIANGLE::GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation):GL_SHAPE(shaderProgram,memoryLocation){
+GLS::GL_Triangle::GL_Triangle(GLuint shaderProgram,GLenum memoryLocation):GL_Shape(shaderProgram,memoryLocation){
 	_vertN=3;
 	_vertices=new GL_VertexData[_vertN]{};
 	GLfloat*test=new GLfloat[GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN]{};
@@ -159,19 +159,19 @@ GLS::GL_TRIANGLE::GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation):GL_SHA
 	glBindVertexArray(0);
 	delete[]test;
 }
-GLS::GL_TRIANGLE::~GL_TRIANGLE(){
+GLS::GL_Triangle::~GL_Triangle(){
 	delete[]_vertices;
 }
-GLuint GLS::GL_TRIANGLE::getIndicesN()const{
+GLuint GLS::GL_Triangle::getIndicesN()const{
 	return 0;
 }
-void GLS::GL_TRIANGLE::drawShape()const{
+void GLS::GL_Triangle::drawShape()const{
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);
 	glDrawArrays(GL_TRIANGLES,0,3);
 }
 /////////////////////////////////////////////////////////////
-GLS::GL_POLYGON::GL_POLYGON(GLuint vertN,GLuint shaderProgram,GLenum memoryLocation):GL_SHAPE(shaderProgram,memoryLocation){
+GLS::GL_Polygon::GL_Polygon(GLuint vertN,GLuint shaderProgram,GLenum memoryLocation):GL_Shape(shaderProgram,memoryLocation){
 	_vertN=vertN;
 	_vertices=new GL_VertexData[_vertN]{};
 	_indicesN=(_vertN-2)*3;
@@ -227,16 +227,16 @@ GLS::GL_POLYGON::GL_POLYGON(GLuint vertN,GLuint shaderProgram,GLenum memoryLocat
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 	delete[]test;
 }
-GLS::GL_POLYGON::~GL_POLYGON(){
+GLS::GL_Polygon::~GL_Polygon(){
 	delete[]_indices;
 }
-GLuint GLS::GL_POLYGON::getEBO()const{
+GLuint GLS::GL_Polygon::getEBO()const{
 	return _EBO;
 }
-GLuint GLS::GL_POLYGON::getIndicesN()const{
+GLuint GLS::GL_Polygon::getIndicesN()const{
 	return _indicesN;
 }
-void GLS::GL_POLYGON::drawShape()const{
+void GLS::GL_Polygon::drawShape()const{
 	glm::mat4 model=glm::mat4(1.0f);
 	model=glm::translate(model,glm::vec3(299.5f,499.5f,0.0f))*glm::rotate(model,glm::radians(0.0f),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(90.0f,10.0f,1.0f));
 

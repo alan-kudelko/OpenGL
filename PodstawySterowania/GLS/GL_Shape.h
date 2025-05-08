@@ -39,7 +39,7 @@ namespace GLS{
 		enum{GL_VERTEX_SIZE=9}; //Total number of attributes 3+4+2
 	};
 	// Abstract virtual base class describing shape and all of its parameters
-    class GL_SHAPE:public GL_Component{
+    class GL_Shape:public GL_Component{
 	protected:
 		GLenum _memoryLocation; // Possible values compliant with OpenGL's memory usage modes: GL_STATIC_DRAW, GL_DYNAMIC_DRAW, GL_STREAM_DRAW
         GLuint _VAO; // Unique handle for the Vertex Array Object (VAO)
@@ -48,8 +48,8 @@ namespace GLS{
 		GL_VertexData*_vertices; // Pointer to primitive's vertices array
 		GLuint _vertN; // Number of primitive's vertices
 	public:
-        GL_SHAPE(GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
-        virtual ~GL_SHAPE();
+        GL_Shape(GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
+        virtual ~GL_Shape();
 
         virtual void drawShape()const=0;
 		void transform(glm::vec3 transformVector);
@@ -62,22 +62,22 @@ namespace GLS{
 		GLuint getShader()const;
         GLS::GL_VertexData getVertices()const;
     };
-	class GL_TRIANGLE:public GL_SHAPE{
+	class GL_Triangle:public GL_Shape{
 	public:
-		GL_TRIANGLE(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_DYNAMIC_DRAW);
-		GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
-		~GL_TRIANGLE();
+		GL_Triangle(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_DYNAMIC_DRAW);
+		GL_Triangle(GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
+		~GL_Triangle();
 		GLuint getIndicesN()const;;
 		void drawShape()const override;
 	};
-	class GL_POLYGON:public GL_SHAPE{
+	class GL_Polygon:public GL_Shape{
 		GLuint _EBO; // Handle for the EBO
 		GLuint*_indices; // Potiner to indices array
 		GLuint _indicesN; // Number of elements in the indices array
 	public:
-		GL_POLYGON(GLuint vertN,GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
-		GL_POLYGON(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
-		~GL_POLYGON();
+		GL_Polygon(GLuint vertN,GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
+		GL_Polygon(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
+		~GL_Polygon();
 		GLuint getEBO()const;
 		GLuint getIndicesN()const;
 		void drawShape()const override;

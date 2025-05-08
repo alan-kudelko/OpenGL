@@ -11,8 +11,8 @@
 #include <string>
 #include <sstream>
 
-#include "GLS/GL_SHAPES.h"
-#include "GLS/GL_SHADER.h"
+#include "GLS/GL_Shape.h"
+#include "GLS/GL_Shader.h"
 #include "GLS/GL_GameObject.h"
 
 enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
@@ -71,7 +71,7 @@ GLFWwindow*initializeOpenGL(){
     }
 
     glViewport(0,0,WINDOW_SIZE_X,WINDOW_SIZE_Y);
-
+    glfwSwapInterval(1); // 1 = VSync (synchronizacja do odœwie¿ania ekranu)
     return window;
 }
 
@@ -81,7 +81,7 @@ int main(){
     if(window==nullptr)
         return -1;
 
-    GLS::GL_SHADER basicShader1(vertexShaderPath,fragmentShaderPath);
+    GLS::GL_Shader basicShader1(vertexShaderPath,fragmentShaderPath);
 
     if(basicShader1.getShaderStatus()){
         std::cerr<<"Failed to initialize shader"<<std::endl;
@@ -89,7 +89,7 @@ int main(){
         return -1;
     }
 
-    GLS::GL_POLYGON r1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    GLS::GL_Polygon r1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
     //GLS::GL_TRIANGLE t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
 
     GLS::GL_GameObject gObj1;
@@ -100,14 +100,23 @@ int main(){
     //gObj1.addComponent(&t1);
 
     //gObj1.addComponent();
+    double lastFrame=glfwGetTime();
+    double currentFrame=glfwGetTime();
+    float deltaTime=static_cast<float>(currentFrame-lastFrame);
 
     while(!glfwWindowShouldClose(window)){
+        currentFrame=glfwGetTime();
+        deltaTime=static_cast<float>(currentFrame-lastFrame);
+        lastFrame = currentFrame;
+
+
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         //r1.drawShape();
         gObj1.renderObject();
-        gObj1.updateGameObjectRotation(glm::vec3(0.0f,0.0f,1.0f/glfwGetTime()*10));
+        gObj1.updateGameObjectRotation(glm::vec3(0.0f,0.0f,400.0f*deltaTime));
+        //gObj1.setShapeComponentRotation(glm::vec3(0.0f,0.0f,10.0f*glfwGetTime()/1));
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

@@ -37,6 +37,19 @@ void GLS::GL_GameObject::setGameObjectLocation(glm::vec3 gameObjectLocation){
 }
 void GLS::GL_GameObject::setGameObjectRotation(glm::vec3 gameObjectRotation){
 	_gameObjectRotation=gameObjectRotation;
+	if(_gameObjectRotation.x>360.0f)
+		_gameObjectRotation.x-=360.0f;
+	if(_gameObjectRotation.y>360.0f)
+		_gameObjectRotation.y-=360.0f;
+	if(_gameObjectRotation.z>360.0f)
+		_gameObjectRotation.z-=360.0f;
+	
+	if(_gameObjectRotation.x<-360.0f)
+		_gameObjectRotation.x+=360.0f;
+	if(_gameObjectRotation.y<-360.0f)
+		_gameObjectRotation.y+=360.0f;
+	if(_gameObjectRotation.z<-360.0f)
+		_gameObjectRotation.z+=360.0f;	
 }
 void GLS::GL_GameObject::updateGameObjectLocation(glm::vec3 gameObjectLocation){
 	_gameObjectLocation+=gameObjectLocation;
@@ -74,21 +87,21 @@ const GLS::GL_Component*GLS::GL_GameObject::getComponent(GLS::GL_ComponentType c
 	}
 }
 void GLS::GL_GameObject::addComponent(GLS::GL_Component*component){
-	if(dynamic_cast<GLS::GL_SHAPE*>(component)){
+	if(dynamic_cast<GLS::GL_Shape*>(component)){
 		std::cout<<"Tak, to GL_SHAPE"<<std::endl;
 
-		_shapeComponentPtr=dynamic_cast<GLS::GL_SHAPE*>(component);
+		_shapeComponentPtr=dynamic_cast<GLS::GL_Shape*>(component);
 
 		_shapeComponentLocation=new glm::vec3{};
 		_shapeComponentRotation=new glm::vec3{};
 		_shapeComponentScale=new glm::vec3{100.0f,10.0f,1.0f};
 
 	}
-	else if(dynamic_cast<GLS::GL_SHADER*>(component)){
+	else if(dynamic_cast<GLS::GL_Shader*>(component)){
 		// Overengineered for future development of GLS::GL_SHADER class
 		// For now, simple typeid comparison would do the trick
 		std::cout<<"Tak, to GL_SHADER"<<std::endl;
-		_shaderComponentPtr=dynamic_cast<GLS::GL_SHADER*>(component);
+		_shaderComponentPtr=dynamic_cast<GLS::GL_Shader*>(component);
 	}
 }
 void GLS::GL_GameObject::renderObject()const{

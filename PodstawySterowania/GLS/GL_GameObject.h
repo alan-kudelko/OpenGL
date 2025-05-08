@@ -12,8 +12,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "GL_Component.h"
-#include "GL_SHAPES.h"
-#include "GL_SHADER.h"
+#include "GL_Shape.h"
+#include "GL_Shader.h"
 
 namespace GLS{
 	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2};
@@ -29,8 +29,8 @@ namespace GLS{
 
 		glm::mat4 _model;
 		//glm::mat4
-		GL_SHAPE*_shapeComponentPtr; // Pointer to existing GL_SHAPE component
-		GL_SHADER*_shaderComponentPtr; // Pointer to existing GL_SHADER component
+		GL_Shape*_shapeComponentPtr; // Pointer to existing GL_SHAPE component
+		GL_Shader*_shaderComponentPtr; // Pointer to existing GL_SHADER component
 		//GL_TEXTURE*_textureComponentPtr;
 		//GL_INPUT_CONTROLLER*_inputControllerComponentPtr;
 		//GL_COLIDER*_coliderComponent;
