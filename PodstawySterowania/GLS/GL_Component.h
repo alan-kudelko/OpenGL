@@ -10,10 +10,10 @@
 #include <glm/gtc/type_ptr.hpp>
 
 namespace GLS{
+	// Base class for all avaible GL_GameObject components
 	class GL_Component{
 		public:
 		GL_Component(){};
-		~GL_Component(){};
+		virtual~GL_Component()=default;
 	};
-	
 }

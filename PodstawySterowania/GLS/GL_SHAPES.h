@@ -58,6 +58,7 @@ namespace GLS{
 		GLenum getMemoryLocation()const;
 		GLuint getVAO()const;
 		GLuint getVBO()const;
+		virtual GLuint getIndicesN()const=0;
 		GLuint getShader()const;
         GLS::GL_VertexData getVertices()const;
     };
@@ -66,6 +67,7 @@ namespace GLS{
 		GL_TRIANGLE(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_DYNAMIC_DRAW);
 		GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
 		~GL_TRIANGLE();
+		GLuint getIndicesN()const;;
 		void drawShape()const override;
 	};
 	class GL_POLYGON:public GL_SHAPE{
@@ -76,6 +78,8 @@ namespace GLS{
 		GL_POLYGON(GLuint vertN,GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
 		GL_POLYGON(GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation=GL_STATIC_DRAW);
 		~GL_POLYGON();
+		GLuint getEBO()const;
+		GLuint getIndicesN()const;
 		void drawShape()const override;
 	};
 }

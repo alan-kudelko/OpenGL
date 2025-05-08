@@ -162,6 +162,9 @@ GLS::GL_TRIANGLE::GL_TRIANGLE(GLuint shaderProgram,GLenum memoryLocation):GL_SHA
 GLS::GL_TRIANGLE::~GL_TRIANGLE(){
 	delete[]_vertices;
 }
+GLuint GLS::GL_TRIANGLE::getIndicesN()const{
+	return 0;
+}
 void GLS::GL_TRIANGLE::drawShape()const{
 	glUseProgram(_shaderProgram);
 	glBindVertexArray(_VAO);
@@ -220,11 +223,18 @@ GLS::GL_POLYGON::GL_POLYGON(GLuint vertN,GLuint shaderProgram,GLenum memoryLocat
 
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	glBindVertexArray(0);
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 	delete[]test;
 }
 GLS::GL_POLYGON::~GL_POLYGON(){
 	delete[]_indices;
+}
+GLuint GLS::GL_POLYGON::getEBO()const{
+	return _EBO;
+}
+GLuint GLS::GL_POLYGON::getIndicesN()const{
+	return _indicesN;
 }
 void GLS::GL_POLYGON::drawShape()const{
 	glm::mat4 model=glm::mat4(1.0f);
