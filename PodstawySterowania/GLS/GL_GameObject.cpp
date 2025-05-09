@@ -93,7 +93,7 @@ const GLS::GL_Component*GLS::GL_GameObject::getComponent(GLS::GL_ComponentType c
 		case GLS::GL_ComponentType::GL_SHADER_Component:
 			return _shaderComponentPtr;
 		case GLS::GL_ComponentType::GL_COLLIDER_Component:
-		r	return _colliderComponentPtr;
+			return _colliderComponentPtr;
 		default:
 		return nullptr;
 	}
@@ -111,7 +111,7 @@ void GLS::GL_GameObject::addComponent(GLS::GL_Component*component){
 		// For now, simple typeid comparison would do the trick
 		_shaderComponentPtr=dynamic_cast<GLS::GL_Shader*>(component);
 	}
-	else if(dynamic_cast<GLS::GL_Collider*>(component){
+	else if(dynamic_cast<GLS::GL_Collider*>(component)){
 		_colliderComponentPtr=dynamic_cast<GLS::GL_Collider*>(component);
 		// I don't think that collider should be shared among multiple objects
 		// I think that better solution is to create new instance of GL_Collider class inside GL_GameObject class

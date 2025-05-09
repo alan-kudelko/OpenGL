@@ -19,10 +19,18 @@ namespace GLS{
 	// GL_Collider should contain size, location and rotation of collision box
 	// Maybe size isn't a good idea, I think it should be more generalized
 	// Good idea is to add collisions groups to optimize collision detection
+	// Additionally I will use two stage collision detection algorithm utilizing bounding box for broad phase and some fancier algorithm for narrow phase
+	
 	class GL_Collider:public GL_Component{
+		GLuint _collisionGroup;
+		
+		
 	public:
 		GL_Collider();
 		~GL_Collider();
+		
+		GLuint getCollisionGroup()const;
+		void setCollisionGroup();
 	};
 }
 

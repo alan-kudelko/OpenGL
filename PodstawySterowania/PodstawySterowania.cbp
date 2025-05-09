@@ -41,6 +41,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="GLS/GL_Collider.cpp" />
+		<Unit filename="GLS/GL_Collider.h" />
 		<Unit filename="GLS/GL_Component.h" />
 		<Unit filename="GLS/GL_GPUResourceTracker.cpp" />
 		<Unit filename="GLS/GL_GPUResourceTracker.h" />
