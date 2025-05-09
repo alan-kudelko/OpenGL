@@ -20,17 +20,23 @@ namespace GLS{
 	// Maybe size isn't a good idea, I think it should be more generalized
 	// Good idea is to add collisions groups to optimize collision detection
 	// Additionally I will use two stage collision detection algorithm utilizing bounding box for broad phase and some fancier algorithm for narrow phase
-	
+
 	class GL_Collider:public GL_Component{
 		GLuint _collisionGroup;
-		
-		
+		glm::vec3 _boundingBoxLocation;
+		glm::vec3 _boundingBoxSize;
+
 	public:
-		GL_Collider();
+		GL_Collider(glm::vec3 boundingBoxLocation={0.0f,0.0f,0.0f},glm::vec3 boundingBoxSize={1.0f,1.0f,1.0f},GLuint collisionGroup=1);
 		~GL_Collider();
-		
+
 		GLuint getCollisionGroup()const;
-		void setCollisionGroup();
+		glm::vec3 getBoundingBoxLocation()const;
+		glm::vec3 getBoundingBoxSize()const;
+
+		void setCollisionGroup(GLuint collisionGroup);
+		void setBoundingBoxLocation(glm::vec3 boundingBoxLocation);
+		void setBoundingBoxSize(glm::vec3 boundingBoxSize);
 	};
 }
 

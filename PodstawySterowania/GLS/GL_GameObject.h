@@ -36,6 +36,10 @@ namespace GLS{
 		GL_Collider*_colliderComponentPtr;
 		//GL_TEXTURE*_textureComponentPtr;
 		//GL_INPUT_CONTROLLER*_inputControllerComponentPtr;
+		// Pointer for function called upon detected collisions
+		// There should be possibility to attach your own functions
+		// Of course function should have the same signature
+		// Maybe class of "after collision" behaviours?
 		public:
 		GL_GameObject(glm::vec3 location={},glm::vec3 rotation={},std::string name="Default");
 		~GL_GameObject();

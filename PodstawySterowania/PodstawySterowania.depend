@@ -698,7 +698,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1746738463 d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.h
+1746821486 d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
@@ -743,7 +743,7 @@
 1746737115 source:d:\projekty\opengl\podstawysterowania\gls\gl_shape.cpp
 	"GL_Shape.h"
 
-1746787886 d:\projekty\opengl\podstawysterowania\gls\gl_collider.h
+1746821786 d:\projekty\opengl\podstawysterowania\gls\gl_collider.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
