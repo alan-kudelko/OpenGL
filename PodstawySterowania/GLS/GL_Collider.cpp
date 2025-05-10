@@ -1,11 +1,13 @@
 #include "GL_Collider.h"
 
 
-GLS::GL_Collider::GL_Collider(glm::vec3 boudingBoxLocation,glm::vec3 boudingBoxSize,GLuint collisionGroup){
-	
+GLS::GL_Collider::GL_Collider(glm::vec3 boundingBoxLocation,glm::vec3 boundingBoxSize,GLuint collisionGroup){
+	_boundingBoxLocation=boundingBoxLocation;
+	_boundingBoxSize=boundingBoxSize;
+	_collisionGroup=collisionGroup;
 }
 GLS::GL_Collider::~GL_Collider(){
-	
+
 }
 GLuint GLS::GL_Collider::getCollisionGroup()const{
 	return _collisionGroup;

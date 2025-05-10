@@ -9,6 +9,7 @@ GLS::GL_GameObject::GL_GameObject(glm::vec3 location,glm::vec3 rotation,std::str
 
 	_shapeComponentPtr=nullptr;
 	_shaderComponentPtr=nullptr;
+	_colliderComponentPtr=nullptr;
 
 	_renderEnable=GL_TRUE;
 	_collisionEnable=GL_FALSE;
@@ -17,6 +18,7 @@ GLS::GL_GameObject::~GL_GameObject(){
 	delete _shapeComponentLocation;
 	delete _shapeComponentRotation;
 	delete _shapeComponentScale;
+	delete _colliderComponentPtr;
 }
 glm::vec3 GLS::GL_GameObject::getGameObjectLocation()const{
 	return _gameObjectLocation;
@@ -85,35 +87,24 @@ void GLS::GL_GameObject::enableCollisions(){
 void GLS::GL_GameObject::disableCollisions(){
 	_collisionEnable=GL_FALSE;
 }
-
-const GLS::GL_Component*GLS::GL_GameObject::getComponent(GLS::GL_ComponentType componentType)const{
-	switch(componentType){
-		case GLS::GL_ComponentType::GL_SHAPE_Component:
-			return _shapeComponentPtr;
-		case GLS::GL_ComponentType::GL_SHADER_Component:
-			return _shaderComponentPtr;
-		case GLS::GL_ComponentType::GL_COLLIDER_Component:
-			return _colliderComponentPtr;
-		default:
-		return nullptr;
-	}
+const GLS::GL_Shape*GLS::GL_GameObject::getShapeComponent()const{
+	return _shapeComponentPtr;
 }
-void GLS::GL_GameObject::addComponent(GLS::GL_Component*component){
-	if(dynamic_cast<GLS::GL_Shape*>(component)){
-		_shapeComponentPtr=dynamic_cast<GLS::GL_Shape*>(component);
-
-		_shapeComponentLocation=new glm::vec3{};
-		_shapeComponentRotation=new glm::vec3{};
-		_shapeComponentScale=new glm::vec3{100.0f,10.0f,1.0f};
-	}
-	else if(dynamic_cast<GLS::GL_Shader*>(component)){
-		// Overengineered for future development of GLS::GL_SHADER class
-		// For now, simple typeid comparison would do the trick
-		_shaderComponentPtr=dynamic_cast<GLS::GL_Shader*>(component);
-	}
-	else if(dynamic_cast<GLS::GL_Collider*>(component)){
-		_colliderComponentPtr=dynamic_cast<GLS::GL_Collider*>(component);
-		// I don't think that collider should be shared among multiple objects
-		// I think that better solution is to create new instance of GL_Collider class inside GL_GameObject class
-	}
+const GLS::GL_Shader*GLS::GL_GameObject::getShaderComponent()const{
+	return _shaderComponentPtr;
+}
+const GLS::GL_Collider*GLS::GL_GameObject::getColliderComponent()const{
+	return _colliderComponentPtr;
+}
+void GLS::GL_GameObject::assignShapeComponent(GLS::GL_Shape*component){
+	_shapeComponentLocation=new glm::vec3{};
+	_shapeComponentRotation=new glm::vec3{};
+	_shapeComponentScale=new glm::vec3{100.0f,10.0f,1.0f};
+	_shapeComponentPtr=component;
+}
+void GLS::GL_GameObject::assignShaderComponent(GLS::GL_Shader*component){
+	_shaderComponentPtr=component;
+}
+void GLS::GL_GameObject::createCollisionComponent(glm::vec3 location,glm::vec3 size){
+	_colliderComponentPtr=new GLS::GL_Collider(location,size);
 }

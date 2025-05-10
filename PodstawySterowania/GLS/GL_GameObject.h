@@ -30,10 +30,10 @@ namespace GLS{
 		glm::vec3*_shapeComponentScale; // Scale of GL_SHAPE component object relative to GL_GameObject
 
 		glm::mat4 _model;
-		//glm::mat4
+		// Class will not own all components as they may be shared across multiple object instances 
 		GL_Shape*_shapeComponentPtr; // Pointer to existing GL_SHAPE component
 		GL_Shader*_shaderComponentPtr; // Pointer to existing GL_SHADER component
-		GL_Collider*_colliderComponentPtr;
+		GL_Collider*_colliderComponentPtr; // Used for creation of new collider component for use in the class
 		//GL_TEXTURE*_textureComponentPtr;
 		//GL_INPUT_CONTROLLER*_inputControllerComponentPtr;
 		// Pointer for function called upon detected collisions
@@ -70,10 +70,16 @@ namespace GLS{
 		void disableCollisions(); // Disables collisions
 
 		// For now I assumed that there will be only one component of each component type avaible
-		const GLS::GL_Component*getComponent(GLS::GL_ComponentType componentType)const; 
-		GLS::GL_Component&setComponent(GLS::GL_ComponentType componentType)const;
-
-		void addComponent(GLS::GL_Component*component); // Pointer to existing, previously created component
-		void renderObject()const; // Temporary just for testing and debugging, in the future rendering will be handled by another class GL_RENDERER
+		
+		const GLS::GL_Shape*getShapeComponent()const;
+		const GLS::GL_Shader*getShaderComponent()const;
+		const GLS::GL_Collider*getColliderComponent()const;
+		
+		void setColliderLocation()const;
+		void setColliderSize()const;
+		
+		void assignShapeComponent(GLS::GL_Shape*component);
+		void assignShaderComponent(GLS::GL_Shader*component);
+		void createCollisionComponent(glm::vec3 location,glm::vec3 size); // May be overloaded in the future
 	};
 }

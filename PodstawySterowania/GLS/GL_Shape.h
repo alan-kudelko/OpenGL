@@ -51,9 +51,6 @@ namespace GLS{
         GL_Shape(GLuint shaderProgram=0,GLenum memoryLocation=GL_STATIC_DRAW);
         virtual ~GL_Shape();
 
-		void transform(glm::vec3 transformVector);
-		void rotate(glm::vec3 rotationVector);
-		void scale(glm::vec3 scaleVector);
 		GLenum getMemoryLocation()const;
 		GLuint getVAO()const;
 		GLuint getVBO()const;

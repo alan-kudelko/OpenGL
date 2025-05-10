@@ -13,8 +13,8 @@ void GLS::GL_SceneRenderer::setProjectionMatrix(glm::mat4 projection){
 	_projection=projection;
 }
 void GLS::GL_SceneRenderer::renderObject(const GLS::GL_GameObject&gameObject){
-	const GL_Component*shapeComponent=gameObject.getComponent(GLS::GL_ComponentType::GL_SHAPE_Component);
-	const GL_Shader*shaderComponent=dynamic_cast<const GLS::GL_Shader*>(gameObject.getComponent(GLS::GL_ComponentType::GL_SHADER_Component));
+	const GL_Component*shapeComponent=gameObject.getShapeComponent();
+	const GL_Shader*shaderComponent=gameObject.getShaderComponent();
 
 	if(shapeComponent==nullptr)
 		return;

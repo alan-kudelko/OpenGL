@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "GL_Component.h"
+#include "GL_GameObject.h"
 
 namespace GLS{
 	// For sure there should be some kind of interface to generate collider based on geometry of an object
@@ -22,22 +22,11 @@ namespace GLS{
 	// Additionally I will use two stage collision detection algorithm utilizing bounding box for broad phase and some fancier algorithm for narrow phase
 	// Collision handling will be processed by class GL_CollisionManager
 
-	class GL_Collider:public GL_Component{
-		GLuint _collisionGroup;
-		glm::vec3 _boundingBoxLocation;
-		glm::vec3 _boundingBoxSize;
+	class GL_CollisionManager{
+		GL_CollisionManager();
+		~GL_CollisionManager();
 
-	public:
-		GL_Collider(glm::vec3 boundingBoxLocation={0.0f,0.0f,0.0f},glm::vec3 boundingBoxSize={1.0f,1.0f,1.0f},GLuint collisionGroup=1);
-		~GL_Collider();
+		GLboolean checkCollision(GLS::GL_GameObject*obj1, GLS::GL_GameObject*obj2);
 
-		GLuint getCollisionGroup()const;
-		glm::vec3 getBoundingBoxLocation()const;
-		glm::vec3 getBoundingBoxSize()const;
-
-		void setCollisionGroup(GLuint collisionGroup);
-		void setBoundingBoxLocation(glm::vec3 boundingBoxLocation);
-		void setBoundingBoxSize(glm::vec3 boundingBoxSize);
 	};
 }
-

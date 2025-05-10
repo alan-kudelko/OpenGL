@@ -71,16 +71,6 @@ GLS::GL_Shape::~GL_Shape(){
 	glDeleteVertexArrays(1,&_VAO);
 	glDeleteBuffers(1,&_VBO);
 }
-void GLS::GL_Shape::transform(glm::vec3 transformVector){
-	glm::mat4 model=glm::mat4(1.0f);
-	model=glm::translate(model,glm::vec3(transformVector.x,transformVector.y,transformVector.z));
-	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
-}
-void GLS::GL_Shape::rotate(glm::vec3 rotationVector){
-	glm::mat4 model=glm::mat4(1.0f);
-	model=glm::rotate(model,glm::degrees(rotationVector.z),glm::vec3(0,0,1));
-	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram,"model"),1,GL_FALSE,glm::value_ptr(model));
-}
 GLenum GLS::GL_Shape::getMemoryLocation()const{
 	return _memoryLocation;
 }

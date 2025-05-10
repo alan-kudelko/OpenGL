@@ -24,26 +24,6 @@ glm::vec3 locationUpdate{};
 glm::vec3 rotationUpdate{};
 
 void framebuffer_keyboard_input_callback(GLFWwindow*window,GLint key,GLint scanCode,GLint action,GLint mods){
-    if(key==GLFW_KEY_W&&action==GLFW_PRESS){
-        locationUpdate.y=-10;
-    }
-    if(key==GLFW_KEY_S&&action==GLFW_PRESS){
-        locationUpdate.y=10;
-    }
-    if(key==GLFW_KEY_A&&action==GLFW_PRESS){
-        locationUpdate.x=-10;
-    }
-    if(key==GLFW_KEY_D&&action==GLFW_PRESS){
-        locationUpdate.x=10;
-    }
-    if(key==GLFW_KEY_E&&action==GLFW_PRESS){
-        rotationUpdate.z=1;
-    }
-    if(key==GLFW_KEY_Q&&action==GLFW_PRESS){
-        rotationUpdate.z=-1;
-    }
-
-
     if(key==GLFW_KEY_W&&action==GLFW_RELEASE){
         locationUpdate.y=0;
     }
@@ -61,6 +41,24 @@ void framebuffer_keyboard_input_callback(GLFWwindow*window,GLint key,GLint scanC
     }
     if(key==GLFW_KEY_Q&&action==GLFW_RELEASE){
         rotationUpdate.z=0;
+    }
+    if(key==GLFW_KEY_W&&action==GLFW_PRESS){
+        locationUpdate.y=-10;
+    }
+    if(key==GLFW_KEY_S&&action==GLFW_PRESS){
+        locationUpdate.y=10;
+    }
+    if(key==GLFW_KEY_A&&action==GLFW_PRESS){
+        locationUpdate.x=-10;
+    }
+    if(key==GLFW_KEY_D&&action==GLFW_PRESS){
+        locationUpdate.x=10;
+    }
+    if(key==GLFW_KEY_E&&action==GLFW_PRESS){
+        rotationUpdate.z=1;
+    }
+    if(key==GLFW_KEY_Q&&action==GLFW_PRESS){
+        rotationUpdate.z=-1;
     }
 
 
@@ -134,8 +132,8 @@ int main(){
     GLS::GL_Triangle t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
 
     GLS::GL_GameObject gObj1;
-    gObj1.addComponent(&basicShader1);
-    gObj1.addComponent(&r1);
+    gObj1.assignShaderComponent(&basicShader1);
+    gObj1.assignShapeComponent(&r1);
     gObj1.setGameObjectLocation(glm::vec3(300.0f,500.0f,0.0f));
     gObj1.setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
     //gObj1.addComponent(&t1);
