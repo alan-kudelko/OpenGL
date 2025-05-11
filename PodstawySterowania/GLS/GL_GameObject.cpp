@@ -40,6 +40,7 @@ void GLS::GL_GameObject::setGameObjectLocation(glm::vec3 gameObjectLocation){
 }
 void GLS::GL_GameObject::setGameObjectRotation(glm::vec3 gameObjectRotation){
 	_gameObjectRotation=gameObjectRotation;
+
 	if(_gameObjectRotation.x>360.0f)
 		_gameObjectRotation.x-=360.0f;
 	if(_gameObjectRotation.y>360.0f)
@@ -53,6 +54,8 @@ void GLS::GL_GameObject::setGameObjectRotation(glm::vec3 gameObjectRotation){
 		_gameObjectRotation.y+=360.0f;
 	if(_gameObjectRotation.z<-360.0f)
 		_gameObjectRotation.z+=360.0f;
+	// Change to modulo
+	// Place this checking code in other method as all rotations should check for cycling values
 }
 void GLS::GL_GameObject::updateGameObjectLocation(glm::vec3 gameObjectLocation){
 	_gameObjectLocation+=gameObjectLocation;
@@ -66,7 +69,7 @@ void GLS::GL_GameObject::setShapeComponentLocation(glm::vec3 shapeComponentLocat
 void GLS::GL_GameObject::setShapeComponentRotation(glm::vec3 shapeComponentRotation){
 	(*_shapeComponentRotation)=shapeComponentRotation;
 }
-void GLS::GL_GameObject::setShapeComponentScale(glm::vec3 shapeComponentScale){
+void GLS::GL_GameObject::setShapeComponentSize(glm::vec3 shapeComponentScale){
 	(*_shapeComponentScale)=shapeComponentScale;
 }
 GLboolean GLS::GL_GameObject::shouldRender()const{
@@ -99,12 +102,12 @@ const GLS::GL_Collider*GLS::GL_GameObject::getColliderComponent()const{
 void GLS::GL_GameObject::assignShapeComponent(GLS::GL_Shape*component){
 	_shapeComponentLocation=new glm::vec3{};
 	_shapeComponentRotation=new glm::vec3{};
-	_shapeComponentScale=new glm::vec3{100.0f,10.0f,1.0f};
+	_shapeComponentScale=new glm::vec3{1.0f,1.0f,1.0f};
 	_shapeComponentPtr=component;
 }
 void GLS::GL_GameObject::assignShaderComponent(GLS::GL_Shader*component){
 	_shaderComponentPtr=component;
 }
-void GLS::GL_GameObject::createCollisionComponent(glm::vec3 location,glm::vec3 size){
-	_colliderComponentPtr=new GLS::GL_Collider(location,size);
+void GLS::GL_GameObject::createCollisionComponent(glm::vec3 location,glm::vec3 size,GLuint collisionGroup){
+	_colliderComponentPtr=new GLS::GL_Collider(location,size,collisionGroup);
 }

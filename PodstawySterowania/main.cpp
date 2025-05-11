@@ -15,6 +15,7 @@
 #include "GLS/GL_Shader.h"
 #include "GLS/GL_GameObject.h"
 #include "GLS/GL_SceneRenderer.h"
+#include "GLS/GL_CollisionManager.h"
 
 enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
 const char*vertexShaderPath="shaders/orto_vertex_shader.vert";
@@ -128,7 +129,11 @@ int main(){
         return -1;
     }
 
+    GLS::GL_CollisionManager GL_CollisionManager1;
+
+
     GLS::GL_Polygon r1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    GLS::GL_Polygon p1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
     GLS::GL_Triangle t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
 
     GLS::GL_GameObject gObj1;
@@ -136,6 +141,17 @@ int main(){
     gObj1.assignShapeComponent(&r1);
     gObj1.setGameObjectLocation(glm::vec3(300.0f,500.0f,0.0f));
     gObj1.setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
+    gObj1.setShapeComponentSize(glm::vec3(100.0f,20.0f,1.0f));
+
+    gObj1.createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(100.0f,20.0f,1.0f));
+
+    GLS::GL_GameObject gObj2;
+    gObj2.assignShaderComponent(&basicShader1);
+    gObj2.assignShapeComponent(&p1);
+    gObj2.setGameObjectLocation(glm::vec3(700.0f,500.0f,0.0f));
+    gObj2.setShapeComponentSize(glm::vec3(100.0f,100.f,1.0f));
+
+    gObj2.createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(100.0f,100.0f,1.0f));
     //gObj1.addComponent(&t1);
     GLS::GL_SceneRenderer sceneRenderer(glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f));
 
@@ -152,12 +168,16 @@ int main(){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         sceneRenderer.renderObject(gObj1);
+        sceneRenderer.renderObject(gObj2);
         //r1.drawShape();
         //gObj1.renderObject();
-        //gObj1.updateGameObjectRotation(glm::vec3(0.0f,0.0f,400.0f*deltaTime));
+        //gObj2.updateGameObjectRotation(glm::vec3(0.0f,0.0f,400.0f*deltaTime));
+
         gObj1.updateGameObjectLocation(locationUpdate);
         gObj1.updateGameObjectRotation(rotationUpdate);
-        //gObj1.setShapeComponentRotation(glm::vec3(0.0f,0.0f,10.0f*glfwGetTime()/1));
+        GL_CollisionManager1.checkCollision(&gObj1,&gObj2);
+        //gObj2.setShapeComponentRotation(glm::vec3(0.0f,0.0f,10.0f*glfwGetTime()/1));
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

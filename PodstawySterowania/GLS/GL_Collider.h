@@ -25,8 +25,8 @@ namespace GLS{
 	class GL_Collider:public GL_Component{
 		GLuint _collisionGroup;
 		glm::vec3 _boundingBoxLocation;
-		glm::vec3 _boundingBoxSize;
-
+		glm::vec3 _originalBoundingBoxSize;
+		glm::vec3 _transformedBoundingBoxSize;
 	public:
 		GL_Collider(glm::vec3 boundingBoxLocation={0.0f,0.0f,0.0f},glm::vec3 boundingBoxSize={1.0f,1.0f,1.0f},GLuint collisionGroup=1);
 		~GL_Collider();
@@ -34,10 +34,15 @@ namespace GLS{
 		GLuint getCollisionGroup()const;
 		glm::vec3 getBoundingBoxLocation()const;
 		glm::vec3 getBoundingBoxSize()const;
+		
+		glm::vec3 getBoundingBoxMin()const; // Used by GL_ColliderManager only
+		glm::vec3 getBoundingBoxMax()const; // Same
 
 		void setCollisionGroup(GLuint collisionGroup);
 		void setBoundingBoxLocation(glm::vec3 boundingBoxLocation);
 		void setBoundingBoxSize(glm::vec3 boundingBoxSize);
+		
+		void updateBoundingBoxSize(glm::vec3 rotation); // Used to recalculate bounding box dimensions after rotation
 	};
 }
 

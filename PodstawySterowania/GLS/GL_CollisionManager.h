@@ -23,6 +23,7 @@ namespace GLS{
 	// Collision handling will be processed by class GL_CollisionManager
 
 	class GL_CollisionManager{
+	public:
 		GL_CollisionManager();
 		~GL_CollisionManager();
 

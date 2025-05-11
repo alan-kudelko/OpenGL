@@ -40,6 +40,7 @@ namespace GLS{
 		// There should be possibility to attach your own functions
 		// Of course function should have the same signature
 		// Maybe class of "after collision" behaviours?
+		void _updateColliderBoundingBox(glm::vec3 size);
 		public:
 		GL_GameObject(glm::vec3 location={},glm::vec3 rotation={},std::string name="Default");
 		~GL_GameObject();
@@ -59,7 +60,10 @@ namespace GLS{
 
 		void setShapeComponentLocation(glm::vec3 shapeComponentLocation); // Sets current GL_SHAPE component location
 		void setShapeComponentRotation(glm::vec3 shapeComponentRotation); // Sets current GL_SHAPE component rotation
-		void setShapeComponentScale(glm::vec3 shapeComponentScale); // Sets current GL_SHAPE component scale
+		void setShapeComponentSize(glm::vec3 shapeComponentScale); // Sets current GL_SHAPE component scale
+		
+		void setColliderComponentLocation(glm::vec3 location)const; // Sets relative offset of GL_Collider
+		void setColliderComponentSize(glm::vec3 size)const; // Sets size of GL_Collider component
 
 		GLboolean shouldRender()const; // Returns whether object is enabled for rendering on screen
 		void enableRender(); // Enables rendering on screen
@@ -75,11 +79,8 @@ namespace GLS{
 		const GLS::GL_Shader*getShaderComponent()const;
 		const GLS::GL_Collider*getColliderComponent()const;
 		
-		void setColliderLocation()const;
-		void setColliderSize()const;
-		
 		void assignShapeComponent(GLS::GL_Shape*component);
 		void assignShaderComponent(GLS::GL_Shader*component);
-		void createCollisionComponent(glm::vec3 location,glm::vec3 size); // May be overloaded in the future
+		void createCollisionComponent(glm::vec3 location,glm::vec3 size,GLuint collisionGroup=1); // May be overloaded in the future
 	};
 }
