@@ -17,6 +17,8 @@
 #include "GLS/GL_SceneRenderer.h"
 #include "GLS/GL_CollisionManager.h"
 
+#include "scripts/NewScript1.h"
+
 enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
 const char*vertexShaderPath="shaders/orto_vertex_shader.vert";
 const char*fragmentShaderPath="shaders/basic_fragment_shader.frag";
@@ -116,6 +118,7 @@ GLFWwindow*initializeOpenGL(){
 }
 
 int main(){
+    HelloWorld();
     GLFWwindow*window=initializeOpenGL();
 
     if(window==nullptr)

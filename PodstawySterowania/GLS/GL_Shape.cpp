@@ -1,5 +1,6 @@
 #include "GL_Shape.h"
 
+////////////////////////////////////////////////////////////////// GL_VertexData interface
 GLS::GL_VertexData::GL_VertexData(GLfloat*vertex){
 	if(vertex==nullptr)
 		return;
@@ -60,7 +61,7 @@ GLS::GL_VertexData&GLS::GL_VertexData::operator=(const GLS::GL_VertexData&vertex
 GLS::GL_VertexData&GLS::GL_VertexData::operator+(const GLS::GL_VertexData&vertexData){
     return *this;
 }
-/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////// GL_Shape interface
 GLS::GL_Shape::GL_Shape(GLuint shaderProgram,GLenum memoryLocation){
 	_shaderProgram=shaderProgram;
     _VAO=_VBO=0;
@@ -86,7 +87,7 @@ GLuint GLS::GL_Shape::getShader()const{
 GLS::GL_VertexData GLS::GL_Shape::getVertices()const{
 	return *_vertices;
 }
-/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////// GL_Triangle interface
 GLS::GL_Triangle::GL_Triangle(GLS::GL_VertexData*vertices,GLuint shaderProgram,GLenum memoryLocation):GL_Shape(shaderProgram,memoryLocation){
 	_vertN=3;
 	_vertices=new GL_VertexData[3]{};
@@ -152,7 +153,7 @@ GLS::GL_Triangle::GL_Triangle(GLuint shaderProgram,GLenum memoryLocation):GL_Sha
 GLS::GL_Triangle::~GL_Triangle(){
 	delete[]_vertices;
 }
-/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////// GL_Polygon interface
 GLS::GL_Polygon::GL_Polygon(GLuint vertN,GLuint shaderProgram,GLenum memoryLocation):GL_Shape(shaderProgram,memoryLocation){
 	_vertN=vertN;
 	_vertices=new GL_VertexData[_vertN]{};

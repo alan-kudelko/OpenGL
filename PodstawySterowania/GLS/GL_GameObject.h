@@ -17,7 +17,7 @@
 #include "GL_Collider.h"
 
 namespace GLS{
-	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2,GL_COLLIDER_Component=3}; // Enum to indicate component we want to get pointer to
+	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2,GL_COLLIDER_Component=3}; // Enum to indicate component we want to get pointer to (this will be used later)
 	class GL_GameObject{
 		std::string _name; // Some kind of identifier to differentiate created objects
 		GLboolean _renderEnable; // Rather should be associated with shape
@@ -29,7 +29,6 @@ namespace GLS{
 		glm::vec3*_shapeComponentRotation; // Rotation of GL_SHAPE component object relative to GL_GameObject
 		glm::vec3*_shapeComponentScale; // Scale of GL_SHAPE component object relative to GL_GameObject
 
-		glm::mat4 _model;
 		// Class will not own all components as they may be shared across multiple object instances 
 		GL_Shape*_shapeComponentPtr; // Pointer to existing GL_SHAPE component
 		GL_Shader*_shaderComponentPtr; // Pointer to existing GL_SHADER component
@@ -71,7 +70,6 @@ namespace GLS{
 		void enableColliderComponentCollisions(); // Enables collisions
 		void disableColliderComponentCollisions(); // Disables collisions
 		GLboolean shouldColliderComponentCollide()const; // Returns whether object should be able to collide with other objects
-
 		
 		////////////////////////////////////////////////////////////////// GL_GameObject interface for component management
 		const GLS::GL_Shape*getShapeComponent()const;

@@ -14,14 +14,18 @@
 #include "GL_Component.h"
 
 namespace GLS{
-
-
-	class GL_CollisionBehaviour:public GL_Component{
-		
+	class GL_Script:public GL_Component{
+		std::string _scriptName;
+		void*_scriptPtr;
+		GLboolean _shouldExecute;
 	public:
-		GL_CollisionBehaviour();
-		~GL_CollisionBehaviour();
+		GL_Script(std::string scriptName,scriptrPtr=nullptr);
+		~GL_Script();
+
+		void executeScript();
+		void enableExecution();
+		void disableExecution();
+		GLboolean shouldExecute()const;
 		
 	};
 }
-
