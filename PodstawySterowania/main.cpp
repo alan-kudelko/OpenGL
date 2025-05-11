@@ -163,7 +163,7 @@ int main(){
     while(!glfwWindowShouldClose(window)){
         currentFrame=glfwGetTime();
         deltaTime=static_cast<float>(currentFrame-lastFrame);
-        lastFrame = currentFrame;
+        lastFrame=currentFrame;
 
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

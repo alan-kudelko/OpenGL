@@ -54,6 +54,8 @@ void GLS::GL_GameObject::setGameObjectRotation(glm::vec3 gameObjectRotation){
 		_gameObjectRotation.y+=360.0f;
 	if(_gameObjectRotation.z<-360.0f)
 		_gameObjectRotation.z+=360.0f;
+	
+	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
 	// Change to modulo
 	// Place this checking code in other method as all rotations should check for cycling values
 }
@@ -62,6 +64,7 @@ void GLS::GL_GameObject::updateGameObjectLocation(glm::vec3 gameObjectLocation){
 }
 void GLS::GL_GameObject::updateGameObjectRotation(glm::vec3 gameObjectRotation){
 	_gameObjectRotation+=gameObjectRotation;
+	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
 }
 void GLS::GL_GameObject::setShapeComponentLocation(glm::vec3 shapeComponentLocation){
 	(*_shapeComponentLocation)=shapeComponentLocation;
@@ -71,6 +74,13 @@ void GLS::GL_GameObject::setShapeComponentRotation(glm::vec3 shapeComponentRotat
 }
 void GLS::GL_GameObject::setShapeComponentSize(glm::vec3 shapeComponentScale){
 	(*_shapeComponentScale)=shapeComponentScale;
+}
+void GLS::GL_GameObject::setColliderComponentLocation(glm::vec3 location){
+	_colliderComponentPtr->setBoundingBoxLocation(location);
+}
+void GLS::GL_GameObject::setColliderComponentSize(glm::vec3 size){
+	_colliderComponentPtr->setBoundingBoxSize(size);
+	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
 }
 GLboolean GLS::GL_GameObject::shouldRender()const{
 	return _renderEnable;

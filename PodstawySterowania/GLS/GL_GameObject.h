@@ -40,7 +40,6 @@ namespace GLS{
 		// There should be possibility to attach your own functions
 		// Of course function should have the same signature
 		// Maybe class of "after collision" behaviours?
-		void _updateColliderBoundingBox(glm::vec3 size);
 		public:
 		GL_GameObject(glm::vec3 location={},glm::vec3 rotation={},std::string name="Default");
 		~GL_GameObject();
@@ -62,8 +61,8 @@ namespace GLS{
 		void setShapeComponentRotation(glm::vec3 shapeComponentRotation); // Sets current GL_SHAPE component rotation
 		void setShapeComponentSize(glm::vec3 shapeComponentScale); // Sets current GL_SHAPE component scale
 		
-		void setColliderComponentLocation(glm::vec3 location)const; // Sets relative offset of GL_Collider
-		void setColliderComponentSize(glm::vec3 size)const; // Sets size of GL_Collider component
+		void setColliderComponentLocation(glm::vec3 location); // Sets relative offset of GL_Collider
+		void setColliderComponentSize(glm::vec3 size); // Sets size of GL_Collider component
 
 		GLboolean shouldRender()const; // Returns whether object is enabled for rendering on screen
 		void enableRender(); // Enables rendering on screen

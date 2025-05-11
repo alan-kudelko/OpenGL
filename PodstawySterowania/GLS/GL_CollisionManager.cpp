@@ -23,24 +23,16 @@ GLboolean GLS::GL_CollisionManager::checkCollision(GLS::GL_GameObject*obj1,GLS::
 
 	glm::vec3 obj1GameObjectPosition=obj1->getGameObjectLocation();
 	glm::vec3 obj2GameObjectPosition=obj2->getGameObjectLocation();
+	
 	glm::vec3 obj1GameObjectRotation=obj1->getGameObjectRotation();
 	glm::vec3 obj2GameObjectRotation=obj2->getGameObjectRotation();
 
+	// This will be changed as the colllider is changed
 
-	glm::mat3 obj1BoundindBoxRotationMatrix=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(obj1GameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
-	glm::mat3 obj2BoundindBoxRotationMatrix=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(obj2GameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
-
-	auto mat3abs=[](glm::mat3&m){
-		for(GLuint i=0;i<3;i++)
-			m[i]=glm::abs(m[i]);
-        return m;
-	};
-
-	glm::vec3 obj1BoundingBoxMin=-mat3abs(obj1BoundindBoxRotationMatrix)*obj1Collider->getBoundingBoxSize()/2.0f+obj1GameObjectPosition;
-	glm::vec3 obj1BoundingBoxMax=mat3abs(obj1BoundindBoxRotationMatrix)*obj1Collider->getBoundingBoxSize()/2.0f+obj1GameObjectPosition;
-
-	glm::vec3 obj2BoundingBoxMin=-mat3abs(obj2BoundindBoxRotationMatrix)*obj2Collider->getBoundingBoxSize()/2.0f+obj2GameObjectPosition;
-	glm::vec3 obj2BoundingBoxMax=mat3abs(obj2BoundindBoxRotationMatrix)*obj2Collider->getBoundingBoxSize()/2.0f+obj2GameObjectPosition;
+	glm::vec3 obj1BoundingBoxMin=obj1Collider->getBoundingBoxMin()+obj1GameObjectPosition;
+	glm::vec3 obj1BoundingBoxMax=obj1Collider->getBoundingBoxMax()+obj1GameObjectPosition;
+	glm::vec3 obj2BoundingBoxMin=obj2Collider->getBoundingBoxMin()+obj2GameObjectPosition;
+	glm::vec3 obj2BoundingBoxMax=obj2Collider->getBoundingBoxMax()+obj2GameObjectPosition;
 
 	GLboolean didCollide=GL_FALSE;
 	// AABB
@@ -50,7 +42,6 @@ GLboolean GLS::GL_CollisionManager::checkCollision(GLS::GL_GameObject*obj1,GLS::
 		std::cout<<"Kolizja"<<std::endl;
 		didCollide=GL_TRUE;
 	}
-
 
 	return didCollide;
 }
