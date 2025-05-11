@@ -14,7 +14,7 @@
 #include "GL_Component.h"
 
 namespace GLS{
-	// For sure there should be some kind of interface to generate collider based on geometry of an object
+	// For sure there should be some kind of interface to generate collider based on geometry of an object but that will be for child classes
 	// Another possibilities are simple prefabs like triangle or polygon
 	// GL_Collider should contain size, location and rotation of collision box
 	// Maybe size isn't a good idea, I think it should be more generalized
@@ -23,6 +23,7 @@ namespace GLS{
 	// Collision handling will be processed by class GL_CollisionManager
 
 	class GL_Collider:public GL_Component{
+		GLboolean _collisionEnable;
 		GLuint _collisionGroup;
 		glm::vec3 _boundingBoxLocation;
 		glm::vec3 _originalBoundingBoxSize;
@@ -34,15 +35,16 @@ namespace GLS{
 		GLuint getCollisionGroup()const;
 		glm::vec3 getBoundingBoxLocation()const;
 		glm::vec3 getBoundingBoxSize()const;
-		
 		glm::vec3 getBoundingBoxMin()const; // Used by GL_ColliderManager only
 		glm::vec3 getBoundingBoxMax()const; // Same
 
 		void setCollisionGroup(GLuint collisionGroup);
 		void setBoundingBoxLocation(glm::vec3 boundingBoxLocation);
 		void setBoundingBoxSize(glm::vec3 boundingBoxSize);
-		
 		void updateBoundingBoxSize(glm::vec3 rotation); // Used to recalculate bounding box dimensions after rotation
+		void enableCollisions();
+		void disableCollisions();
+		GLboolean shouldCollide()const; // Returns wheter collider should interact with other objects
 	};
 }
 

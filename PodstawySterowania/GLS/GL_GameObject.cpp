@@ -1,5 +1,12 @@
 #include "GL_GameObject.h"
 
+
+////////////////////////////////////////////////////////////////// GL_GameObject interface
+glm::vec3 GLS::GL_GameObject::_normalizeAngles(glm::vec3){
+	glm::vec3 normalizedAngles;
+	//lambda
+	return normalizedAngles;
+}
 GLS::GL_GameObject::GL_GameObject(glm::vec3 location,glm::vec3 rotation,std::string name){
 	_name=name;
 	_gameObjectLocation=location;
@@ -12,7 +19,6 @@ GLS::GL_GameObject::GL_GameObject(glm::vec3 location,glm::vec3 rotation,std::str
 	_colliderComponentPtr=nullptr;
 
 	_renderEnable=GL_TRUE;
-	_collisionEnable=GL_FALSE;
 }
 GLS::GL_GameObject::~GL_GameObject(){
 	delete _shapeComponentLocation;
@@ -25,15 +31,6 @@ glm::vec3 GLS::GL_GameObject::getGameObjectLocation()const{
 }
 glm::vec3 GLS::GL_GameObject::getGameObjectRotation()const{
 	return _gameObjectRotation;
-}
-glm::vec3 GLS::GL_GameObject::getShapeComponentLocation()const{
-	return *_shapeComponentLocation;
-}
-glm::vec3 GLS::GL_GameObject::getShapeComponentRotation()const{
-	return *_shapeComponentRotation;
-}
-glm::vec3 GLS::GL_GameObject::getShapeComponentScale()const{
-	return *_shapeComponentScale;
 }
 void GLS::GL_GameObject::setGameObjectLocation(glm::vec3 gameObjectLocation){
 	_gameObjectLocation=gameObjectLocation;
@@ -66,40 +63,68 @@ void GLS::GL_GameObject::updateGameObjectRotation(glm::vec3 gameObjectRotation){
 	_gameObjectRotation+=gameObjectRotation;
 	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
 }
+////////////////////////////////////////////////////////////////// GL_Shape interface 
+glm::vec3 GLS::GL_GameObject::getShapeComponentLocation()const{
+	if(_shapeComponentPtr!=nullptr)
+		return *_shapeComponentLocation;
+	return glm::vec3{};
+}
+glm::vec3 GLS::GL_GameObject::getShapeComponentRotation()const{
+	if(_shapeComponentPtr!=nullptr)
+		return *_shapeComponentRotation;
+	return glm::vec3{};
+}
+glm::vec3 GLS::GL_GameObject::getShapeComponentSize()const{
+	if(_shapeComponentPtr!=nullptr)
+		return *_shapeComponentScale;
+	return glm::vec3{};
+}
 void GLS::GL_GameObject::setShapeComponentLocation(glm::vec3 shapeComponentLocation){
-	(*_shapeComponentLocation)=shapeComponentLocation;
+	if(_shapeComponentPtr!=nullptr)
+		(*_shapeComponentLocation)=shapeComponentLocation;
 }
 void GLS::GL_GameObject::setShapeComponentRotation(glm::vec3 shapeComponentRotation){
-	(*_shapeComponentRotation)=shapeComponentRotation;
+	if(_shapeComponentPtr!=nullptr)
+		(*_shapeComponentRotation)=shapeComponentRotation;
 }
 void GLS::GL_GameObject::setShapeComponentSize(glm::vec3 shapeComponentScale){
-	(*_shapeComponentScale)=shapeComponentScale;
+	if(_shapeComponentPtr!=nullptr)	
+		(*_shapeComponentScale)=shapeComponentScale;
 }
-void GLS::GL_GameObject::setColliderComponentLocation(glm::vec3 location){
-	_colliderComponentPtr->setBoundingBoxLocation(location);
-}
-void GLS::GL_GameObject::setColliderComponentSize(glm::vec3 size){
-	_colliderComponentPtr->setBoundingBoxSize(size);
-	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
-}
-GLboolean GLS::GL_GameObject::shouldRender()const{
-	return _renderEnable;
-}
-void GLS::GL_GameObject::enableRender(){
+void GLS::GL_GameObject::enableShapeComponentRender(){
 	_renderEnable=GL_TRUE;
 }
-void GLS::GL_GameObject::disableRender(){
+void GLS::GL_GameObject::disableShapeComponentRender(){
 	_renderEnable=GL_FALSE;
 }
-GLboolean GLS::GL_GameObject::shouldCollide()const{
-	return _collisionEnable;
+GLboolean GLS::GL_GameObject::shouldShapeComponentRender()const{
+	return _renderEnable;
 }
-void GLS::GL_GameObject::enableCollisions(){
-	_collisionEnable=GL_TRUE;
+////////////////////////////////////////////////////////////////// GL_Collider interface
+void GLS::GL_GameObject::setColliderComponentLocation(glm::vec3 location){
+	if(_colliderComponentPtr!=nullptr)
+		_colliderComponentPtr->setBoundingBoxLocation(location);
 }
-void GLS::GL_GameObject::disableCollisions(){
-	_collisionEnable=GL_FALSE;
+void GLS::GL_GameObject::setColliderComponentSize(glm::vec3 size){
+	if(_colliderComponentPtr!=nullptr){
+		_colliderComponentPtr->setBoundingBoxSize(size);
+		_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
+	}
 }
+void GLS::GL_GameObject::enableColliderComponentCollisions(){
+	if(_colliderComponentPtr!=nullptr)
+		_colliderComponentPtr->enableCollisions();
+}
+void GLS::GL_GameObject::disableColliderComponentCollisions(){
+	if(_colliderComponentPtr!=nullptr)
+		_colliderComponentPtr->disableCollisions();
+}
+GLboolean GLS::GL_GameObject::shouldColliderComponentCollide()const{
+	if(_colliderComponentPtr!=nullptr)
+		return _colliderComponentPtr->shouldCollide();
+	return GL_FALSE;
+}
+////////////////////////////////////////////////////////////////// GL_GameObject interface for component management
 const GLS::GL_Shape*GLS::GL_GameObject::getShapeComponent()const{
 	return _shapeComponentPtr;
 }

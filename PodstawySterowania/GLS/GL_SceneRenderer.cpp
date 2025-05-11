@@ -29,7 +29,7 @@ void GLS::GL_SceneRenderer::renderObject(const GLS::GL_GameObject&gameObject){
 
 	glm::vec3 shapeComponentLocation=gameObject.getShapeComponentLocation();
 	glm::vec3 shapeComponentRotation=gameObject.getShapeComponentRotation();
-	glm::vec3 shapeComponentScale=gameObject.getShapeComponentScale();
+	glm::vec3 shapeComponentScale=gameObject.getShapeComponentSize();
 
 	model=glm::translate(model,gameObjectLocation)*glm::rotate(model,glm::radians(gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::translate(model,shapeComponentLocation)*glm::rotate(model,glm::radians(shapeComponentRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,shapeComponentScale);
 

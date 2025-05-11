@@ -6,6 +6,7 @@ GLS::GL_Collider::GL_Collider(glm::vec3 boundingBoxLocation,glm::vec3 boundingBo
 	_originalBoundingBoxSize=boundingBoxSize;
 	_collisionGroup=collisionGroup;
 	_transformedBoundingBoxSize=boundingBoxSize;
+	_collisionEnable=GL_TRUE;
 }
 GLS::GL_Collider::~GL_Collider(){
 
@@ -44,4 +45,13 @@ void GLS::GL_Collider::updateBoundingBoxSize(glm::vec3 rotation){
 	};	
 	
 	_transformedBoundingBoxSize=mat3abs(boundingBoxRotation)*_originalBoundingBoxSize;
+}
+void GLS::GL_Collider::enableCollisions(){
+	_collisionEnable=GL_TRUE;
+}
+void GLS::GL_Collider::disableCollisions(){
+	_collisionEnable=GL_FALSE;
+}
+GLboolean GLS::GL_Collider::shouldCollide()const{
+	return _collisionEnable;
 }
