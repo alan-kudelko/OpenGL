@@ -176,7 +176,7 @@
 	<limits.h>
 	<crtdbg.h>
 
-1747005363 source:d:\projekty\opengl\podstawysterowania\main.cpp
+1747067494 source:d:\projekty\opengl\podstawysterowania\main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
@@ -187,12 +187,12 @@
 	<fstream>
 	<string>
 	<sstream>
+	<windows.h>
 	"GLS/GL_Shape.h"
 	"GLS/GL_Shader.h"
 	"GLS/GL_GameObject.h"
 	"GLS/GL_SceneRenderer.h"
 	"GLS/GL_CollisionManager.h"
-	"scripts/NewScript1.h"
 
 1708703617 d:\projekty\opengl\podstawysterowania\include\glfw\glfw3.h
 	<stddef.h>
@@ -775,5 +775,5 @@
 	<glm/gtc/type_ptr.hpp>
 	"GL_GameObject.h"
 
-1747005900 d:\projekty\opengl\podstawysterowania\scripts\newscript1.h
+1747007690 d:\projekty\opengl\podstawysterowania\scripts\newscript1.h
 

@@ -23,6 +23,10 @@
 					<Add library="lib/User32.Lib" />
 					<Add directory="lib" />
 				</Linker>
+				<ExtraCommands>
+					<Add before="g++ -shared scripts/NewScript1.cpp -o lib/NewScript1.dll" />
+					<Mode after="always" />
+				</ExtraCommands>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/PodstawySterowania" prefix_auto="1" extension_auto="1" />

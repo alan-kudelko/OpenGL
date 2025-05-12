@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <windows.h>
 
 #include "GLS/GL_Shape.h"
 #include "GLS/GL_Shader.h"
@@ -17,7 +18,6 @@
 #include "GLS/GL_SceneRenderer.h"
 #include "GLS/GL_CollisionManager.h"
 
-#include "scripts/NewScript1.h"
 
 enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
 const char*vertexShaderPath="shaders/orto_vertex_shader.vert";
@@ -118,7 +118,6 @@ GLFWwindow*initializeOpenGL(){
 }
 
 int main(){
-    HelloWorld();
     GLFWwindow*window=initializeOpenGL();
 
     if(window==nullptr)
