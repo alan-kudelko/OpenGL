@@ -11,14 +11,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "GL_Component.h"
 #include "GL_GameObject.h"
 
 namespace GLS{
+	class GL_GameObject;
 	// Simple temporary class for managing after collision actions
 	void behaviourDestroyAfterCollision(GLS::GL_GameObject*gameObject);
 
-	class GL_CollisionBehaviour:public GL_Component{
+	class GL_CollisionBehaviour:public GLS::GL_Component{
 		GLboolean _behaviourActive;
 		void (*_behaviourFunPtr)(GLS::GL_GameObject*);
 	public:

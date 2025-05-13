@@ -17,6 +17,7 @@ GLS::GL_GameObject::GL_GameObject(glm::vec3 location,glm::vec3 rotation,std::str
 	_shapeComponentPtr=nullptr;
 	_shaderComponentPtr=nullptr;
 	_colliderComponentPtr=nullptr;
+	_collisionBehaviourComponentPtr=nullptr;
 	
 	_shouldDestroy=GL_FALSE;
 	_renderEnable=GL_TRUE;
@@ -26,6 +27,7 @@ GLS::GL_GameObject::~GL_GameObject(){
 	delete _shapeComponentRotation;
 	delete _shapeComponentScale;
 	delete _colliderComponentPtr;
+	delete _collisionBehaviourComponentPtr;
 }
 glm::vec3 GLS::GL_GameObject::getGameObjectLocation()const{
 	return _gameObjectLocation;
@@ -155,4 +157,7 @@ void GLS::GL_GameObject::assignShaderComponent(GLS::GL_Shader*component){
 }
 void GLS::GL_GameObject::createCollisionComponent(glm::vec3 location,glm::vec3 size,GLuint collisionGroup){
 	_colliderComponentPtr=new GLS::GL_Collider(location,size,collisionGroup);
+}
+void GLS::GL_GameObject::createCollisionBehaviourComponent(){
+	_collisionBehaviourComponentPtr=new GLS::GL_CollisionBehaviour;
 }

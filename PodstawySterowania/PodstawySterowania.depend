@@ -176,7 +176,7 @@
 	<limits.h>
 	<crtdbg.h>
 
-1747158836 source:d:\projekty\opengl\podstawysterowania\main.cpp
+1747162056 source:d:\projekty\opengl\podstawysterowania\main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
@@ -193,6 +193,7 @@
 	"GLS/GL_GameObject.h"
 	"GLS/GL_SceneRenderer.h"
 	"GLS/GL_CollisionManager.h"
+	"GLS/GL_CollisionBehaviour.h"
 	"GLS/GL_SceneManager.h"
 
 1708703617 d:\projekty\opengl\podstawysterowania\include\glfw\glfw3.h
@@ -689,7 +690,7 @@
 1746724953 source:d:\projekty\opengl\podstawysterowania\gls\gl_shader.cpp
 	"GL_Shader.h"
 
-1747154919 source:d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.cpp
+1747160889 source:d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.cpp
 	"GL_GameObject.h"
 
 1746715022 d:\projekty\opengl\podstawysterowania\gls\gl_component.h
@@ -701,7 +702,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1747154886 d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.h
+1747161539 d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
@@ -715,6 +716,7 @@
 	"GL_Shape.h"
 	"GL_Shader.h"
 	"GL_Collider.h"
+	"GL_CollisionBehaviour.h"
 
 1746867993 d:\projekty\opengl\podstawysterowania\gls\gl_shape.h
 	<glad/glad.h>
@@ -728,7 +730,7 @@
 	<glm/gtc/type_ptr.hpp>
 	"GL_Component.h"
 
-1747158754 source:d:\projekty\opengl\podstawysterowania\gls\gl_scenerenderer.cpp
+1747159017 source:d:\projekty\opengl\podstawysterowania\gls\gl_scenerenderer.cpp
 	"GL_SceneRenderer.h"
 
 1747157976 d:\projekty\opengl\podstawysterowania\gls\gl_scenerenderer.h
@@ -762,7 +764,7 @@
 1746998549 source:d:\projekty\opengl\podstawysterowania\gls\gl_collider.cpp
 	"GL_Collider.h"
 
-1747000202 source:d:\projekty\opengl\podstawysterowania\gls\gl_collisionmanager.cpp
+1747162129 source:d:\projekty\opengl\podstawysterowania\gls\gl_collisionmanager.cpp
 	"GL_CollisionManager.h"
 
 1746977647 d:\projekty\opengl\podstawysterowania\gls\gl_collisionmanager.h
@@ -779,10 +781,10 @@
 
 1747007690 d:\projekty\opengl\podstawysterowania\scripts\newscript1.h
 
-1747154939 source:d:\projekty\opengl\podstawysterowania\gls\gl_collisionbehaviour.cpp
+1747160937 source:d:\projekty\opengl\podstawysterowania\gls\gl_collisionbehaviour.cpp
 	"GL_CollisionBehaviour.h"
 
-1747069916 d:\projekty\opengl\podstawysterowania\gls\gl_collisionbehaviour.h
+1747161518 d:\projekty\opengl\podstawysterowania\gls\gl_collisionbehaviour.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
@@ -792,13 +794,12 @@
 	<glm/mat4x4.hpp>
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
-	"GL_Component.h"
 	"GL_GameObject.h"
 
 1747158595 source:d:\projekty\opengl\podstawysterowania\gls\gl_scenemanager.cpp
 	"GL_SceneManager.h"
 
-1747158594 d:\projekty\opengl\podstawysterowania\gls\gl_scenemanager.h
+1747159004 d:\projekty\opengl\podstawysterowania\gls\gl_scenemanager.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>

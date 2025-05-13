@@ -5,7 +5,7 @@ void GLS::behaviourDestroyAfterCollision(GLS::GL_GameObject*gameObject){
 }
 GLS::GL_CollisionBehaviour::GL_CollisionBehaviour(){
 	_behaviourActive=GL_FALSE;
-	_behaviourFunPtr=nullptr;
+	_behaviourFunPtr=&GLS::behaviourDestroyAfterCollision;
 }
 GLS::GL_CollisionBehaviour::~GL_CollisionBehaviour(){
 	

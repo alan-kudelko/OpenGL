@@ -17,6 +17,7 @@
 #include "GLS/GL_GameObject.h"
 #include "GLS/GL_SceneRenderer.h"
 #include "GLS/GL_CollisionManager.h"
+#include "GLS/GL_CollisionBehaviour.h"
 #include "GLS/GL_SceneManager.h"
 
 enum{WINDOW_SIZE_X=1000,WINDOW_SIZE_Y=1000};
@@ -202,6 +203,12 @@ int main(){
 
         sceneManager.getSceneObject(0)->updateGameObjectLocation(locationUpdate);
         sceneManager.getSceneObject(0)->updateGameObjectRotation(rotationUpdate);
+        auto werdon=sceneManager.getSceneObjects();
+        for(auto it=werdon.begin()+1;it!=werdon.end();++it){
+            GL_CollisionManager1.checkCollision(werdon[0],*it);
+        }
+        sceneManager.updateScene();
+
         //GL_CollisionManager1.checkCollision(&gObj1,&gObj2);
         //gObj2.setShapeComponentRotation(glm::vec3(0.0f,0.0f,10.0f*glfwGetTime()/1));
 
