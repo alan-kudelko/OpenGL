@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////// GL_GameObject interface
 glm::vec3 GLS::GL_GameObject::_normalizeAngles(glm::vec3){
 	glm::vec3 normalizedAngles;
-	//lambda
+	//lambda but that's for later
 	return normalizedAngles;
 }
 GLS::GL_GameObject::GL_GameObject(glm::vec3 location,glm::vec3 rotation,std::string name){
@@ -17,7 +17,8 @@ GLS::GL_GameObject::GL_GameObject(glm::vec3 location,glm::vec3 rotation,std::str
 	_shapeComponentPtr=nullptr;
 	_shaderComponentPtr=nullptr;
 	_colliderComponentPtr=nullptr;
-
+	
+	_shouldDestroy=GL_FALSE;
 	_renderEnable=GL_TRUE;
 }
 GLS::GL_GameObject::~GL_GameObject(){
@@ -62,6 +63,15 @@ void GLS::GL_GameObject::updateGameObjectLocation(glm::vec3 gameObjectLocation){
 void GLS::GL_GameObject::updateGameObjectRotation(glm::vec3 gameObjectRotation){
 	_gameObjectRotation+=gameObjectRotation;
 	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
+}
+void GLS::GL_GameObject::enableDestruction(){
+	_shouldDestroy=GL_TRUE;
+}
+void GLS::GL_GameObject::disableDestruction(){
+	_shouldDestroy=GL_FALSE;
+}
+GLboolean GLS::GL_GameObject::shouldDestroy()const{
+	return _shouldDestroy;
 }
 ////////////////////////////////////////////////////////////////// GL_Shape interface 
 glm::vec3 GLS::GL_GameObject::getShapeComponentLocation()const{

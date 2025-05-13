@@ -1,7 +1,7 @@
 #include "GL_CollisionBehaviour.h"
 
 void GLS::behaviourDestroyAfterCollision(GLS::GL_GameObject*gameObject){
-	
+	gameObject->enableDestruction();
 }
 GLS::GL_CollisionBehaviour::GL_CollisionBehaviour(){
 	_behaviourActive=GL_FALSE;

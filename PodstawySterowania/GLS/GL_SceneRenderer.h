@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -26,7 +27,8 @@ namespace GLS{
 
 		void setProjectionMatrix(glm::mat4 projection);
 
-		void renderObject(const GLS::GL_GameObject&gameObject);
+		void renderObject(const GLS::GL_GameObject&gameObject)const;
+		void renderScene(const std::vector<GLS::GL_GameObject*>& sceneObjects)const;
 	};
 }
 

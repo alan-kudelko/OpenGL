@@ -2,29 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="GLS\GL_CollisionManager.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\KHR\khrplatform.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="378" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="include\stb_vorbis.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="623" topLine="96" />
-		</Cursor>
-	</File>
-	<File name="GLS\GL_Shape.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4533" topLine="129" />
-		</Cursor>
-	</File>
-	<File name="include\GLFW\glfw3.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="495" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3228" topLine="93" />
+			<Cursor1 position="10067" topLine="238" />
 		</Cursor>
 	</File>
 	<File name="GLS\GL_Collider.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -32,14 +12,9 @@
 			<Cursor1 position="601" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="GLS\GL_CollisionManager.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\glad\glad.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="679" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="GLS\GL_GameObject.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3486" topLine="62" />
+			<Cursor1 position="2274" topLine="93" />
 		</Cursor>
 	</File>
 	<File name="GLS\GL_GameObject.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -47,29 +22,19 @@
 			<Cursor1 position="3882" topLine="29" />
 		</Cursor>
 	</File>
-	<File name="include\KHR\khrplatform.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="10067" topLine="238" />
-		</Cursor>
-	</File>
 	<File name="GLS\GL_Collider.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="284" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="GLS\GL_SceneRenderer.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\GLFW\glfw3.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="285" topLine="0" />
+			<Cursor1 position="495" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="GLS\GL_Shader.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\stb_vorbis.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1800" topLine="38" />
-		</Cursor>
-	</File>
-	<File name="include\glad\glad.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2274" topLine="93" />
+			<Cursor1 position="623" topLine="96" />
 		</Cursor>
 	</File>
 	<File name="include\glad.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -77,9 +42,49 @@
 			<Cursor1 position="86637" topLine="1454" />
 		</Cursor>
 	</File>
+	<File name="GLS\GL_CollisionManager.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="378" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="GLS\GL_Shape.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4533" topLine="129" />
+		</Cursor>
+	</File>
+	<File name="GLS\GL_CollisionManager.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="679" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="GLS\GL_SceneRenderer.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="285" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="GLS\GL_CollisionBehaviour.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="284" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="GLS\GL_SceneRenderer.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="601" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="GLS\GL_Shader.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1800" topLine="38" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2636" topLine="78" />
+		</Cursor>
+	</File>
+	<File name="GLS\GL_GameObject.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3486" topLine="62" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

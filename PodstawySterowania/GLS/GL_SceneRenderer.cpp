@@ -12,7 +12,7 @@ glm::mat4 GLS::GL_SceneRenderer::getProjectionMatrix()const{
 void GLS::GL_SceneRenderer::setProjectionMatrix(glm::mat4 projection){
 	_projection=projection;
 }
-void GLS::GL_SceneRenderer::renderObject(const GLS::GL_GameObject&gameObject){
+void GLS::GL_SceneRenderer::renderObject(const GLS::GL_GameObject&gameObject)const{
 	const GL_Component*shapeComponent=gameObject.getShapeComponent();
 	const GL_Shader*shaderComponent=gameObject.getShaderComponent();
 
@@ -49,5 +49,10 @@ void GLS::GL_SceneRenderer::renderObject(const GLS::GL_GameObject&gameObject){
 		glUseProgram(shaderComponent->getShaderID());
 		glBindVertexArray(shape->getVAO());
 		glDrawElements(GL_TRIANGLES,shape->getIndicesN(),GL_UNSIGNED_INT,0);
+	}
+}
+void GLS::GL_SceneRenderer::renderScene(const std::vector<GLS::GL_GameObject*>& sceneObjects)const{
+	for(auto it=sceneObjects.begin();it!=sceneObjects.end();++it){
+		this->renderObject(*(*it));
 	}
 }

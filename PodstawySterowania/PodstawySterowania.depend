@@ -176,7 +176,7 @@
 	<limits.h>
 	<crtdbg.h>
 
-1747067494 source:d:\projekty\opengl\podstawysterowania\main.cpp
+1747158836 source:d:\projekty\opengl\podstawysterowania\main.cpp
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<glm/vec3.hpp>
@@ -193,6 +193,7 @@
 	"GLS/GL_GameObject.h"
 	"GLS/GL_SceneRenderer.h"
 	"GLS/GL_CollisionManager.h"
+	"GLS/GL_SceneManager.h"
 
 1708703617 d:\projekty\opengl\podstawysterowania\include\glfw\glfw3.h
 	<stddef.h>
@@ -688,7 +689,7 @@
 1746724953 source:d:\projekty\opengl\podstawysterowania\gls\gl_shader.cpp
 	"GL_Shader.h"
 
-1746999737 source:d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.cpp
+1747154919 source:d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.cpp
 	"GL_GameObject.h"
 
 1746715022 d:\projekty\opengl\podstawysterowania\gls\gl_component.h
@@ -700,7 +701,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	<glm/gtc/type_ptr.hpp>
 
-1747000543 d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.h
+1747154886 d:\projekty\opengl\podstawysterowania\gls\gl_gameobject.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
@@ -727,14 +728,15 @@
 	<glm/gtc/type_ptr.hpp>
 	"GL_Component.h"
 
-1746999768 source:d:\projekty\opengl\podstawysterowania\gls\gl_scenerenderer.cpp
+1747158754 source:d:\projekty\opengl\podstawysterowania\gls\gl_scenerenderer.cpp
 	"GL_SceneRenderer.h"
 
-1746732809 d:\projekty\opengl\podstawysterowania\gls\gl_scenerenderer.h
+1747157976 d:\projekty\opengl\podstawysterowania\gls\gl_scenerenderer.h
 	<glad/glad.h>
 	<GLFW/glfw3.h>
 	<cmath>
 	<iostream>
+	<vector>
 	<glm/vec3.hpp>
 	<glm/vec4.hpp>
 	<glm/mat4x4.hpp>
@@ -776,4 +778,36 @@
 	"GL_GameObject.h"
 
 1747007690 d:\projekty\opengl\podstawysterowania\scripts\newscript1.h
+
+1747154939 source:d:\projekty\opengl\podstawysterowania\gls\gl_collisionbehaviour.cpp
+	"GL_CollisionBehaviour.h"
+
+1747069916 d:\projekty\opengl\podstawysterowania\gls\gl_collisionbehaviour.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<cmath>
+	<iostream>
+	<glm/vec3.hpp>
+	<glm/vec4.hpp>
+	<glm/mat4x4.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	"GL_Component.h"
+	"GL_GameObject.h"
+
+1747158595 source:d:\projekty\opengl\podstawysterowania\gls\gl_scenemanager.cpp
+	"GL_SceneManager.h"
+
+1747158594 d:\projekty\opengl\podstawysterowania\gls\gl_scenemanager.h
+	<glad/glad.h>
+	<GLFW/glfw3.h>
+	<cmath>
+	<vector>
+	<iostream>
+	<glm/vec3.hpp>
+	<glm/vec4.hpp>
+	<glm/mat4x4.hpp>
+	<glm/gtc/matrix_transform.hpp>
+	<glm/gtc/type_ptr.hpp>
+	"GL_GameObject.h"
 

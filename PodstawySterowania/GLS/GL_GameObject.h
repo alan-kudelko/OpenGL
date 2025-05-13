@@ -21,6 +21,7 @@ namespace GLS{
 	class GL_GameObject{
 		std::string _name; // Some kind of identifier to differentiate created objects
 		GLboolean _renderEnable; // Rather should be associated with shape
+		GLboolean _shouldDestroy; // Flag indicating if object should be destroyed after event
 		glm::vec3 _gameObjectLocation; // Location of GL_GameObject object in 2D/3D world
 		glm::vec3 _gameObjectRotation; // Rotation of GL_GameObject object in 2D/3D world
 
@@ -40,6 +41,7 @@ namespace GLS{
 		// Of course function should have the same signature
 		// Maybe class of "after collision" behaviours?
 		glm::vec3 _normalizeAngles(glm::vec3); // Method for normaling angle to [0,360) degrees
+		
 		public:
 		////////////////////////////////////////////////////////////////// GL_GameObject interface
 		GL_GameObject(glm::vec3 location={},glm::vec3 rotation={},std::string name="Default");
@@ -52,6 +54,10 @@ namespace GLS{
 		void setGameObjectRotation(glm::vec3 gameObjectRotation); // Sets current GL_GameObject rotation
 		void updateGameObjectLocation(glm::vec3 gameObjectLocation); // Method for incrementing location coordinates
 		void updateGameObjectRotation(glm::vec3 gameObjectRotation); // Method for incrementing rotation coordinates
+		
+		void enableDestruction();
+		void disableDestruction();
+		GLboolean shouldDestroy()const;
 		
 		////////////////////////////////////////////////////////////////// GL_Shape interface 
 		glm::vec3 getShapeComponentLocation()const; // Returns current GL_SHAPE component location
