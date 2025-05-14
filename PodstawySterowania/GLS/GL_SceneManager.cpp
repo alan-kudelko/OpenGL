@@ -9,11 +9,17 @@ GLS::GL_SceneManager::~GL_SceneManager(){
 void GLS::GL_SceneManager::addNewGameObject(GLS::GL_GameObject*gameObject){
 	_sceneObjects.push_back(gameObject);
 }
-const std::vector<GLS::GL_GameObject*>&GLS::GL_SceneManager::getSceneObjects()const{
+const std::vector<GLS::GL_GameObject*>&GLS::GL_SceneManager::getSceneObjectsConst()const{
 	return _sceneObjects;
 }
-GLS::GL_GameObject*GLS::GL_SceneManager::getSceneObject(GLuint it){
-	return _sceneObjects[it];
+std::vector<GLS::GL_GameObject*>&GLS::GL_SceneManager::getSceneObjectsMutable(){
+	return _sceneObjects;
+}
+const GLS::GL_GameObject&GLS::GL_SceneManager::getSceneObjectConst(GLuint index)const{
+	return *_sceneObjects[index];
+}
+GLS::GL_GameObject&GLS::GL_SceneManager::getSceneObjectMutable(GLuint index){
+	return *_sceneObjects[index];
 }
 GLuint GLS::GL_SceneManager::getSceneObjectNumber()const{
 	return _sceneObjects.size();
@@ -21,8 +27,8 @@ GLuint GLS::GL_SceneManager::getSceneObjectNumber()const{
 void GLS::GL_SceneManager::clearScene(){
 	_sceneObjects.clear();
 }
-void GLS::GL_SceneManager::updateScene(){
-    for(auto it=_sceneObjects.begin();it!=_sceneObjects.end();){
+void GLS::GL_SceneManager::updateScene(GLuint offset=0){
+    for(auto it=_sceneObjects.begin()+offset;it!=_sceneObjects.end();){
         if((*it)->shouldDestroy()){
 			it=_sceneObjects.erase(it);
         }

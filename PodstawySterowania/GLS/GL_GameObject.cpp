@@ -2,15 +2,22 @@
 
 
 ////////////////////////////////////////////////////////////////// GL_GameObject interface
-glm::vec3 GLS::GL_GameObject::_normalizeAngles(glm::vec3){
+glm::vec3 GLS::GL_GameObject::_normalizeAngles(glm::vec3 gameObjectRotation){
 	glm::vec3 normalizedAngles;
-	//lambda but that's for later
+
+	normalizedAngles.x=fmod(fmod(gameObjectRotation.x,360.0f)+360.0f,360.0f);
+    normalizedAngles.y=fmod(fmod(gameObjectRotation.y,360.0f)+360.0f,360.0f);
+    normalizedAngles.z=fmod(fmod(gameObjectRotation.z,360.0f)+360.0f,360.0f);
+
 	return normalizedAngles;
 }
 GLS::GL_GameObject::GL_GameObject(glm::vec3 location,glm::vec3 rotation,std::string name){
 	_name=name;
 	_gameObjectLocation=location;
 	_gameObjectRotation=rotation;
+	
+	_gameObjectLinearVelocity=glm::vec3{};
+	_gameObjectRotationalVelocity=glm::vec3{};
 
 	_shapeComponentLocation=_shapeComponentRotation=_shapeComponentScale=nullptr;
 
@@ -18,7 +25,7 @@ GLS::GL_GameObject::GL_GameObject(glm::vec3 location,glm::vec3 rotation,std::str
 	_shaderComponentPtr=nullptr;
 	_colliderComponentPtr=nullptr;
 	_collisionBehaviourComponentPtr=nullptr;
-	
+
 	_shouldDestroy=GL_FALSE;
 	_renderEnable=GL_TRUE;
 }
@@ -39,43 +46,30 @@ void GLS::GL_GameObject::setGameObjectLocation(glm::vec3 gameObjectLocation){
 	_gameObjectLocation=gameObjectLocation;
 }
 void GLS::GL_GameObject::setGameObjectRotation(glm::vec3 gameObjectRotation){
-	_gameObjectRotation=gameObjectRotation;
+	_gameObjectRotation=_normalizeAngles(gameObjectRotation);
 
-	if(_gameObjectRotation.x>360.0f)
-		_gameObjectRotation.x-=360.0f;
-	if(_gameObjectRotation.y>360.0f)
-		_gameObjectRotation.y-=360.0f;
-	if(_gameObjectRotation.z>360.0f)
-		_gameObjectRotation.z-=360.0f;
-
-	if(_gameObjectRotation.x<-360.0f)
-		_gameObjectRotation.x+=360.0f;
-	if(_gameObjectRotation.y<-360.0f)
-		_gameObjectRotation.y+=360.0f;
-	if(_gameObjectRotation.z<-360.0f)
-		_gameObjectRotation.z+=360.0f;
-	
 	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
-	// Change to modulo
-	// Place this checking code in other method as all rotations should check for cycling values
 }
 void GLS::GL_GameObject::updateGameObjectLocation(glm::vec3 gameObjectLocation){
 	_gameObjectLocation+=gameObjectLocation;
 }
 void GLS::GL_GameObject::updateGameObjectRotation(glm::vec3 gameObjectRotation){
 	_gameObjectRotation+=gameObjectRotation;
+
+	_gameObjectRotation=_normalizeAngles(_gameObjectRotation);
+
 	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
 }
-void GLS::GL_GameObject::enableDestruction(){
+void GLS::GL_GameObject::markForDestruction(){
 	_shouldDestroy=GL_TRUE;
 }
-void GLS::GL_GameObject::disableDestruction(){
+void GLS::GL_GameObject::unmarkForDestruction(){
 	_shouldDestroy=GL_FALSE;
 }
 GLboolean GLS::GL_GameObject::shouldDestroy()const{
 	return _shouldDestroy;
 }
-////////////////////////////////////////////////////////////////// GL_Shape interface 
+////////////////////////////////////////////////////////////////// GL_Shape interface
 glm::vec3 GLS::GL_GameObject::getShapeComponentLocation()const{
 	if(_shapeComponentPtr!=nullptr)
 		return *_shapeComponentLocation;
@@ -97,10 +91,10 @@ void GLS::GL_GameObject::setShapeComponentLocation(glm::vec3 shapeComponentLocat
 }
 void GLS::GL_GameObject::setShapeComponentRotation(glm::vec3 shapeComponentRotation){
 	if(_shapeComponentPtr!=nullptr)
-		(*_shapeComponentRotation)=shapeComponentRotation;
+		(*_shapeComponentRotation)=_normalizeAngles(shapeComponentRotation);
 }
 void GLS::GL_GameObject::setShapeComponentSize(glm::vec3 shapeComponentScale){
-	if(_shapeComponentPtr!=nullptr)	
+	if(_shapeComponentPtr!=nullptr)
 		(*_shapeComponentScale)=shapeComponentScale;
 }
 void GLS::GL_GameObject::enableShapeComponentRender(){
@@ -158,6 +152,6 @@ void GLS::GL_GameObject::assignShaderComponent(GLS::GL_Shader*component){
 void GLS::GL_GameObject::createCollisionComponent(glm::vec3 location,glm::vec3 size,GLuint collisionGroup){
 	_colliderComponentPtr=new GLS::GL_Collider(location,size,collisionGroup);
 }
-void GLS::GL_GameObject::createCollisionBehaviourComponent(){
-	_collisionBehaviourComponentPtr=new GLS::GL_CollisionBehaviour;
+void GLS::GL_GameObject::createCollisionBehaviourComponent(void(*behaviourFunPtr)(GLS::GL_GameObject*)){
+	_collisionBehaviourComponentPtr=new GLS::GL_CollisionBehaviour(behaviourFunPtr);
 }

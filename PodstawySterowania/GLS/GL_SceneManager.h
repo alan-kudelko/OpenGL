@@ -17,21 +17,20 @@
 
 namespace GLS{
 	class GL_SceneManager{
-		// Container for all scene objects
-		// For now it works, code needs to be refactorized
-		// but this concept works
 		std::vector<GLS::GL_GameObject*>_sceneObjects;
 	public:
 		GL_SceneManager();
 		~GL_SceneManager();
 
 		void addNewGameObject(GLS::GL_GameObject*gameObject);
-		const std::vector<GLS::GL_GameObject*>&getSceneObjects()const;
-		GL_GameObject*getSceneObject(GLuint it);
+		const std::vector<GLS::GL_GameObject*>&getSceneObjectsConst()const;
+		std::vector<GLS::GL_GameObject*>&getSceneObjectsMutable();
+		
+		const GL_GameObject&getSceneObjectConst(GLuint n)const;
+		GL_GameObject&getSceneObjectMutable(GLuint n);
 		GLuint getSceneObjectNumber()const; // Returns number of scene objects
 		
 		void clearScene(); // Removes all object from the scene
-		void updateScene(); // Checks if object should be destroyed after event for instance - collision
+		void updateScene(GLuint offset=0); // Iterates through objects and checks if any object should be destroyed after event for instance - collision
 	};
 }
-

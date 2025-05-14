@@ -22,7 +22,7 @@ namespace GLS{
 		GLboolean _behaviourActive;
 		void (*_behaviourFunPtr)(GLS::GL_GameObject*);
 	public:
-		GL_CollisionBehaviour();
+		GL_CollisionBehaviour(void(*behaviourFunPtr)(GLS::GL_GameObject*)=nullptr);
 		~GL_CollisionBehaviour();
 
 		void addBehaviour(void(*behaviourFunPtr)(GLS::GL_GameObject*));

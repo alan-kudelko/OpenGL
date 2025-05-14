@@ -42,7 +42,7 @@ GLboolean GLS::GL_CollisionManager::checkCollision(GLS::GL_GameObject*obj1,GLS::
            (obj1BoundingBoxMax.y>obj2BoundingBoxMin.y&&obj1BoundingBoxMin.y<obj2BoundingBoxMax.y)&&
            (obj1BoundingBoxMax.z>obj2BoundingBoxMin.z&&obj1BoundingBoxMin.z<obj2BoundingBoxMax.z)){
 		std::cout<<"Kolizja"<<std::endl;
-			obj2->enableDestruction();
+			obj2->markForDestruction();
 		didCollide=GL_TRUE;
 	}
 

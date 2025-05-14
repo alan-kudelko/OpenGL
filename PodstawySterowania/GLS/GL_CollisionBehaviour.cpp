@@ -1,14 +1,14 @@
 #include "GL_CollisionBehaviour.h"
 
 void GLS::behaviourDestroyAfterCollision(GLS::GL_GameObject*gameObject){
-	gameObject->enableDestruction();
+	gameObject->markForDestruction();
 }
-GLS::GL_CollisionBehaviour::GL_CollisionBehaviour(){
+GLS::GL_CollisionBehaviour::GL_CollisionBehaviour(void(*behaviourFunPtr)(GLS::GL_GameObject*)){
 	_behaviourActive=GL_FALSE;
-	_behaviourFunPtr=&GLS::behaviourDestroyAfterCollision;
+	_behaviourFunPtr=behaviourFunPtr;
 }
 GLS::GL_CollisionBehaviour::~GL_CollisionBehaviour(){
-	
+
 }
 void GLS::GL_CollisionBehaviour::addBehaviour(void(*behaviourFunPtr)(GLS::GL_GameObject*)){
 	_behaviourFunPtr=behaviourFunPtr;

@@ -26,6 +26,8 @@ namespace GLS{
 		GLboolean _shouldDestroy; // Flag indicating if object should be destroyed after event
 		glm::vec3 _gameObjectLocation; // Location of GL_GameObject object in 2D/3D world
 		glm::vec3 _gameObjectRotation; // Rotation of GL_GameObject object in 2D/3D world
+		glm::vec3 _gameObjectLinearVelocity; // Linear velocity of GL_GameObject in 2D/3D world
+		glm::vec3 _gameObjectRotationalVelocity; // Rotational velocity of GL_GameObject in 2D/3D world
 
 		// class GL_Shape has to be changed to move this variables to another component class
 		glm::vec3*_shapeComponentLocation; // Location of GL_SHAPE component object relative to GL_GameObject
@@ -36,14 +38,10 @@ namespace GLS{
 		GL_Shape*_shapeComponentPtr; // Pointer to existing GL_SHAPE component
 		GL_Shader*_shaderComponentPtr; // Pointer to existing GL_SHADER component
 		GL_Collider*_colliderComponentPtr; // Used for creation of new collider component for use in the class
-		GL_CollisionBehaviour*_collisionBehaviourComponentPtr;
+		GL_CollisionBehaviour*_collisionBehaviourComponentPtr; // Used for creation of new behaviour after collision
 		//GL_TEXTURE*_textureComponentPtr;
 		//GL_INPUT_CONTROLLER*_inputControllerComponentPtr;
-		// Pointer for function called upon detected collisions
-		// There should be possibility to attach your own functions
-		// Of course function should have the same signature
-		// Maybe class of "after collision" behaviours?
-		glm::vec3 _normalizeAngles(glm::vec3); // Method for normaling angle to [0,360) degrees
+		glm::vec3 _normalizeAngles(glm::vec3 gameObjectRotation); // Internal method for normalizing angles to [0,360) degrees
 
 		public:
 		////////////////////////////////////////////////////////////////// GL_GameObject interface
@@ -58,9 +56,9 @@ namespace GLS{
 		void updateGameObjectLocation(glm::vec3 gameObjectLocation); // Method for incrementing location coordinates
 		void updateGameObjectRotation(glm::vec3 gameObjectRotation); // Method for incrementing rotation coordinates
 
-		void enableDestruction();
-		void disableDestruction();
-		GLboolean shouldDestroy()const;
+		void markForDestruction(); // Method for marking the object to be destroyed by GL_SceneManager
+		void unmarkForDestruction(); // Method for unmarking the object to be destroyed by GL_SceneManager
+		GLboolean shouldDestroy()const; // Method returning if the object should be destroyed
 
 		////////////////////////////////////////////////////////////////// GL_Shape interface
 		glm::vec3 getShapeComponentLocation()const; // Returns current GL_SHAPE component location
@@ -79,7 +77,8 @@ namespace GLS{
 		void enableColliderComponentCollisions(); // Enables collisions
 		void disableColliderComponentCollisions(); // Disables collisions
 		GLboolean shouldColliderComponentCollide()const; // Returns whether object should be able to collide with other objects
-
+		////////////////////////////////////////////////////////////////// GL_CollisionBehaviour interface
+		
 		////////////////////////////////////////////////////////////////// GL_GameObject interface for component management
 		const GLS::GL_Shape*getShapeComponent()const;
 		const GLS::GL_Shader*getShaderComponent()const;
@@ -89,6 +88,6 @@ namespace GLS{
 		void assignShapeComponent(GLS::GL_Shape*component);
 		void assignShaderComponent(GLS::GL_Shader*component);
 		void createCollisionComponent(glm::vec3 location,glm::vec3 size,GLuint collisionGroup=1); // May be overloaded in the future
-		void createCollisionBehaviourComponent();
+		void createCollisionBehaviourComponent(void(*behaviourFunPtr)(GLS::GL_GameObject*)=&GLS::behaviourDestroyAfterCollision);
 	};
 }
