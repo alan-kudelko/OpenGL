@@ -48,12 +48,16 @@ namespace GLS{
 
 		glm::vec3 getGameObjectLocation()const; // Returns current GL_GameObject location
 		glm::vec3 getGameObjectRotation()const; // Returns current GL_GameObject rotation
-
+		glm::vec3 getGameObjectLinearVelocity()const;
+		glm::vec3 getGameObjectRotationalVelocity()const;
+		
 		void setGameObjectLocation(glm::vec3 gameObjectLocation); // Sets current GL_GameObject location
 		void setGameObjectRotation(glm::vec3 gameObjectRotation); // Sets current GL_GameObject rotation
-		void updateGameObjectLocation(glm::vec3 gameObjectLocation); // Method for incrementing location coordinates
+		void setGameObjectLinearVelocity(glm::vec3 gameObjectLinearVelocity); // Sets current GL_GameObject linear velocity
+		void setGameObjectRotationalVelocity(glm::vec3 gameObjectRotationalVelocity); // Sets current GL_GameObject linear velocity
+		void updateGameObjectLocation(glm::vec3 gameObjectLocation); // Method for incrementing location coordinates (will be erased in the future or moved to private)
 		void updateGameObjectRotation(glm::vec3 gameObjectRotation); // Method for incrementing rotation coordinates
-
+		void updateGameObjectLocation(GLfloat deltaTime); // updates game object's location and rotation according to velocities and deltaTime
 		void markForDestruction(); // Method for marking the object to be destroyed by GL_SceneManager
 		void unmarkForDestruction(); // Method for unmarking the object to be destroyed by GL_SceneManager
 		GLboolean shouldDestroy()const; // Method returning if the object should be destroyed
@@ -81,7 +85,7 @@ namespace GLS{
 		const GLS::GL_Shape*getShapeComponent()const;
 		const GLS::GL_Shader*getShaderComponent()const;
 		const GLS::GL_Collider*getColliderComponent()const;
-		const GLS::GL_CollisionBehaviour*getCollisionBehaviourComponent()const;
+		GLS::GL_CollisionBehaviour*getCollisionBehaviourComponent();
 
 		void assignShapeComponent(GLS::GL_Shape*component);
 		void assignShaderComponent(GLS::GL_Shader*component);

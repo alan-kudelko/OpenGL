@@ -128,7 +128,7 @@ int main(){
     GLS::GL_CollisionManager GL_CollisionManager1;
     GLS::GL_Shader basicShader1(vertexShaderPath,fragmentShaderPath);
     GLS::GL_Polygon r1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
-    GLS::GL_Polygon p1(4,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
+    GLS::GL_Polygon p1(30,basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
     GLS::GL_Triangle t1(basicShader1.getShaderID(),GL_DYNAMIC_DRAW);
 
 
@@ -141,26 +141,82 @@ int main(){
 
     auto initializeScene = [&]() {
         GLS::GL_GameObject* gObj = new GLS::GL_GameObject;
-
+        // Paletka
         gObj->assignShaderComponent(&basicShader1);
         gObj->assignShapeComponent(&r1);
-        gObj->setGameObjectLocation(glm::vec3(300.0f, 500.0f, 0.0f));
+        gObj->setGameObjectLocation(glm::vec3(420.0f, 900.0f, 0.0f));
         gObj->setShapeComponentLocation(glm::vec3(0.0f, 0.0f, 0.0f));
         gObj->setShapeComponentSize(glm::vec3(100.0f, 20.0f, 1.0f));
         gObj->createCollisionComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(100.0f, 20.0f, 1.0f));
+        gObj->createCollisionBehaviourComponent(&GLS::behaviourDoNothing);
 
         sceneManager.addNewGameObject(gObj);
 
-        for (int i=0;i<10;i++){
+        gObj = new GLS::GL_GameObject;
+        // Pileczka
+        gObj->assignShaderComponent(&basicShader1);
+        gObj->assignShapeComponent(&p1);
+        gObj->setGameObjectLocation(glm::vec3(280.0f, 700.0f, 0.0f));
+        gObj->setShapeComponentLocation(glm::vec3(0.0f, 0.0f, 0.0f));
+        gObj->setShapeComponentSize(glm::vec3(20.0f, 20.0f, 1.0f));
+        gObj->createCollisionComponent(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(20.0f, 20.0f, 1.0f));
+        gObj->createCollisionBehaviourComponent(&GLS::behaviourReverseVelocityAfterCollision);
+        gObj->setGameObjectLinearVelocity(glm::vec3(0.0f,120.0f,0.0f));
+
+        sceneManager.addNewGameObject(gObj);
+        for(int j=0;j<3;j++){
+            for(int i=0;i<10;i++){
                 gObj = new GLS::GL_GameObject;
                 gObj->assignShaderComponent(&basicShader1);
                 gObj->assignShapeComponent(&r1);
-                gObj->setGameObjectLocation(glm::vec3(50.0f+i*100,15.0f,0.0f));
+                gObj->setGameObjectLocation(glm::vec3(50.0f+i*100,35.0f+j*40.0f,0.0f));
                 gObj->setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
                 gObj->setShapeComponentSize(glm::vec3(80.0f,20.0f,1.0f));
-                gObj->createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(100.0f,20.0f,1.0f));
+                gObj->createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(80.0f,20.0f,1.0f));
+                gObj->createCollisionBehaviourComponent(&GLS::behaviourDestroyAfterCollision);
                 sceneManager.addNewGameObject(gObj);
+            }
         }
+        gObj = new GLS::GL_GameObject;
+        gObj->assignShaderComponent(&basicShader1);
+        gObj->assignShapeComponent(&r1);
+        gObj->setGameObjectLocation(glm::vec3(0.0f,GLfloat(WINDOW_SIZE_Y)/2,0.0f));
+        gObj->setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
+        gObj->setShapeComponentSize(glm::vec3(10.0f,GLfloat(WINDOW_SIZE_Y),1.0f));
+        gObj->createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(1.0f,GLfloat(WINDOW_SIZE_Y),1.0f));
+        gObj->createCollisionBehaviourComponent(&GLS::behaviourDoNothing);
+        sceneManager.addNewGameObject(gObj);
+
+        gObj = new GLS::GL_GameObject;
+        gObj->assignShaderComponent(&basicShader1);
+        gObj->assignShapeComponent(&r1);
+        gObj->setGameObjectLocation(glm::vec3(GLfloat(WINDOW_SIZE_X),GLfloat(WINDOW_SIZE_Y)/2,0.0f));
+        gObj->setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
+        gObj->setShapeComponentSize(glm::vec3(10.0f,GLfloat(WINDOW_SIZE_Y),1.0f));
+        gObj->createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(5.0f,GLfloat(WINDOW_SIZE_Y),1.0f));
+        gObj->createCollisionBehaviourComponent(&GLS::behaviourDoNothing);
+        sceneManager.addNewGameObject(gObj);
+
+        gObj = new GLS::GL_GameObject;
+        gObj->assignShaderComponent(&basicShader1);
+        gObj->assignShapeComponent(&r1);
+        gObj->setGameObjectLocation(glm::vec3(GLfloat(WINDOW_SIZE_X)/2.0f,-5.0f,0.0f));
+        gObj->setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
+        gObj->setShapeComponentSize(glm::vec3(GLfloat(WINDOW_SIZE_X),10.0f,1.0f));
+        gObj->createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(GLfloat(WINDOW_SIZE_X),5.0f,1.0f));
+        gObj->createCollisionBehaviourComponent(&GLS::behaviourDoNothing);
+        sceneManager.addNewGameObject(gObj);
+
+        gObj = new GLS::GL_GameObject;
+        gObj->assignShaderComponent(&basicShader1);
+        gObj->assignShapeComponent(&r1);
+        gObj->setGameObjectLocation(glm::vec3(GLfloat(WINDOW_SIZE_X)/2.0f,1005.0f,0.0f));
+        gObj->setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
+        gObj->setShapeComponentSize(glm::vec3(GLfloat(WINDOW_SIZE_X),10.0f,1.0f));
+        gObj->createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(GLfloat(WINDOW_SIZE_X),5.0f,1.0f));
+        gObj->createCollisionBehaviourComponent(&GLS::behaviourDoNothing);
+        sceneManager.addNewGameObject(gObj);
+
     };
 
     initializeScene();
@@ -179,12 +235,15 @@ int main(){
         glClear(GL_COLOR_BUFFER_BIT);
         sceneRenderer.renderScene(sceneManager.getSceneObjectsConst());
 
+        sceneManager.getSceneObjectMutable(1).updateGameObjectLocation(deltaTime);
+
         sceneManager.getSceneObjectMutable(0).updateGameObjectLocation(locationUpdate);
         sceneManager.getSceneObjectMutable(0).updateGameObjectRotation(rotationUpdate);
-
         auto werdon=sceneManager.getSceneObjectsConst();
-        for(auto it=werdon.begin()+1;it!=werdon.end();++it){
-            GL_CollisionManager1.checkCollision(werdon[0],*it);
+        for(auto it=werdon.begin();it!=werdon.end();++it){
+            for(auto jt=std::next(it);jt!=werdon.end();++jt){
+                GL_CollisionManager1.checkCollision(*it,*jt);
+            }
         }
         sceneManager.updateScene();
 

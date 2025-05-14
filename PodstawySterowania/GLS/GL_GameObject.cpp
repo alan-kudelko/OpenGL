@@ -46,6 +46,12 @@ glm::vec3 GLS::GL_GameObject::getGameObjectLocation()const{
 glm::vec3 GLS::GL_GameObject::getGameObjectRotation()const{
 	return _gameObjectRotation;
 }
+glm::vec3 GLS::GL_GameObject::getGameObjectLinearVelocity()const{
+	return _gameObjectLinearVelocity;
+}
+glm::vec3 GLS::GL_GameObject::getGameObjectRotationalVelocity()const{
+	return _gameObjectRotationalVelocity;
+}
 void GLS::GL_GameObject::setGameObjectLocation(glm::vec3 gameObjectLocation){
 	_gameObjectLocation=gameObjectLocation;
 }
@@ -54,6 +60,12 @@ void GLS::GL_GameObject::setGameObjectRotation(glm::vec3 gameObjectRotation){
 
 	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
 }
+void GLS::GL_GameObject::setGameObjectLinearVelocity(glm::vec3 gameObjectLinearVelocity){
+	_gameObjectLinearVelocity=gameObjectLinearVelocity;
+}
+void GLS::GL_GameObject::setGameObjectRotationalVelocity(glm::vec3 gameObjectRotationalVelocity){
+	_gameObjectRotationalVelocity=gameObjectRotationalVelocity;
+}	
 void GLS::GL_GameObject::updateGameObjectLocation(glm::vec3 gameObjectLocation){
 	_gameObjectLocation+=gameObjectLocation;
 }
@@ -63,6 +75,13 @@ void GLS::GL_GameObject::updateGameObjectRotation(glm::vec3 gameObjectRotation){
 	_gameObjectRotation=_normalizeAngles(_gameObjectRotation);
 
 	_colliderComponentPtr->updateBoundingBoxSize(_gameObjectRotation);
+}
+void GLS::GL_GameObject::updateGameObjectLocation(GLfloat deltaTime){
+	glm::vec3 positionIntegral=_gameObjectLinearVelocity*deltaTime;
+	glm::vec3 rotationIntegral=_gameObjectRotationalVelocity*deltaTime;
+	
+	this->updateGameObjectLocation(positionIntegral);
+	this->updateGameObjectRotation(rotationIntegral);
 }
 void GLS::GL_GameObject::markForDestruction(){
 	_shouldDestroy=GL_TRUE;
@@ -143,6 +162,9 @@ const GLS::GL_Shader*GLS::GL_GameObject::getShaderComponent()const{
 }
 const GLS::GL_Collider*GLS::GL_GameObject::getColliderComponent()const{
 	return _colliderComponentPtr;
+}
+GLS::GL_CollisionBehaviour*GLS::GL_GameObject::getCollisionBehaviourComponent(){
+	return _collisionBehaviourComponentPtr;
 }
 void GLS::GL_GameObject::assignShapeComponent(GLS::GL_Shape*component){
 	_shapeComponentLocation=new glm::vec3{};

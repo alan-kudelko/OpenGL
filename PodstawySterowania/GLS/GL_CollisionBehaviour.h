@@ -17,6 +17,8 @@ namespace GLS{
 	class GL_GameObject;
 	// Simple temporary class for managing after collision actions
 	void behaviourDestroyAfterCollision(GLS::GL_GameObject*gameObject);
+	void behaviourReverseVelocityAfterCollision(GLS::GL_GameObject*gameObject);
+	void behaviourDoNothing(GLS::GL_GameObject*gameObject);
 
 	class GL_CollisionBehaviour:public GLS::GL_Component{
 		GLboolean _behaviourActive;

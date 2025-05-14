@@ -4,8 +4,16 @@
 void GLS::behaviourDestroyAfterCollision(GLS::GL_GameObject*gameObject){
 	gameObject->markForDestruction();
 }
+void GLS::behaviourReverseVelocityAfterCollision(GLS::GL_GameObject*gameObject){
+	glm::vec3 velocity=gameObject->getGameObjectLinearVelocity();
+	
+	gameObject->setGameObjectLinearVelocity(-velocity);
+}
+void GLS::behaviourDoNothing(GLS::GL_GameObject*gameObject){
+	
+}
 GLS::GL_CollisionBehaviour::GL_CollisionBehaviour(void(*behaviourFunPtr)(GLS::GL_GameObject*)){
-	_behaviourActive=GL_FALSE;
+	_behaviourActive=GL_TRUE;
 	_behaviourFunPtr=behaviourFunPtr;
 }
 GLS::GL_CollisionBehaviour::~GL_CollisionBehaviour(){
