@@ -164,26 +164,8 @@ int main(){
     };
 
     initializeScene();
-
-    GLS::GL_GameObject gObj1;
-    gObj1.assignShaderComponent(&basicShader1);
-    gObj1.assignShapeComponent(&r1);
-    gObj1.setGameObjectLocation(glm::vec3(300.0f,500.0f,0.0f));
-    gObj1.setShapeComponentLocation(glm::vec3(0.0f,0.0f,0.0f));
-    gObj1.setShapeComponentSize(glm::vec3(100.0f,20.0f,1.0f));
-    gObj1.createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(100.0f,20.0f,1.0f));
-
-    GLS::GL_GameObject gObj2;
-    gObj2.assignShaderComponent(&basicShader1);
-    gObj2.assignShapeComponent(&p1);
-    gObj2.setGameObjectLocation(glm::vec3(700.0f,500.0f,0.0f));
-    gObj2.setShapeComponentSize(glm::vec3(100.0f,100.f,1.0f));
-
-    gObj2.createCollisionComponent(glm::vec3(0.0f,0.0f,0.0f),glm::vec3(100.0f,100.0f,1.0f));
-    //gObj1.addComponent(&t1);
     GLS::GL_SceneRenderer sceneRenderer(glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f));
 
-    //gObj1.addComponent();
     double lastFrame=glfwGetTime();
     double currentFrame=glfwGetTime();
     float deltaTime=static_cast<float>(currentFrame-lastFrame);
@@ -196,10 +178,6 @@ int main(){
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         sceneRenderer.renderScene(sceneManager.getSceneObjects());
-        //sceneRenderer.renderObject(gObj2);
-        //r1.drawShape();
-        //gObj1.renderObject();
-        //gObj2.updateGameObjectRotation(glm::vec3(0.0f,0.0f,400.0f*deltaTime));
 
         sceneManager.getSceneObject(0)->updateGameObjectLocation(locationUpdate);
         sceneManager.getSceneObject(0)->updateGameObjectRotation(rotationUpdate);
