@@ -1,4 +1,5 @@
 #include "GL_CollisionBehaviour.h"
+#include "GL_GameObject.h"
 
 void GLS::behaviourDestroyAfterCollision(GLS::GL_GameObject*gameObject){
 	gameObject->markForDestruction();

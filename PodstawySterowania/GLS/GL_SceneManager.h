@@ -12,10 +12,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "GL_GameObject.h"
-
-
 namespace GLS{
+	class GL_GameObject;
+	
 	class GL_SceneManager{
 		std::vector<GLS::GL_GameObject*>_sceneObjects;
 	public:

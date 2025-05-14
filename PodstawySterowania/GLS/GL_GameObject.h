@@ -11,14 +11,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "GL_Component.h"
-#include "GL_Shape.h"
-#include "GL_Shader.h"
-#include "GL_Collider.h"
 #include "GL_CollisionBehaviour.h"
 
 namespace GLS{
-    class GL_CollisionBehaviour;
+	class GL_Shape;
+	class GL_Shader;
+	class GL_Collider;
 	enum GL_ComponentType{GL_SHAPE_Component=1,GL_SHADER_Component=2,GL_COLLIDER_Component=3}; // Enum to indicate component we want to get pointer to (this will be used later)
 	class GL_GameObject{
 		std::string _name; // Some kind of identifier to differentiate created objects
@@ -78,7 +76,7 @@ namespace GLS{
 		void disableColliderComponentCollisions(); // Disables collisions
 		GLboolean shouldColliderComponentCollide()const; // Returns whether object should be able to collide with other objects
 		////////////////////////////////////////////////////////////////// GL_CollisionBehaviour interface
-		
+
 		////////////////////////////////////////////////////////////////// GL_GameObject interface for component management
 		const GLS::GL_Shape*getShapeComponent()const;
 		const GLS::GL_Shader*getShaderComponent()const;

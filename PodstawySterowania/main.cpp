@@ -177,11 +177,12 @@ int main(){
 
         glClearColor(0.2f,0.2f,0.2f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        sceneRenderer.renderScene(sceneManager.getSceneObjects());
+        sceneRenderer.renderScene(sceneManager.getSceneObjectsConst());
 
-        sceneManager.getSceneObject(0)->updateGameObjectLocation(locationUpdate);
-        sceneManager.getSceneObject(0)->updateGameObjectRotation(rotationUpdate);
-        auto werdon=sceneManager.getSceneObjects();
+        sceneManager.getSceneObjectMutable(0).updateGameObjectLocation(locationUpdate);
+        sceneManager.getSceneObjectMutable(0).updateGameObjectRotation(rotationUpdate);
+
+        auto werdon=sceneManager.getSceneObjectsConst();
         for(auto it=werdon.begin()+1;it!=werdon.end();++it){
             GL_CollisionManager1.checkCollision(werdon[0],*it);
         }

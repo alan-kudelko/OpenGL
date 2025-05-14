@@ -1,4 +1,7 @@
 #include "GL_SceneRenderer.h"
+#include "GL_Shape.h"
+#include "GL_Shader.h"
+#include "GL_GameObject.h"
 
 GLS::GL_SceneRenderer::GL_SceneRenderer(glm::mat4 projection){
 	_projection=projection;

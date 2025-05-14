@@ -11,7 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "GL_GameObject.h"
+#include "GL_Component.h"
 
 namespace GLS{
 	class GL_GameObject;

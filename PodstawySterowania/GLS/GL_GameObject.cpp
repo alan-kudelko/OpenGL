@@ -1,5 +1,9 @@
 #include "GL_GameObject.h"
-
+#include "GL_Component.h"
+#include "GL_Shape.h"
+#include "GL_Shader.h"
+#include "GL_Collider.h"
+#include "GL_CollisionBehaviour.h"
 
 ////////////////////////////////////////////////////////////////// GL_GameObject interface
 glm::vec3 GLS::GL_GameObject::_normalizeAngles(glm::vec3 gameObjectRotation){

@@ -1,4 +1,5 @@
 #include "GL_SceneManager.h"
+#include "GL_GameObject.h"
 
 GLS::GL_SceneManager::GL_SceneManager(){
 
@@ -27,7 +28,7 @@ GLuint GLS::GL_SceneManager::getSceneObjectNumber()const{
 void GLS::GL_SceneManager::clearScene(){
 	_sceneObjects.clear();
 }
-void GLS::GL_SceneManager::updateScene(GLuint offset=0){
+void GLS::GL_SceneManager::updateScene(GLuint offset){
     for(auto it=_sceneObjects.begin()+offset;it!=_sceneObjects.end();){
         if((*it)->shouldDestroy()){
 			it=_sceneObjects.erase(it);

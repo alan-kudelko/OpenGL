@@ -1,5 +1,5 @@
 #include "GL_CollisionManager.h"
-
+#include "GL_Collider.h"
 
 GLS::GL_CollisionManager::GL_CollisionManager(){
 
