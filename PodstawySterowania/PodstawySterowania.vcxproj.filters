@@ -63,6 +63,9 @@
     <ClCompile Include="dependencies\include\glad.c">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="GLS\GL_PhysicsBody.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLS\GL_Mesh.h">
@@ -102,6 +105,9 @@
       <Filter>Pliki nagłówkowe\GLS</Filter>
     </ClInclude>
     <ClInclude Include="GLS\GL_Transform.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_PhysicsBody.h">
       <Filter>Pliki nagłówkowe\GLS</Filter>
     </ClInclude>
   </ItemGroup>

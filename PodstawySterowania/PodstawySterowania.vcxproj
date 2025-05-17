@@ -145,6 +145,7 @@
     <ClCompile Include="GLS\GL_GeometryManager.cpp" />
     <ClCompile Include="GLS\GL_GPUResourceTracker.cpp" />
     <ClCompile Include="GLS\GL_Mesh.cpp" />
+    <ClCompile Include="GLS\GL_PhysicsBody.cpp" />
     <ClCompile Include="GLS\GL_SceneManager.cpp" />
     <ClCompile Include="GLS\GL_SceneRenderer.cpp" />
     <ClCompile Include="GLS\GL_Shader.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="GLS\GL_GeometryManager.h" />
     <ClInclude Include="GLS\GL_GPUResourceTracker.h" />
     <ClInclude Include="GLS\GL_Mesh.h" />
+    <ClInclude Include="GLS\GL_PhysicsBody.h" />
     <ClInclude Include="GLS\GL_SceneManager.h" />
     <ClInclude Include="GLS\GL_SceneRenderer.h" />
     <ClInclude Include="GLS\GL_Shader.h" />

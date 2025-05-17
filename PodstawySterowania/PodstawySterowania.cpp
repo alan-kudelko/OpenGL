@@ -9,8 +9,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <sstream>
-#include <windows.h>
 
 #include "GLS/GL_Shape.h"
 #include "GLS/GL_Mesh.h"
@@ -71,24 +69,6 @@ void framebuffer_keyboard_input_callback(GLFWwindow* window, GLint key, GLint sc
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
 }
-GLS::GL_VertexData vertices[]{
-    {
-        {0.5f,0.5f,0.0f},
-        {1.0f,0.0f,0.0f,0.0f},
-        {0.0f,0.0f}
-    },
-    {
-        {0.5f,-0.5f,0.0f},
-        {1.0f,0.0f,0.0f,0.0f},
-        {0.0f,0.0f}
-    },
-    {
-        {-0.5f,-0.5f,0.0f},
-        {1.0f,0.0f,0.0f,0.0f},
-        {0.0f,0.0f}
-    },
-};
-
 GLFWwindow* initializeOpenGL() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
