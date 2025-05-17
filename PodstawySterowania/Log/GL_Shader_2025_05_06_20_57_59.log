@@ -1,0 +1,6 @@
+Error in: shaders/orto_vertex_shader.vert 0(5) : error C0000: syntax error, unexpected floating point constant at token "<float-const>"
+0(7) : error C1020: invalid operands to "*"
+
+Error in: shaders/orto_vertex_shader.vert 0(5) : error C0000: syntax error, unexpected floating point constant at token "<float-const>"
+0(7) : error C1020: invalid operands to "*"
+

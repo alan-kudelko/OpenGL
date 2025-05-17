@@ -1,0 +1,29 @@
+﻿  GL_Collider.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_Collider.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_CollisionBehaviour.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_CollisionBehaviour.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_CollisionManager.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_CollisionManager.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_GameObject.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_GameObject.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_GeometryManager.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_GeometryManager.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_GPUResourceTracker.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_GPUResourceTracker.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_Mesh.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_Mesh.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_SceneManager.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_SceneManager.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_SceneRenderer.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_SceneRenderer.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_Shader.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_Shader.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_Shape.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_Shape.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  GL_Transform.cpp
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_Transform.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  PodstawySterowania.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
+D:\Projekty\OpenGL_new\PodstawySterowania\dependencies\GLFW\glfw3.h(123,1): message : see previous definition of 'APIENTRY'
+D:\Projekty\OpenGL_new\PodstawySterowania\GLS\GL_Shape.h(3,10): fatal  error C1083: Cannot open include file: 'glad/glad.h': No such file or directory
+  Generating Code...

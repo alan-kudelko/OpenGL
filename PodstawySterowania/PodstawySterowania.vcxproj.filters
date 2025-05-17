@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki źródłowe\GLS">
+      <UniqueIdentifier>{f251fe74-4c28-4147-af8c-ce3aeb632414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\GLS">
+      <UniqueIdentifier>{d4dd45ad-d98a-48d3-990d-8c58c6936c59}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PodstawySterowania.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_SceneManager.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_GeometryManager.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_Mesh.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_Collider.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_CollisionBehaviour.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_CollisionManager.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_GameObject.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_GPUResourceTracker.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_SceneRenderer.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_Shader.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_Shape.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="GLS\GL_Transform.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\include\glad.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GLS\GL_Mesh.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_SceneRenderer.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_GeometryManager.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_GameObject.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_Shape.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_SceneManager.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_Collider.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_CollisionBehaviour.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_CollisionManager.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_Component.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_GPUResourceTracker.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_Shader.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_Transform.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
