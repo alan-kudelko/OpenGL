@@ -24,6 +24,7 @@ namespace GLS{
 
 		GLboolean _renderEnable;
 		GLenum _renderMode;
+		glm::vec4 _color;
 	public:
         GL_Mesh(std::string meshType,glm::vec3 location=glm::vec3(0.0f), glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
         GL_Mesh(GLuint vertN,glm::vec3 location=glm::vec3(0.0f), glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
@@ -47,6 +48,9 @@ namespace GLS{
 
 		GLenum getRenderMode()const;
 		void setRenderMode(GLenum renderMode);
+
+		glm::vec4 getColor()const;
+		void setColor(glm::vec4 color);
     };
 }
 /*

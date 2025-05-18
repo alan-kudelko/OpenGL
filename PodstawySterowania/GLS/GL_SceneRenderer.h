@@ -26,8 +26,8 @@ namespace GLS{
 
 		void setProjectionMatrix(glm::mat4 projection); // Sets current projection
 
-		void renderObject(const GLS::GL_GameObject&gameObject)const; // Render single scene object
-		void renderScene(const std::vector<GLS::GL_GameObject*>& sceneObjects)const; // Render all scene objects in the vector container
+		void renderObject(GLS::GL_GameObject&gameObject); // Render single scene object
+		void renderScene(std::vector<GLS::GL_GameObject*>& sceneObjects); // Render all scene objects in the vector container
 	};
 }
 

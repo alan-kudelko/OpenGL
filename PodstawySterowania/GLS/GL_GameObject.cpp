@@ -15,7 +15,7 @@ GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader*shaderComponent,std::string mes
 	_name="GL_GameObject"+_GL_GameObjectCounter;
 	_transformComponent=new GLS::GL_Transform(location,rotation,scale);
 	_meshComponent=new GLS::GL_Mesh(meshType,glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
-	_colliderComponent=new GLS::GL_Collider(glm::vec3(0.0f),scale);
+	_colliderComponent=new GLS::GL_Collider(glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
 	_collisionBehaviourComponent=new GLS::GL_CollisionBehaviour(&GLS::behaviourDoNothing);
 	_shaderComponent=shaderComponent;
 
@@ -189,16 +189,16 @@ GLboolean GLS::GL_GameObject::shouldCollide()const{
 	return _colliderComponent->shouldCollide();
 }
 ////////////////////////////////////////////////////////////////// GL_GameObject interface for component management
-GLS::GL_Transform*GLS::GL_GameObject::getTransformComponent()const{
+GLS::GL_Transform*GLS::GL_GameObject::getTransformComponent(){
 	return _transformComponent;
 }
-GLS::GL_Mesh*GLS::GL_GameObject::getMeshComponent()const{
+GLS::GL_Mesh*GLS::GL_GameObject::getMeshComponent(){
 	return _meshComponent;
 }
 const GLS::GL_Shader*GLS::GL_GameObject::getShaderComponent()const{
 	return _shaderComponent;
 }
-GLS::GL_Collider*GLS::GL_GameObject::getColliderComponent()const{
+GLS::GL_Collider*GLS::GL_GameObject::getColliderComponent(){
 	return _colliderComponent;
 }
 GLS::GL_CollisionBehaviour*GLS::GL_GameObject::getCollisionBehaviourComponent(){

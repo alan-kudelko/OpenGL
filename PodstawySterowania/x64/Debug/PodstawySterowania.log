@@ -1,14 +1,2 @@
 ﻿  GL_CollisionManager.cpp
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(41,38): error C2065: 'obj1': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(42,38): error C2065: 'obj2': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(58,35): error C2065: 'obj1': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(59,35): error C2065: 'obj2': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(61,35): error C2065: 'obj1': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(62,35): error C2065: 'obj2': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(72,31): error C2065: 'obj1': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(72,36): error C2065: 'obj2': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(76,22): error C2065: 'obj1': undeclared identifier
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_CollisionManager.cpp(77,22): error C2065: 'obj2': undeclared identifier
-  GL_CollisionResolve.cpp
-  PodstawySterowania.cpp
-  Generating Code...
+  PodstawySterowania.vcxproj -> D:\Projekty\OpenGL\PodstawySterowania\x64\Debug\PodstawySterowania.exe

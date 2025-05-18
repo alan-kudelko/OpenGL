@@ -12,6 +12,7 @@ GLS::GL_Mesh::GL_Mesh(std::string meshType,glm::vec3 location, glm::vec3 rotatio
 	_localTransform.setScale(scale);
 	_renderEnable=GL_TRUE;
 	_renderMode=GL_TRIANGLES;
+	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
 }
 GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec3 location, glm::vec3 rotation,glm::vec3 scale){
 	_meshGeometry=GLS::GL_geometryManager.getGeometryByVertCount(vertN);
@@ -20,6 +21,7 @@ GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec3 location, glm::vec3 rotation,glm::v
 	_localTransform.setScale(scale);
 	_renderEnable=GL_TRUE;
 	_renderMode=GL_TRIANGLES;
+	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
 }
 GLS::GL_Mesh::~GL_Mesh(){
 
@@ -77,4 +79,10 @@ void GLS::GL_Mesh::setRenderMode(GLenum renderMode){
 		std::string exceptionText="Invalid renderMode in GL_Mesh";
 		throw std::runtime_error(exceptionText.c_str());
 	}
+}
+glm::vec4 GLS::GL_Mesh::getColor()const{
+	return _color;
+}
+void GLS::GL_Mesh::setColor(glm::vec4 color){
+	_color=color;
 }

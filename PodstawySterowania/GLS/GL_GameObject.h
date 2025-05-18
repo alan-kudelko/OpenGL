@@ -83,10 +83,10 @@ namespace GLS{
 		////////////////////////////////////////////////////////////////// GL_CollisionBehaviour interface
 
 		////////////////////////////////////////////////////////////////// GL_GameObject interface for component management
-		GLS::GL_Transform*getTransformComponent()const;
-		GLS::GL_Mesh*getMeshComponent()const;
+		GLS::GL_Transform*getTransformComponent();
+		GLS::GL_Mesh*getMeshComponent();
 		const GLS::GL_Shader*getShaderComponent()const;
-		GLS::GL_Collider*getColliderComponent()const;
+		GLS::GL_Collider*getColliderComponent();
 		GLS::GL_CollisionBehaviour*getCollisionBehaviourComponent();
 
 		void createTransformComponent(glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));

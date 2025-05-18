@@ -16,7 +16,7 @@ glm::mat4 GLS::GL_SceneRenderer::getProjection()const{
 void GLS::GL_SceneRenderer::setProjectionMatrix(glm::mat4 projection){
 	_projection=projection;
 }
-void GLS::GL_SceneRenderer::renderObject(const GLS::GL_GameObject&gameObject)const{
+void GLS::GL_SceneRenderer::renderObject(GLS::GL_GameObject&gameObject){
 	const GLS::GL_Mesh*meshComponent=gameObject.getMeshComponent();
 	if(meshComponent==nullptr)
 		return;
@@ -58,7 +58,7 @@ void GLS::GL_SceneRenderer::renderObject(const GLS::GL_GameObject&gameObject)con
 		return;
 	}
 }
-void GLS::GL_SceneRenderer::renderScene(const std::vector<GLS::GL_GameObject*>& sceneObjects)const{
+void GLS::GL_SceneRenderer::renderScene(std::vector<GLS::GL_GameObject*>& sceneObjects){
 	for(auto it=sceneObjects.begin();it!=sceneObjects.end();++it){
 		if((*it)->shouldRender())
 			this->renderObject(*(*it));

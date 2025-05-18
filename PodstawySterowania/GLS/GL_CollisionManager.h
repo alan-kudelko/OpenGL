@@ -30,7 +30,7 @@ namespace GLS{
 		// In the future collision time
 	};
 	class GL_CollisionManager{
-		GLboolean _checkAABBCollision(GLS::GL_GameObject*obj1,GLS::GL_GameObject*obj2);
+		GLboolean _checkAABBCollision(glm::vec3 obj1BoundingBoxMin,glm::vec3 obj1BoundingBoxMax,glm::vec3 obj2BoundingBoxMin,glm::vec3 obj2BoundingBoxMax);
 	public:
 		GL_CollisionManager();
 		~GL_CollisionManager();

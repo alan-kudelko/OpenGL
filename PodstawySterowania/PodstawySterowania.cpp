@@ -47,16 +47,16 @@ void framebuffer_keyboard_input_callback(GLFWwindow* window, GLint key, GLint sc
         rotationUpdate.z = 0;
     }
     if (key == GLFW_KEY_W && action == GLFW_PRESS) {
-        locationUpdate.y = -10;
+        locationUpdate.y = -1;
     }
     if (key == GLFW_KEY_S && action == GLFW_PRESS) {
-        locationUpdate.y = 10;
+        locationUpdate.y = 1;
     }
     if (key == GLFW_KEY_A && action == GLFW_PRESS) {
-        locationUpdate.x = -10;
+        locationUpdate.x = -1;
     }
     if (key == GLFW_KEY_D && action == GLFW_PRESS) {
-        locationUpdate.x = 10;
+        locationUpdate.x = 1;
     }
     if (key == GLFW_KEY_E && action == GLFW_PRESS) {
         rotationUpdate.z = 1;
@@ -119,8 +119,10 @@ int main() {
     GLS::GL_SceneRenderer sceneRenderer(glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f));
 
     GLS::GL_GameObject*obj1=new GLS::GL_GameObject(&basicShader1,"Rectangle",glm::vec3(500.0f,500.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,20.0f,1.0f));
-    obj1->getMeshComponent()->setRenderMode(GL_LINES);
     sceneManager.addNewGameObject(obj1);
+
+    GLS::GL_GameObject* obj2=new GLS::GL_GameObject(&basicShader1,"Rectangle",glm::vec3(500.0f,481.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,20.0f,1.0f));
+    sceneManager.addNewGameObject(obj2);
 
     double lastFrame=glfwGetTime();
     double currentFrame=glfwGetTime();
@@ -136,7 +138,8 @@ int main() {
         std::vector<GLS::GL_GameObject*>sceneObjects=sceneManager.getSceneObjectsMutable();
         std::vector<GLS::GL_CollisionInfo>collisionsInfo=collisionManager.checkCollisions(sceneObjects);
 
-
+        sceneObjects[0]->move(locationUpdate);
+        sceneObjects[0]->rotate(rotationUpdate);
 
 
         sceneManager.updateScene();
