@@ -50,7 +50,5 @@ namespace GLS{
 ////////////////////////////////////////////////////////////////// Angular acceleration operations
 		glm::vec3 getAngularAcceleration()const;	
 		void setAngularAcceleration(glm::vec3 angularAcceleration);
-		
-		
     };
 }

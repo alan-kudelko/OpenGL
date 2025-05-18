@@ -141,6 +141,7 @@
     <ClCompile Include="GLS\GL_Collider.cpp" />
     <ClCompile Include="GLS\GL_CollisionBehaviour.cpp" />
     <ClCompile Include="GLS\GL_CollisionManager.cpp" />
+    <ClCompile Include="GLS\GL_CollisionResolve.cpp" />
     <ClCompile Include="GLS\GL_GameObject.cpp" />
     <ClCompile Include="GLS\GL_GeometryManager.cpp" />
     <ClCompile Include="GLS\GL_GPUResourceTracker.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="GLS\GL_Collider.h" />
     <ClInclude Include="GLS\GL_CollisionBehaviour.h" />
     <ClInclude Include="GLS\GL_CollisionManager.h" />
+    <ClInclude Include="GLS\GL_CollisionResolve.h" />
     <ClInclude Include="GLS\GL_Component.h" />
     <ClInclude Include="GLS\GL_GameObject.h" />
     <ClInclude Include="GLS\GL_GeometryManager.h" />

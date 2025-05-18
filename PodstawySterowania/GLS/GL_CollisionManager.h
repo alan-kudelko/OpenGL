@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cmath>
+#include <vector>
 #include <iostream>
 
 #include <glm/vec3.hpp>
@@ -20,11 +21,20 @@ namespace GLS{
 	// Additionally I will use two stage collision detection algorithm utilizing bounding box for broad phase and some fancier algorithm for narrow phase
 	// Collision handling will be processed by class GL_CollisionManager
 	class GL_GameObject;
+	struct GL_CollisionInfo{
+		GLS::GL_GameObject *obj1;
+		GLS::GL_GameObject *obj2;
+		glm::vec3 contactPoint;
+		glm::vec3 normalVector;
+		GLfloat penetrationDepth;
+		// In the future collision time
+	};
 	class GL_CollisionManager{
+		GLboolean _checkAABBCollision(GLS::GL_GameObject*obj1,GLS::GL_GameObject*obj2);
 	public:
 		GL_CollisionManager();
 		~GL_CollisionManager();
 
-		GLboolean checkCollision(GLS::GL_GameObject*obj1, GLS::GL_GameObject*obj2);
+		std::vector<GL_CollisionInfo>checkCollisions(std::vector<GLS::GL_GameObject*>gameObjects);
 	};
 }

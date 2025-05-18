@@ -18,6 +18,7 @@
 #include "GLS/GL_CollisionManager.h"
 #include "GLS/GL_CollisionBehaviour.h"
 #include "GLS/GL_SceneManager.h"
+#include "GLS/GL_CollisionResolve.h"
 
 enum { WINDOW_SIZE_X = 1000, WINDOW_SIZE_Y = 1000 };
 const char* vertexShaderPath = "shaders/orto_vertex_shader.vert";
@@ -100,30 +101,30 @@ GLFWwindow* initializeOpenGL() {
 }
 
 int main() {
-    GLFWwindow* window = initializeOpenGL();
+    GLFWwindow*window=initializeOpenGL();
 
-    if (window == nullptr)
+    if(window==nullptr)
         return -1;
 
-    GLS::GL_SceneManager sceneManager;
-    GLS::GL_CollisionManager GL_CollisionManager1;
     GLS::GL_Shader basicShader1(vertexShaderPath, fragmentShaderPath);
 
-    if (basicShader1.getShaderStatus()) {
-        std::cerr << "Failed to initialize shader" << std::endl;
+    if(basicShader1.getShaderStatus()){
+        std::cerr<<"Failed to initialize shader"<<std::endl;
         glfwTerminate();
         return -1;
     }
-
+    GLS::GL_SceneManager sceneManager;
+    GLS::GL_CollisionManager collisionManager;
+    GLS::GL_CollisionResolve collisionResolve;
     GLS::GL_SceneRenderer sceneRenderer(glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f));
 
     GLS::GL_GameObject*obj1=new GLS::GL_GameObject(&basicShader1,"Rectangle",glm::vec3(500.0f,500.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,20.0f,1.0f));
     obj1->getMeshComponent()->setRenderMode(GL_LINES);
     sceneManager.addNewGameObject(obj1);
 
-    double lastFrame = glfwGetTime();
-    double currentFrame = glfwGetTime();
-    float deltaTime = static_cast<float>(currentFrame - lastFrame);
+    double lastFrame=glfwGetTime();
+    double currentFrame=glfwGetTime();
+    float deltaTime=static_cast<float>(currentFrame-lastFrame);
 
     while (!glfwWindowShouldClose(window)) {
         currentFrame = glfwGetTime();
@@ -132,15 +133,14 @@ int main() {
 
         glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        sceneRenderer.renderScene(sceneManager.getSceneObjectsConst());
+        std::vector<GLS::GL_GameObject*>sceneObjects=sceneManager.getSceneObjectsMutable();
+        std::vector<GLS::GL_CollisionInfo>collisionsInfo=collisionManager.checkCollisions(sceneObjects);
 
-        //sceneManager.getSceneObjectMutable(1).updateGameObjectLocation(deltaTime);
 
-        //sceneManager.getSceneObjectMutable(0).updateGameObjectLocation(locationUpdate);
-        //sceneManager.getSceneObjectMutable(0).updateGameObjectRotation(rotationUpdate);
+
+
         sceneManager.updateScene();
-        //GL_CollisionManager1.checkCollision(&gObj1,&gObj2);
-        //gObj2.setShapeComponentRotation(glm::vec3(0.0f,0.0f,10.0f*glfwGetTime()/1));
+        sceneRenderer.renderScene(sceneObjects);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
