@@ -14,10 +14,11 @@
 
 namespace GLS{
 	class GL_GameObject;
-	
-	class GL_SceneRenderer{
 
+	class GL_SceneRenderer{
+		GLboolean _renderCollider;
 		glm::mat4 _projection;
+		void renderCollider(GLS::GL_GameObject& gameObject); // Render collider
 	public:
 		GL_SceneRenderer(glm::mat4 projection); // Projection of a scene
 		~GL_SceneRenderer();

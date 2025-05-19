@@ -16,6 +16,7 @@
 #include "GLS/GL_GameObject.h"
 #include "GLS/GL_SceneRenderer.h"
 #include "GLS/GL_CollisionManager.h"
+#include "GLS/GL_Collider.h"
 #include "GLS/GL_CollisionBehaviour.h"
 #include "GLS/GL_SceneManager.h"
 #include "GLS/GL_CollisionResolve.h"
@@ -119,6 +120,10 @@ int main() {
     GLS::GL_SceneRenderer sceneRenderer(glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f));
 
     GLS::GL_GameObject*obj1=new GLS::GL_GameObject(&basicShader1,"Rectangle",glm::vec3(500.0f,500.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,20.0f,1.0f));
+    //obj1->getColliderComponent()->setLocalScale(glm::vec3(100.0f,20.0f,1.0f));
+
+    //obj1->getColliderComponent()->setLocalLocation(glm::vec3(100.0f,0.0f,0.0f));
+
     sceneManager.addNewGameObject(obj1);
 
     GLS::GL_GameObject* obj2=new GLS::GL_GameObject(&basicShader1,"Rectangle",glm::vec3(500.0f,481.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,20.0f,1.0f));

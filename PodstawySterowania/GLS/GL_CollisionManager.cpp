@@ -4,9 +4,9 @@
 #include "GL_CollisionResolve.h"
 
 GLboolean GLS::GL_CollisionManager::_checkAABBCollision(glm::vec3 obj1BoundingBoxMin,glm::vec3 obj1BoundingBoxMax,glm::vec3 obj2BoundingBoxMin,glm::vec3 obj2BoundingBoxMax){
-	if((obj1BoundingBoxMax.x>obj2BoundingBoxMin.x&&obj1BoundingBoxMin.x<obj2BoundingBoxMax.x)&&
-           (obj1BoundingBoxMax.y>obj2BoundingBoxMin.y&&obj1BoundingBoxMin.y<obj2BoundingBoxMax.y)&&
-           (obj1BoundingBoxMax.z>obj2BoundingBoxMin.z&&obj1BoundingBoxMin.z<obj2BoundingBoxMax.z)){
+	if((obj1BoundingBoxMax.x>=obj2BoundingBoxMin.x&&obj1BoundingBoxMin.x<=obj2BoundingBoxMax.x)&&
+           (obj1BoundingBoxMax.y>=obj2BoundingBoxMin.y&&obj1BoundingBoxMin.y<=obj2BoundingBoxMax.y)&&
+           (obj1BoundingBoxMax.z>=obj2BoundingBoxMin.z&&obj1BoundingBoxMin.z<=obj2BoundingBoxMax.z)){
 		return GL_TRUE;
 	}
 	return GL_FALSE;
@@ -65,35 +65,35 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 				return glm::vec3(m[3][0],m[3][1],m[3][2]);
 			};
 
-			glm::vec3 obj1ColMin=obj1ColLocation-obj1ColScale/2.0f;
-			glm::vec3 obj1ColMax=obj1ColLocation+obj1ColScale/2.0f;
+			glm::vec3 obj1ColMin=obj1ColLocation/obj1GoScale-obj1ColScale/2.0f;
+			glm::vec3 obj1ColMax=obj1ColLocation/obj1GoScale+obj1ColScale/2.0f;
 			
-			glm::vec3 obj2ColMin=obj2ColLocation-obj2ColScale/2.0f;
-			glm::vec3 obj2ColMax=obj2ColLocation+obj2ColScale/2.0f;
+			glm::vec3 obj2ColMin=obj2ColLocation/obj2GoScale-obj2ColScale/2.0f;
+			glm::vec3 obj2ColMax=obj2ColLocation/obj2GoScale+obj2ColScale/2.0f;
 			
 			
 			glm::mat4 model=glm::mat4(1.0f);
 
 			obj1ColMin=getCords(glm::translate(model,obj1GoLocation) *
-				mat4abs(glm::rotate(model,glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
+				(glm::rotate(model,glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
 				glm::scale(model,obj1GoScale) *
 				glm::translate(model,obj1ColMin) *
 				mat4abs(glm::rotate(model,glm::radians(obj1ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
 				glm::scale(model,obj1ColScale));
 
 			obj1ColMax=getCords(glm::translate(model,obj1GoLocation) *
-				mat4abs(glm::rotate(model,glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
+				(glm::rotate(model,glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
 				glm::scale(model,obj1GoScale) *
 				glm::translate(model,obj1ColMax) *
 				mat4abs(glm::rotate(model,glm::radians(obj1ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
 				glm::scale(model,obj1ColScale));
 
 			obj2ColMin=getCords(glm::translate(model,obj2GoLocation) *
-				mat4abs(glm::rotate(model,glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
+				(glm::rotate(model,glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f)) *
 				glm::scale(model,obj2GoScale) *
 				glm::translate(model,obj2ColMin) *
 				mat4abs(glm::rotate(model,glm::radians(obj2ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
-				glm::scale(model,obj2ColScale));
+				glm::scale(model,obj2ColScale)));
 
 			obj2ColMax=getCords(glm::translate(model,obj2GoLocation) *
 				mat4abs(glm::rotate(model,glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
