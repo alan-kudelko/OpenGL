@@ -1,3 +1,28 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Classes: GL_VertexData, GL_Shape, GL_Triangle, GL_Polygon
+ * -----------------------------------------------------------
+ * Core set of rendering components defining the structure of drawable geometry.
+ *
+ * - GL_VertexData: Encapsulates vertex attributes such as position, color (RGBA), and UV coordinates.
+ *   Designed for flexibility and future extension (e.g., normals, tangents).
+ *
+ * - GL_Shape: Abstract base class for all geometric primitives. Manages OpenGL buffer objects (VAO, VBO)
+ *   and memory allocation modes. Used as a base for shapes rendered in the pipeline.
+ *
+ * - GL_Triangle: Simple geometric shape consisting of three vertices. Inherits from GL_Shape.
+ *
+ * - GL_Polygon: More complex shape with optional index buffer (EBO). Supports both indexed and
+ *   non-indexed geometry. Designed to handle various primitive types with customizable topology.
+ *
+ * Intended to serve as a foundation for a modular rendering system,
+ * supporting static, dynamic, and streamed geometry in OpenGL.
+ */
+
 #pragma once
 #define _USE_MATH_DEFINES
 #include <glad/glad.h>

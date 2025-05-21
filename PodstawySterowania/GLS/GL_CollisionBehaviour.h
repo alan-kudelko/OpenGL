@@ -1,3 +1,27 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_CollisionBehaviour
+ * ---------------------------
+ * Component defining post-collision behavior for game objects.
+ * Uses function pointers to allow modular and customizable responses to collisions.
+ *
+ * Built-in behaviors:
+ * - behaviourDestroyAfterCollision: removes involved objects
+ * - behaviourReverseVelocityAfterCollision: inverts velocity after contact
+ * - behaviourDoNothing: explicitly ignores collisions
+ *
+ * Key Features:
+ * - Dynamic assignment of behavior via function pointers
+ * - Toggleable activation per object
+ * - Compatible with GL_GameObject-based collision system
+ *
+ * Intended for use with a collision manager that calls `callBehaviour()` after collision detection.
+ */
+
 #pragma once
 
 #include <glad/glad.h>

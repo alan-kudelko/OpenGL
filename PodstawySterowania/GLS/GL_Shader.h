@@ -1,3 +1,22 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_Shader
+ * ----------------
+ * Component responsible for managing OpenGL shader programs.
+ * Loads, compiles, and links vertex and fragment shaders from source files.
+ * Handles error reporting and logging with detailed status codes and timestamps.
+ *
+ * Internally stores shader source paths, compilation status, and shader program handle.
+ * Provides methods for shader status retrieval and program management.
+ *
+ * Intended to serve as a reusable and extensible base for rendering systems
+ * requiring dynamic shader management and diagnostics.
+ */
+
 #pragma once
 
 #include <glad/glad.h>

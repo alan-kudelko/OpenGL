@@ -1,3 +1,22 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_Mesh
+ * -------------
+ * Component representing a renderable 3D mesh object within the scene.
+ * Encapsulates local transformation data (position, rotation, scale) and
+ * a reference to its geometric shape (GL_Shape).
+ *
+ * Provides methods to modify transformation parameters, switch geometry dynamically,
+ * control rendering state, and customize appearance (color, render mode).
+ *
+ * Intended to be used as a core visual representation of a game object,
+ * supporting both primitive-based shapes and procedurally generated geometry.
+ */
+
 #pragma once
 
 #include <glad/glad.h>

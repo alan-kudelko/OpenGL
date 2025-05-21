@@ -32,8 +32,6 @@ void GLS::GL_SceneRenderer::renderCollider(GLS::GL_GameObject& gameObject){
     GLuint indices[]={
         0, 1, 2, 3, 0
     };
-
-    // OpenGL
     GLuint VAO,VBO,EBO;
     glGenVertexArrays(1,&VAO);
     glGenBuffers(1,&VBO);

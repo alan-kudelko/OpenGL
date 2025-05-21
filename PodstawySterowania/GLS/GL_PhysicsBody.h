@@ -1,3 +1,20 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_PhysicsBody
+ * --------------------
+ * Represents the physical properties and state of a game object within the simulation.
+ * This component stores data such as mass, velocity, acceleration, and center of mass.
+ *
+ * Supports toggling physics and gravity individually, making it useful for both dynamic and static bodies.
+ * It does not implement force integration directly, allowing flexibility for future physics systems.
+ *
+ * Intended to be attached to a GL_GameObject as a modular component in a component-based architecture.
+ */
+
 #pragma once
 
 #include <cmath>

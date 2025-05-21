@@ -1,3 +1,24 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_SceneRenderer
+ * -----------------------
+ * Responsible for rendering game objects in a 3D scene using OpenGL.
+ * Handles projection matrix setup and provides methods for drawing individual
+ * objects as well as full scenes.
+ *
+ * Core Features:
+ * - Scene-wide projection matrix management
+ * - Rendering of both standard geometry and debug colliders (toggleable)
+ * - Efficient rendering of scene object containers
+ *
+ * Intended to be used as a rendering backend that connects scene management
+ * (GL_SceneManager) with low-level OpenGL draw calls.
+ */
+
 #pragma once
 
 #include <glad/glad.h>

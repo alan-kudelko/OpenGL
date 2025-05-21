@@ -1,3 +1,26 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_Collider
+ * ------------------
+ * Component representing an object's collision properties in 3D space.
+ * Manages local transformation, collision group assignment, and bounding box recalculations.
+ *
+ * Core Features:
+ * - Local transform-based bounding box (axis-aligned)
+ * - Dynamic bounding box recalculation based on rotation
+ * - Collision group filtering for broad-phase optimization
+ * - Toggleable collision participation per object
+ *
+ * Intended as a base class for future extensions such as:
+ * - Geometry-based collider generation
+ * - Support for custom shapes (e.g., spheres, polygons)
+ * - Two-phase collision detection via GL_CollisionManager
+ */
+
 #pragma once
 
 #include <glad/glad.h>

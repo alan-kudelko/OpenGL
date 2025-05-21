@@ -1,3 +1,20 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_Transform
+ * ------------------
+ * Component representing an object's transformation in 3D space.
+ * Stores and manages position (_location), rotation (_rotation), and scale (_scale).
+ *
+ * Provides methods to move, rotate, scale, and reset the transform.
+ * Rotation angles are normalized to the range [0, 360) degrees.
+ *
+ * Intended to be used as a reusable component for any game object, mesh, collider or future objects yet to be implemented that requires transformations.
+ */
+
 #pragma once
 
 #include <glad/glad.h>

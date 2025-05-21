@@ -1,3 +1,23 @@
+/**
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_GameObject
+ * -------------------
+ * Core class representing a single entity within the game world.
+ * Acts as a container for various components (e.g., GL_Transform, GL_Mesh, GL_Shader, GL_Collider, GL_CollisionBehaviour),
+ * providing centralized access to behavior, rendering, and collision functionality.
+ *
+ * Stores metadata such as object name and destruction state.
+ * Manages object-level logic, including position updates, rendering flags,
+ * and interactions between components.
+ *
+ * Intended to serve as a flexible and extensible unit that can be composed
+ * of shared or unique components, supporting a modular component-based architecture.
+ */
+
 #pragma once
 
 #include <glad/glad.h>

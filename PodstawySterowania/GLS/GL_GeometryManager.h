@@ -1,3 +1,24 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_GeometryManager & Struct GL_ShapeEntry
+ * -----------------------------------------------
+ * Centralized manager for geometric shape instances used in rendering.
+ *
+ * GL_ShapeEntry: Struct storing a pointer to a shape (GL_Shape)
+ *   and its corresponding vertex count. Used internally to track reusable shapes.
+ *
+ * GL_GeometryManager: Provides mechanisms to retrieve or reuse predefined geometry
+ *   either by name (e.g., "triangle", "quad") or by raw vertex count.
+ *   Internally maintains a record of created shapes for efficient lookup.
+ *
+ * Intended to support geometry sharing and caching across multiple mesh instances,
+ * reducing redundant shape creation and improving performance.
+ */
+
 #pragma once
 
 #include <glad/glad.h>

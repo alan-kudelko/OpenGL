@@ -43,64 +43,35 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 			glm::vec3 obj1GoLocation=(*it)->getLocation();
 			glm::vec3 obj1GoRotation=(*it)->getRotation();		
 			glm::vec3 obj1GoScale=(*it)->getScale();
-			
-			glm::vec3 obj1ColLocation=(*it)->getColliderComponent()->getLocalLocation();
-			glm::vec3 obj1ColRotation=(*it)->getColliderComponent()->getLocalRotation();
+
 			glm::vec3 obj1ColScale=(*it)->getColliderComponent()->getLocalScale();
 			
 			glm::vec3 obj2GoLocation=(*jt)->getLocation();
 			glm::vec3 obj2GoRotation=(*jt)->getRotation();
 			glm::vec3 obj2GoScale=(*jt)->getScale();
 
-			glm::vec3 obj2ColLocation=(*jt)->getColliderComponent()->getLocalLocation();
-			glm::vec3 obj2ColRotation=(*jt)->getColliderComponent()->getLocalRotation();
-			glm::vec3 obj2ColScale=(*jt)->getColliderComponent()->getLocalScale();
+			glm::vec3 obj2ColScale=(*it)->getColliderComponent()->getLocalScale();
 
-			auto mat4abs=[](glm::mat4 m){
-				for(GLuint i=0;i<4;i++)
+			auto mat3abs=[](glm::mat3 m){
+				for(GLuint i=0;i<3;i++)
 					m[i]=glm::abs(m[i]);
 				return m;
 			};
-			auto getCords=[](glm::mat4 m)->glm::vec3{
-				return glm::vec3(m[3][0],m[3][1],m[3][2]);
-			};
 
-			glm::vec3 obj1ColMin=obj1GoLocation+obj1ColLocation/obj1GoScale-obj1ColScale*obj1GoScale/2.0f;
-			glm::vec3 obj1ColMax=obj1GoLocation+obj1ColLocation/obj1GoScale+obj1ColScale*obj1GoScale/2.0f;
+			glm::mat3 obj1GoRotationMatrix=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
+
+			obj1GoScale=mat3abs(obj1GoRotationMatrix)*obj1GoScale;
+
+			glm::mat3 obj2GoRotationMatrix=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
+
+			obj2GoScale=mat3abs(obj2GoRotationMatrix) * obj2GoScale;
+
+			glm::vec3 obj1ColMin=obj1GoLocation-obj1GoScale/2.0f;
+
+			glm::vec3 obj1ColMax=obj1GoLocation+obj1GoScale/2.0f;
 			
-			glm::vec3 obj2ColMin=obj2GoLocation+obj2ColLocation/obj2GoScale-obj2ColScale*obj2GoScale/2.0f;
-			glm::vec3 obj2ColMax=obj2GoLocation+obj2ColLocation/obj2GoScale+obj2ColScale*obj2GoScale/2.0f;
-			
-			// For now let's assume that GL_Mesh, GL_Collider and GL_GameObject are not shifted
-			//glm::mat4 model=glm::mat4(1.0f);
-
-			//obj1ColMin=getCords(glm::translate(model,obj1GoLocation) *
-			//	(glm::rotate(model,glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
-			//	glm::scale(model,obj1GoScale) *
-			//	glm::translate(model,obj1ColMin) *
-			//	mat4abs(glm::rotate(model,glm::radians(obj1ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
-			//	glm::scale(model,obj1ColScale));
-
-			//obj1ColMax=getCords(glm::translate(model,obj1GoLocation) *
-			//	(glm::rotate(model,glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
-			//	glm::scale(model,obj1GoScale) *
-			//	glm::translate(model,obj1ColMax) *
-			//	mat4abs(glm::rotate(model,glm::radians(obj1ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
-			//	glm::scale(model,obj1ColScale));
-
-			//obj2ColMin=getCords(glm::translate(model,obj2GoLocation) *
-			//	(glm::rotate(model,glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f)) *
-			//	glm::scale(model,obj2GoScale) *
-			//	glm::translate(model,obj2ColMin) *
-			//	mat4abs(glm::rotate(model,glm::radians(obj2ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
-			//	glm::scale(model,obj2ColScale)));
-
-			//obj2ColMax=getCords(glm::translate(model,obj2GoLocation) *
-			//	mat4abs(glm::rotate(model,glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
-			//	glm::scale(model,obj2GoScale) *
-			//	glm::translate(model,obj2ColMax) *
-			//	mat4abs(glm::rotate(model,glm::radians(obj2ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))) *
-			//	glm::scale(model,obj2ColScale));
+			glm::vec3 obj2ColMin=obj2GoLocation-obj2GoScale/2.0f;
+			glm::vec3 obj2ColMax=obj2GoLocation+obj2GoScale/2.0f;
 
 			// AABB
 			if(this->_checkAABBCollision(obj1ColMin,obj1ColMax,obj2ColMin,obj2ColMax)){

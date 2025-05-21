@@ -1,3 +1,32 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_CollisionManager
+ * -------------------------
+ * Handles collision detection between scene objects using an Axis-Aligned Bounding Box (AABB) algorithm.
+ * Designed to support a two-phase collision detection strategy:
+ * - Broad Phase: AABB intersection checks for early elimination
+ * - Narrow Phase: Placeholder for more accurate future methods (e.g. SAT, GJK)
+ *
+ * Class provides:
+ * - `checkCollisions()`: returns a list of detected collisions with contact data
+ * - Internal AABB overlap check via `_checkAABBCollision()`
+ *
+ * Struct GL_CollisionInfo
+ * -----------------------
+ * Represents a single collision event:
+ * - Pointers to the two involved objects
+ * - Contact point, normal vector, and penetration depth
+ * - Extendable to include collision time for continuous physics simulation
+ *
+ * Integration:
+ * Designed to be used by GL_SceneManager and GL_GameObject systems.
+ * Can trigger responses via GL_CollisionBehaviour.
+ */
+
 #pragma once
 
 #include <glad/glad.h>

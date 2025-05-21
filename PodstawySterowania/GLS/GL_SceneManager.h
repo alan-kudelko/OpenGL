@@ -1,3 +1,25 @@
+/*
+ * Author: Alan Kude³ko
+ * Date: May 2025
+ * GitHub: https://github.com/alan-kudelko
+ * License: MIT
+ *
+ * Class GL_SceneManager
+ * ----------------------
+ * High-level manager responsible for storing and updating game objects in a scene.
+ *
+ * Maintains a list of pointers to GL_GameObject instances representing entities in the 3D scene.
+ * Provides methods for adding, accessing, and managing the lifecycle of scene objects.
+ *
+ * Core Features:
+ * - Immutable and mutable access to stored objects
+ * - Scene clearing and reset support
+ * - Object update routine (e.g., post-collision cleanup)
+ *
+ * Intended as the central point of control for organizing runtime game entities
+ * and handling their logical grouping and updates.
+ */
+
 #pragma once
 
 #include <glad/glad.h>
