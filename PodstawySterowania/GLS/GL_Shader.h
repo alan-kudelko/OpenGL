@@ -32,8 +32,6 @@
 
 namespace GLS{
 	class GL_Shader:public GL_Component{
-		std::string _vertexShaderPath; // Path to vertex shader source file
-		std::string _fragmentShaderPath; // Path to fragment shader source file
 		GLuint _shaderN; // Unique handle for the shader program
 		GLint _shaderStatus; // B0000 good B1000 vertexShaderBad B0100 fragmentShaderBad B1100 both B0010 linkBad B0001 error reading file
 

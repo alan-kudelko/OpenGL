@@ -103,14 +103,10 @@ GLuint GLS::GL_Shader::_createShaderProgram(const char*vertexShaderPath,const ch
 GLS::GL_Shader::GL_Shader(const char*vertexShaderPath,const char*fragmentShaderPath){
 	_shaderStatus=0;
 	_shaderN=_createShaderProgram(vertexShaderPath,fragmentShaderPath);
-	_vertexShaderPath=vertexShaderPath;
-	_fragmentShaderPath=fragmentShaderPath;
 }
 GLS::GL_Shader::GL_Shader(std::string vertexShaderPath,std::string fragmentShaderPath){
 	_shaderStatus=0;
 	_shaderN=_createShaderProgram(vertexShaderPath.c_str(),fragmentShaderPath.c_str());
-	_vertexShaderPath=vertexShaderPath;
-	_fragmentShaderPath=fragmentShaderPath;
 }
 GLS::GL_Shader::~GL_Shader(){
 	glDeleteProgram(_shaderN);

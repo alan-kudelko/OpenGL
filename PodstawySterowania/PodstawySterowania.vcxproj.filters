@@ -27,9 +27,6 @@
     <ClCompile Include="GLS\GL_SceneManager.cpp">
       <Filter>Pliki źródłowe\GLS</Filter>
     </ClCompile>
-    <ClCompile Include="GLS\GL_GeometryManager.cpp">
-      <Filter>Pliki źródłowe\GLS</Filter>
-    </ClCompile>
     <ClCompile Include="GLS\GL_Mesh.cpp">
       <Filter>Pliki źródłowe\GLS</Filter>
     </ClCompile>
@@ -69,15 +66,15 @@
     <ClCompile Include="GLS\GL_CollisionResolve.cpp">
       <Filter>Pliki źródłowe\GLS</Filter>
     </ClCompile>
+    <ClCompile Include="GLS\GL_ResourceManager.cpp">
+      <Filter>Pliki źródłowe\GLS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLS\GL_Mesh.h">
       <Filter>Pliki nagłówkowe\GLS</Filter>
     </ClInclude>
     <ClInclude Include="GLS\GL_SceneRenderer.h">
-      <Filter>Pliki nagłówkowe\GLS</Filter>
-    </ClInclude>
-    <ClInclude Include="GLS\GL_GeometryManager.h">
       <Filter>Pliki nagłówkowe\GLS</Filter>
     </ClInclude>
     <ClInclude Include="GLS\GL_GameObject.h">
@@ -114,6 +111,9 @@
       <Filter>Pliki nagłówkowe\GLS</Filter>
     </ClInclude>
     <ClInclude Include="GLS\GL_CollisionResolve.h">
+      <Filter>Pliki nagłówkowe\GLS</Filter>
+    </ClInclude>
+    <ClInclude Include="GLS\GL_ResourceManager.h">
       <Filter>Pliki nagłówkowe\GLS</Filter>
     </ClInclude>
   </ItemGroup>

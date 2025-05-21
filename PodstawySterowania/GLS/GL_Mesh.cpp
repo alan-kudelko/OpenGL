@@ -1,12 +1,12 @@
 #include "GL_Mesh.h"
-#include "GL_GeometryManager.h"
+#include "GL_ResourceManager.h"
 
 namespace GLS{
-    extern GL_GeometryManager GL_geometryManager;
+    extern GL_ResourceManager GL_resourceManager;
 }
 
 GLS::GL_Mesh::GL_Mesh(std::string meshType,glm::vec3 location, glm::vec3 rotation,glm::vec3 scale){
-	_meshGeometry=GLS::GL_geometryManager.getGeometryByName(meshType);
+	_meshGeometry=GLS::GL_resourceManager.getGeometryByName(meshType);
 	_localTransform.setLocation(location);
 	_localTransform.setRotation(rotation);
 	_localTransform.setScale(scale);
@@ -15,7 +15,7 @@ GLS::GL_Mesh::GL_Mesh(std::string meshType,glm::vec3 location, glm::vec3 rotatio
 	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
 }
 GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec3 location, glm::vec3 rotation,glm::vec3 scale){
-	_meshGeometry=GLS::GL_geometryManager.getGeometryByVertCount(vertN);
+	_meshGeometry=GLS::GL_resourceManager.getGeometryByVertCount(vertN);
 	_localTransform.setLocation(location);
 	_localTransform.setRotation(rotation);
 	_localTransform.setScale(scale);
@@ -48,10 +48,10 @@ const GLS::GL_Shape*GLS::GL_Mesh::getGeometry()const{
 	return _meshGeometry;
 }
 void GLS::GL_Mesh::changeGeometry(std::string meshType){
-	_meshGeometry=GLS::GL_geometryManager.getGeometryByName(meshType);
+	_meshGeometry=GLS::GL_resourceManager.getGeometryByName(meshType);
 }
 void GLS::GL_Mesh::changeGeometry(GLuint vertN){
-	_meshGeometry=GLS::GL_geometryManager.getGeometryByVertCount(vertN);
+	_meshGeometry=GLS::GL_resourceManager.getGeometryByVertCount(vertN);
 }
 GLboolean GLS::GL_Mesh::shouldRender()const{
 	return _renderEnable;
