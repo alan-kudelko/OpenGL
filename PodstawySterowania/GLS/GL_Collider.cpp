@@ -1,6 +1,7 @@
 #include "GL_Collider.h"
 #include "GL_Transform.h"
 
+////////////////////////////////////////////////////////////////// GL_Collider
 GLS::GL_Collider::GL_Collider(glm::vec3 location,glm::vec3 rotation,glm::vec3 scale,GLuint collisionGroup){
 	_localTransform.setLocation(location);
 	_localTransform.setRotation(rotation);
@@ -61,4 +62,11 @@ void GLS::GL_Collider::disableCollisions(){
 }
 GLboolean GLS::GL_Collider::shouldCollide()const{
 	return _collisionEnable;
+}
+////////////////////////////////////////////////////////////////// GL_SphereCollider
+GLS::GL_SphereCollider::GL_SphereCollider(glm::vec3 location,glm::vec3 rotation,glm::vec3 scale,GLuint collisionGroup):GL_Collider(location,rotation,scale,collisionGroup){
+	
+}
+GLS::GL_SphereCollider::~GL_SphereCollider(){
+
 }

@@ -110,9 +110,9 @@ GLS::GL_Triangle::GL_Triangle(GLenum memoryLocation):GL_Shape(memoryLocation){
 	_vertices=new GL_VertexData[_vertN]{};
 	GLfloat*test=new GLfloat[GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN]{};
 
-	GLfloat angle=0.0f;
+	GLfloat angle=60.0f;
 	GLfloat angleIncrement=360.0f/_vertN;
-	GLfloat radius=1.0f;
+	GLfloat radius=0.5;
 	glm::vec3 xyz{};
 
 	for(GLuint i=0;i<_vertN;i++){
@@ -166,7 +166,7 @@ GLS::GL_Polygon::GL_Polygon(GLuint vertN,GLenum memoryLocation):GL_Shape(memoryL
 
 	GLfloat angle=45.0f;
 	GLfloat angleIncrement=360.0f/_vertN;
-	GLfloat radius=std::sqrt(2)/2;
+	GLfloat radius=vertN==4?sqrt(2)/2:0.5;
 	glm::vec3 xyz{};
 
 	for(GLuint i=0;i<_vertN;i++){

@@ -68,6 +68,7 @@ namespace GLS{
 		// Creates new GL_Collider with given parameters and collision group 1
 		// Creates new GL_CollisionBehavior component with default behaviour
 		GL_GameObject(GLS::GL_Shader*shaderComponent,std::string meshType="rectangle",glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
+		GL_GameObject(GLS::GL_Shader* shaderComponent,GLuint polygonCount=3,glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
 		// Another default constructor creating empty object (without any components)
 		GL_GameObject();
 

@@ -25,6 +25,22 @@ GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader*shaderComponent,std::string mes
 	_shouldDestroy=GL_FALSE;
 	_meshComponent->enableRender();
 }
+GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader* shaderComponent,GLuint polygonCount,glm::vec3 location,glm::vec3 rotation,glm::vec3 scale){
+	_GL_GameObjectCounter++;
+
+	_name="GL_GameObject" + _GL_GameObjectCounter;
+	_transformComponent=new GLS::GL_Transform(location,rotation,scale);
+	_meshComponent=new GLS::GL_Mesh(polygonCount,glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
+	_colliderComponent=new GLS::GL_Collider(glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
+	_collisionBehaviourComponent=new GLS::GL_CollisionBehaviour(&GLS::behaviourDoNothing);
+	_shaderComponent=shaderComponent;
+
+	_gameObjectLinearVelocity=glm::vec3{};
+	_gameObjectRotationalVelocity=glm::vec3{}; // These two assignments will be moved to GL_Physics
+
+	_shouldDestroy=GL_FALSE;
+	_meshComponent->enableRender();
+}
 GLS::GL_GameObject::GL_GameObject(){
 	_GL_GameObjectCounter++;
 
