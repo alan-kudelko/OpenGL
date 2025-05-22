@@ -20,6 +20,11 @@
 #include "GLS/GL_CollisionBehaviour.h"
 #include "GLS/GL_SceneManager.h"
 #include "GLS/GL_CollisionResolve.h"
+#include "GLS/GL_ResourceManager.h"
+
+namespace GLS {
+    extern GL_ResourceManager GL_resourceManager;
+}
 
 enum { WINDOW_SIZE_X = 1000, WINDOW_SIZE_Y = 1000 };
 const char* vertexShaderPath = "shaders/orto_vertex_shader.vert";
@@ -107,23 +112,18 @@ int main() {
     if(window==nullptr)
         return -1;
 
-    GLS::GL_Shader basicShader1(vertexShaderPath, fragmentShaderPath);
+    GLS::GL_resourceManager.createShader("basic", vertexShaderPath, fragmentShaderPath);
 
-    if(basicShader1.getShaderStatus()){
-        std::cerr<<"Failed to initialize shader"<<std::endl;
-        glfwTerminate();
-        return -1;
-    }
     GLS::GL_SceneManager sceneManager;
     GLS::GL_CollisionManager collisionManager;
     GLS::GL_CollisionResolve collisionResolve;
     GLS::GL_SceneRenderer sceneRenderer(glm::ortho(0.0f, 1000.0f, 1000.0f, 0.0f, 1.0f, -1.0f));
 
-    GLS::GL_GameObject*obj1=new GLS::GL_GameObject(&basicShader1,"Rectangle",glm::vec3(500.0f,500.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,20.0f,1.0f));
+    GLS::GL_GameObject*obj1=new GLS::GL_GameObject(GLS::GL_resourceManager.getShaderByName("basic"), "Rectangle", glm::vec3(500.0f, 500.0f, 0.0f), glm::vec3(0.0f), glm::vec3(100.0f, 20.0f, 1.0f));
 
     sceneManager.addNewGameObject(obj1);
 
-    GLS::GL_GameObject* obj2=new GLS::GL_GameObject(&basicShader1,7,glm::vec3(500.0f,400.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,100.0f,1.0f));
+    GLS::GL_GameObject* obj2=new GLS::GL_GameObject(GLS::GL_resourceManager.getShaderByName("basic"),7,glm::vec3(500.0f,400.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,100.0f,1.0f));
     sceneManager.addNewGameObject(obj2);
 
     double lastFrame=glfwGetTime();
