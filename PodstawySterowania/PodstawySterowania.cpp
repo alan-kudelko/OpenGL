@@ -123,7 +123,7 @@ int main() {
 
     sceneManager.addNewGameObject(obj1);
 
-    GLS::GL_GameObject* obj2=new GLS::GL_GameObject(GLS::GL_resourceManager.getShaderByName("basic"),7,glm::vec3(500.0f,400.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,100.0f,1.0f));
+    GLS::GL_GameObject* obj2=new GLS::GL_GameObject(GLS::GL_resourceManager.getShaderByName("basic"),7,glm::vec3(500.0f,490.0f,0.0f),glm::vec3(0.0f),glm::vec3(100.0f,100.0f,1.0f));
     sceneManager.addNewGameObject(obj2);
 
     GLS::GL_BoxCollider x;
