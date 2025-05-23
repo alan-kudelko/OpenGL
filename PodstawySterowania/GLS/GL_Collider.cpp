@@ -79,6 +79,11 @@ GLS::GL_BoxCollider::GL_BoxCollider(glm::vec3 location,glm::vec3 rotation,glm::v
 GLS::GL_BoxCollider::~GL_BoxCollider(){
 	delete[]_boxVertices;
 }
+void GLS::GL_BoxCollider::getBoxVertices(glm::vec3*vertices)const{
+	for (GLuint i=0;i<4;i++) {
+		vertices[i]=_boxVertices[i];
+	}
+}
 ////////////////////////////////////////////////////////////////// GL_SphereCollider
 GLS::GL_SphereCollider::GL_SphereCollider(glm::vec3 location,glm::vec3 rotation,glm::vec3 scale,GLuint collisionGroup):GL_Collider(location,rotation,scale,collisionGroup){
 	
