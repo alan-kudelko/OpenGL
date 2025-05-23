@@ -15,7 +15,7 @@ GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader*shaderComponent,std::string mes
 	_name="GL_GameObject"+_GL_GameObjectCounter;
 	_transformComponent=new GLS::GL_Transform(location,rotation,scale);
 	_meshComponent=new GLS::GL_Mesh(meshType,glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
-	_colliderComponent=new GLS::GL_Collider(glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
+	_colliderComponent=new GLS::GL_BoxCollider(glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
 	_collisionBehaviourComponent=new GLS::GL_CollisionBehaviour(&GLS::behaviourDoNothing);
 	_shaderComponent=shaderComponent;
 
@@ -31,7 +31,7 @@ GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader* shaderComponent,GLuint polygon
 	_name="GL_GameObject" + _GL_GameObjectCounter;
 	_transformComponent=new GLS::GL_Transform(location,rotation,scale);
 	_meshComponent=new GLS::GL_Mesh(polygonCount,glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
-	_colliderComponent=new GLS::GL_Collider(glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
+	_colliderComponent=new GLS::GL_BoxCollider(glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
 	_collisionBehaviourComponent=new GLS::GL_CollisionBehaviour(&GLS::behaviourDoNothing);
 	_shaderComponent=shaderComponent;
 

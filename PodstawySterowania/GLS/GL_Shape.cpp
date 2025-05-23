@@ -58,6 +58,9 @@ GLS::GL_VertexData&GLS::GL_VertexData::operator=(const GLS::GL_VertexData&vertex
 	_uv=vertexData.getUV();
 	return *this;
 }
+GLuint GLS::GL_Shape::getVertCount()const{
+	return _vertN;
+}
 ////////////////////////////////////////////////////////////////// GL_Shape interface
 GLS::GL_Shape::GL_Shape(GLenum memoryLocation){
     _VAO=_VBO=0;
@@ -77,8 +80,8 @@ GLuint GLS::GL_Shape::getVAO()const{
 GLuint GLS::GL_Shape::getVBO()const{
 	return _VBO;
 }
-GLS::GL_VertexData GLS::GL_Shape::getVertices()const{
-	return *_vertices;
+GLS::GL_VertexData*GLS::GL_Shape::getVertices()const{
+	return _vertices;
 }
 ////////////////////////////////////////////////////////////////// GL_Triangle interface
 GLS::GL_Triangle::GL_Triangle(GLS::GL_VertexData*vertices,GLenum memoryLocation):GL_Shape(memoryLocation){
@@ -169,11 +172,10 @@ GLS::GL_Polygon::GL_Polygon(GLuint vertN,GLenum memoryLocation):GL_Shape(memoryL
 	GLfloat radius=vertN==4?sqrt(2)/2:0.5;
 	glm::vec3 xyz{};
 
-	for(GLuint i=0;i<_vertN;i++){
+	for(GLuint i=0;i<_vertN;i++,angle+=angleIncrement){
 		xyz[0]=std::sin(angle*M_PI/180.0f)*radius;
 		xyz[1]=std::cos(angle*M_PI/180.0f)*radius;
 		_vertices[i].setXYZ(xyz);
-		angle+=angleIncrement;
 	}
 	for(GLuint i=0;i<_vertN;i++)
 		_vertices[i].getVertexData(test+i*GLS::GL_VertexData::GL_VERTEX_SIZE);

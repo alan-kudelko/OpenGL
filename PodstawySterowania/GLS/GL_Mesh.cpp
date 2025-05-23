@@ -1,4 +1,5 @@
 #include "GL_Mesh.h"
+#include "GL_Shape.h"
 #include "GL_ResourceManager.h"
 
 namespace GLS{
@@ -12,6 +13,14 @@ GLS::GL_Mesh::GL_Mesh(std::string meshType,glm::vec3 location, glm::vec3 rotatio
 	_localTransform.setScale(scale);
 	_renderEnable=GL_TRUE;
 	_renderMode=GL_TRIANGLES;
+
+	_vertices = new glm::vec3[_meshGeometry->getVertCount()];
+	const GLS::GL_VertexData*vertices=_meshGeometry->getVertices();
+	for(GLuint i=0;i<_meshGeometry->getVertCount();i++){
+		_vertices[i]=vertices[i].getXYZ();
+		//std::cout << _vertices[i][0] << ':' << _vertices[i][1] << ':' << _vertices[i][2] << std::endl;
+	}
+
 	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
 }
 GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec3 location, glm::vec3 rotation,glm::vec3 scale){
@@ -21,10 +30,18 @@ GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec3 location, glm::vec3 rotation,glm::v
 	_localTransform.setScale(scale);
 	_renderEnable=GL_TRUE;
 	_renderMode=GL_TRIANGLES;
+
+	_vertices=new glm::vec3[_meshGeometry->getVertCount()];
+	const GLS::GL_VertexData* vertices=_meshGeometry->getVertices();
+	for(GLuint i=0;i < _meshGeometry->getVertCount();i++){
+		_vertices[i]=vertices[i].getXYZ();
+		//std::cout << _vertices[i][0] << ':' << _vertices[i][1] << ':' << _vertices[i][2] << std::endl;
+	}
+
 	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
 }
 GLS::GL_Mesh::~GL_Mesh(){
-
+	delete[]_vertices;
 }
 glm::vec3 GLS::GL_Mesh::getLocalLocation()const{
 	return _localTransform.getLocation();
@@ -85,4 +102,7 @@ glm::vec4 GLS::GL_Mesh::getColor()const{
 }
 void GLS::GL_Mesh::setColor(glm::vec4 color){
 	_color=color;
+}
+glm::vec3*GLS::GL_Mesh::getVertices()const{
+	return _vertices;
 }

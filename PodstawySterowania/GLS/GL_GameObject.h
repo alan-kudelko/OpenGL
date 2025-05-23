@@ -65,7 +65,7 @@ namespace GLS{
 		// Creates new GL_Transform component with given parameters
 		// Creates new GL_Mesh existing geometry to GL_Shape (triangle, rectangle, pentagon etc.)
 		// Initializes GL_Shader with existing shader
-		// Creates new GL_Collider with given parameters and collision group 1
+		// Creates new GL_BoxCollider with given parameters and collision group 1
 		// Creates new GL_CollisionBehavior component with default behaviour
 		GL_GameObject(GLS::GL_Shader*shaderComponent,std::string meshType="rectangle",glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
 		GL_GameObject(GLS::GL_Shader* shaderComponent,GLuint polygonCount=3,glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));

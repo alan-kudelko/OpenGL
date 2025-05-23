@@ -1,5 +1,11 @@
-﻿  GL_ResourceManager.cpp
+﻿  GL_Collider.cpp
+D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_Collider.cpp(72,16): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+  GL_CollisionBehaviour.cpp
+  GL_CollisionManager.cpp
+  GL_GameObject.cpp
+  GL_SceneManager.cpp
+D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_SceneManager.cpp(26,29): warning C4267: 'return': conversion from 'size_t' to 'GLuint', possible loss of data
+  GL_SceneRenderer.cpp
   PodstawySterowania.cpp
   Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   PodstawySterowania.vcxproj -> D:\Projekty\OpenGL\PodstawySterowania\x64\Debug\PodstawySterowania.exe

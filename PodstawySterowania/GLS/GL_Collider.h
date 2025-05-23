@@ -71,17 +71,20 @@ namespace GLS{
 		void disableCollisions();
 		GLboolean shouldCollide()const; // Returns wheter collider should interact with other objects
 	};
-	
+
+	class GL_BoxCollider:public GL_Collider{
+		glm::vec3*_boxVertices;
+	public:
+		GL_BoxCollider(glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
+		~GL_BoxCollider();
+		// In the future there should be interface for changing location of indivudals vertices
+	};
+
 	class GL_SphereCollider:public GL_Collider{
 	public:
 		GL_SphereCollider(glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f),GLuint collisionGroup=1);
 		~GL_SphereCollider();
 	};
 	
-	class GL_BoxCollider:public GL_Collider{
-	public:
-		GL_BoxCollider();
-		~GL_BoxCollider();
-	};
 }
 

@@ -11,6 +11,10 @@ GLboolean GLS::GL_CollisionManager::_checkAABBCollision(glm::vec3 obj1BoundingBo
 	}
 	return GL_FALSE;
 }
+GLboolean GLS::GL_CollisionManager::_checkSATCollision(glm::vec3 obj1Vertices,GLuint obj1VertCount,glm::vec3 obj2Vertices,GLuint obj2VertCount){
+
+	return GL_TRUE;
+}
 
 GLS::GL_CollisionManager::GL_CollisionManager(){
 
@@ -64,10 +68,9 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 
 			glm::mat3 obj2GoRotationMatrix=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
 
-			obj2GoScale=mat3abs(obj2GoRotationMatrix) * obj2GoScale;
+			obj2GoScale=mat3abs(obj2GoRotationMatrix)*obj2GoScale;
 
 			glm::vec3 obj1ColMin=obj1GoLocation-obj1GoScale/2.0f;
-
 			glm::vec3 obj1ColMax=obj1GoLocation+obj1GoScale/2.0f;
 			
 			glm::vec3 obj2ColMin=obj2GoLocation-obj2GoScale/2.0f;
@@ -75,15 +78,17 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 
 			// AABB
 			if(this->_checkAABBCollision(obj1ColMin,obj1ColMax,obj2ColMin,obj2ColMax)){
-				std::cout<<"Kolizja AABB"<<std::endl;
-
-				GLS::GL_CollisionInfo collisionInfo;
-				collisionInfo.obj1=(*it);
-				collisionInfo.obj2=(*jt);
-				collisionInfo.contactPoint=contactPoint;
-				collisionInfo.normalVector=normalVector;
-				collisionInfo.penetrationDepth=penetrationDepth;
-				collisionInfoStruct.push_back(collisionInfo);
+				std::cout<<"AABB collision"<<std::endl;
+				// SAT algorithm
+				if(this->_checkSATCollision()){
+					GLS::GL_CollisionInfo collisionInfo;
+					collisionInfo.obj1=(*it);
+					collisionInfo.obj2=(*jt);
+					collisionInfo.contactPoint=contactPoint;
+					collisionInfo.normalVector=normalVector;
+					collisionInfo.penetrationDepth=penetrationDepth;
+					collisionInfoStruct.push_back(collisionInfo);
+				}
 			}
 		}
 	}

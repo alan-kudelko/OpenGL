@@ -44,6 +44,7 @@ namespace GLS{
 		GLboolean _renderEnable;
 		GLenum _renderMode;
 		glm::vec4 _color;
+		glm::vec3* _vertices;
 	public:
         GL_Mesh(std::string meshType,glm::vec3 location=glm::vec3(0.0f), glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
         GL_Mesh(GLuint vertN,glm::vec3 location=glm::vec3(0.0f), glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
@@ -70,9 +71,7 @@ namespace GLS{
 
 		glm::vec4 getColor()const;
 		void setColor(glm::vec4 color);
+
+		glm::vec3*getVertices()const;
     };
 }
-/*
-	Class used inside GL_GameObject class as the component
-
-*/

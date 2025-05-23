@@ -63,6 +63,22 @@ void GLS::GL_Collider::disableCollisions(){
 GLboolean GLS::GL_Collider::shouldCollide()const{
 	return _collisionEnable;
 }
+////////////////////////////////////////////////////////////////// GL_BoxCollider
+GLS::GL_BoxCollider::GL_BoxCollider(glm::vec3 location,glm::vec3 rotation,glm::vec3 scale):GLS::GL_Collider(location,rotation,scale){
+	_boxVertices=new glm::vec3[4]{};
+
+	GLfloat angle=45.0f;
+	GLfloat angleIncrement=90.0f;
+	GLfloat radius=sqrt(2)/2;
+
+	for(GLuint i=0;i < 4;i++,angle+=angleIncrement){
+		_boxVertices[i].x=std::sin(glm::radians(angle))*radius;
+		_boxVertices[i].y=std::cos(glm::radians(angle))*radius;
+	}
+}
+GLS::GL_BoxCollider::~GL_BoxCollider(){
+	delete[]_boxVertices;
+}
 ////////////////////////////////////////////////////////////////// GL_SphereCollider
 GLS::GL_SphereCollider::GL_SphereCollider(glm::vec3 location,glm::vec3 rotation,glm::vec3 scale,GLuint collisionGroup):GL_Collider(location,rotation,scale,collisionGroup){
 	

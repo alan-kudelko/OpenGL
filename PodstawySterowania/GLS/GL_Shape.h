@@ -70,18 +70,19 @@ namespace GLS{
 		GL_VertexData*_vertices; // Pointer to primitive's vertices array
 		GLuint _vertN; // Number of primitive's vertices
 	public:
-        GL_Shape(GLenum memoryLocation=GL_STATIC_DRAW);
+        GL_Shape(GLenum memoryLocation=GL_DYNAMIC_DRAW);
         virtual ~GL_Shape();
 
 		GLenum getMemoryLocation()const;
 		GLuint getVAO()const;
 		GLuint getVBO()const;
-        GLS::GL_VertexData getVertices()const;
+        GLS::GL_VertexData*getVertices()const;
+		GLuint getVertCount()const;
     };
 	class GL_Triangle:public GL_Shape{
 	public:
 		GL_Triangle(GL_VertexData*vertices,GLenum memoryLocation=GL_DYNAMIC_DRAW);
-		GL_Triangle(GLenum memoryLocation=GL_STATIC_DRAW);
+		GL_Triangle(GLenum memoryLocation=GL_DYNAMIC_DRAW);
 		~GL_Triangle();
 	};
 	class GL_Polygon:public GL_Shape{
@@ -89,8 +90,8 @@ namespace GLS{
 		GLuint*_indices; // Potiner to indices array
 		GLuint _indicesN; // Number of elements in the indices array
 	public:
-		GL_Polygon(GLuint vertN,GLenum memoryLocation=GL_STATIC_DRAW);
-		GL_Polygon(GL_VertexData*vertices,GLenum memoryLocation=GL_STATIC_DRAW);
+		GL_Polygon(GLuint vertN,GLenum memoryLocation=GL_DYNAMIC_DRAW);
+		GL_Polygon(GL_VertexData*vertices,GLenum memoryLocation=GL_DYNAMIC_DRAW);
 		~GL_Polygon();
 		GLuint getEBO()const;
 		GLuint getIndicesN()const;
