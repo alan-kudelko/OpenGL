@@ -84,6 +84,14 @@ void GLS::GL_BoxCollider::getBoxVertices(glm::vec3*vertices)const{
 		vertices[i]=_boxVertices[i];
 	}
 }
+////////////////////////////////////////////////////////////////// GL_MeshCollider
+GLS::GL_MeshCollider::GL_MeshCollider(){
+
+	_isConvex=GL_TRUE;
+}
+GLS::GL_MeshCollider::~GL_MeshCollider(){
+
+}
 ////////////////////////////////////////////////////////////////// GL_SphereCollider
 GLS::GL_SphereCollider::GL_SphereCollider(glm::vec3 location,glm::vec3 rotation,glm::vec3 scale,GLuint collisionGroup):GL_Collider(location,rotation,scale,collisionGroup){
 	

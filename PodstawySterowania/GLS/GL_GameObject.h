@@ -1,4 +1,4 @@
-/**
+/*
  * Author: Alan Kude³ko
  * Date: May 2025
  * GitHub: https://github.com/alan-kudelko

@@ -37,7 +37,7 @@ GLS::GL_Shape*GLS::GL_ResourceManager::getGeometryByName(std::string meshType){
 		return this->getGeometryByVertCount(4);
 	}
 	else{
-		std::string exceptionText = "GL_ResourceManager trying to return undefined geometry name: "+meshType;
+		std::string exceptionText = "GL_ResourceManager trying to return undefined geometry: "+meshType;
 		throw std::runtime_error(exceptionText.c_str());
 	}
 }
@@ -75,7 +75,7 @@ void GLS::GL_ResourceManager::createShader(std::string shaderName,std::string ve
 GLS::GL_Shader*GLS::GL_ResourceManager::getShaderByName(std::string shaderName)const{
 	auto it=this->_findShaderByName(shaderName);
 	if(it==_shaderRecords.end()){
-		std::string exceptionText="GL_ResourceManager canno find shader: "+shaderName;
+		std::string exceptionText="GL_ResourceManager cannot find shader: "+shaderName;
 		throw std::runtime_error(exceptionText.c_str());
 	}
 

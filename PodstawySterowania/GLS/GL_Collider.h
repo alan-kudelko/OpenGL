@@ -81,7 +81,13 @@ namespace GLS{
 		void getBoxVertices(glm::vec3*vertices)const;
 		// In the future there should be interface for changing location of indivudals vertices
 	};
-
+	class GL_MeshCollider:public GL_Collider{
+		glm::vec3* _meshVertices;
+		GLboolean _isConvex; // Will be needed for triangulation
+	public:
+		GL_MeshCollider();
+		~GL_MeshCollider();
+	};
 	class GL_SphereCollider:public GL_Collider{
 	public:
 		GL_SphereCollider(glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f),GLuint collisionGroup=1);
