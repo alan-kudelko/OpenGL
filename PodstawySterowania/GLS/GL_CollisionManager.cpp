@@ -3,6 +3,8 @@
 #include "GL_Collider.h"
 #include "GL_CollisionResolve.h"
 
+#include <climits>
+#include <algorithm>
 GLboolean GLS::GL_CollisionManager::_checkAABBCollision(glm::vec3 obj1BoundingBoxMin,glm::vec3 obj1BoundingBoxMax,glm::vec3 obj2BoundingBoxMin,glm::vec3 obj2BoundingBoxMax){
 	if((obj1BoundingBoxMax.x>=obj2BoundingBoxMin.x&&obj1BoundingBoxMin.x<=obj2BoundingBoxMax.x)&&
            (obj1BoundingBoxMax.y>=obj2BoundingBoxMin.y&&obj1BoundingBoxMin.y<=obj2BoundingBoxMax.y)&&
@@ -11,17 +13,35 @@ GLboolean GLS::GL_CollisionManager::_checkAABBCollision(glm::vec3 obj1BoundingBo
 	}
 	return GL_FALSE;
 }
-GLboolean GLS::GL_CollisionManager::_checkSATCollision(glm::vec3*obj1Vertices,GLuint obj1VertCount,glm::vec3*obj2Vertices,GLuint obj2VertCount){
-	glm::vec3 projectionAxis;
-	glm::vec3 length;
+GLboolean GLS::GL_CollisionManager::_checkSATCollision(glm::vec3* obj1Vertices,GLuint obj1VertCount,
+	glm::vec3* obj2Vertices,GLuint obj2VertCount) {
+	auto checkAxes=[&](glm::vec3* vertices,GLuint count) {
+		for(GLuint i=0; i < count; i++) {
+			glm::vec2 p1=glm::vec2(vertices[i]);
+			glm::vec2 p2=glm::vec2(vertices[(i + 1) % count]);
+			glm::vec2 edge=p2 - p1;
+			glm::vec2 axis=glm::normalize(glm::vec2(-edge.y,edge.x));
 
-	for(GLuint i=0;i<obj1VertCount;i++){
-		projectionAxis.x=-obj1Vertices[i].x+obj1Vertices[(i+1)<obj1VertCount?i+1:0].x;
-		projectionAxis.y=obj1Vertices[i].y-obj1Vertices[(i+1)<obj1VertCount?i+1:0].y;
-		projectionAxis.z=obj1Vertices[i].z-obj1Vertices[(i+1)<obj1VertCount?i+1:0].z;
+			std::vector<float> proj1(obj1VertCount);
+			std::vector<float> proj2(obj2VertCount);
 
-		length=std::sqrt(projectionAxis*projectionAxis);
-	}
+			for(GLuint j=0; j < obj1VertCount; j++)
+				proj1[j]=glm::dot(glm::vec2(obj1Vertices[j]),axis);
+
+			for(GLuint j=0; j < obj2VertCount; j++)
+				proj2[j]=glm::dot(glm::vec2(obj2Vertices[j]),axis);
+
+			auto [min1,max1]=std::minmax_element(proj1.begin(),proj1.end());
+			auto [min2,max2]=std::minmax_element(proj2.begin(),proj2.end());
+
+			if(*max1 < *min2 || *max2 < *min1)
+				return false;
+		}
+		return true;
+	};
+
+	if(!checkAxes(obj1Vertices,obj1VertCount)) return GL_FALSE;
+	if(!checkAxes(obj2Vertices,obj2VertCount)) return GL_FALSE;
 
 	return GL_TRUE;
 }
@@ -110,7 +130,7 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 					obj2BoxColliderVertices[i]=glm::translate(model,obj2GoLocation)*glm::rotate(model,glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,obj2GoScale)*glm::translate(model,obj2ColLocation)*glm::rotate(model,glm::radians(obj2ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,obj2ColScale)*glm::vec4(obj2BoxColliderVertices[i],1.0f);
 
 				}
-				if(this->_checkSATCollision(obj1BoxColliderVertices,4,obj1BoxColliderVertices,4)){
+				if(this->_checkSATCollision(obj1BoxColliderVertices,4,obj2BoxColliderVertices,4)){
 					GLS::GL_CollisionInfo collisionInfo;
 					collisionInfo.obj1=(*it);
 					collisionInfo.obj2=(*jt);
@@ -118,6 +138,7 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 					collisionInfo.normalVector=normalVector;
 					collisionInfo.penetrationDepth=penetrationDepth;
 					collisionInfoStruct.push_back(collisionInfo);
+					std::cout << "SAT collision" << std::endl;
 				}
 			}
 		}
