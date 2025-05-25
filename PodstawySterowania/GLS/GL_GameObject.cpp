@@ -5,41 +5,38 @@
 #include "GL_Shader.h"
 #include "GL_Collider.h"
 #include "GL_CollisionBehaviour.h"
+#include "GL_PhysicsBody.h"
 
 ////////////////////////////////////////////////////////////////// GL_GameObject interface
 GLuint GLS::GL_GameObject::_GL_GameObjectCounter=0;
 
-GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader*shaderComponent,std::string meshType,glm::vec3 location,glm::vec3 rotation,glm::vec3 scale){
+GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader*shaderComponent,std::string meshType,glm::vec2 location,glm::vec3 rotation,glm::vec2 scale){
 	_GL_GameObjectCounter++;
 
 	_name="GL_GameObject"+_GL_GameObjectCounter;
 	_transformComponent=new GLS::GL_Transform(location,rotation,scale);
-	_meshComponent=new GLS::GL_Mesh(meshType,glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
-	_colliderComponent=new GLS::GL_BoxCollider(glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
+	_meshComponent=new GLS::GL_Mesh(meshType,glm::vec2(0.0f),glm::vec3(0.0f),glm::vec2(1.0f));
+	_colliderComponent=new GLS::GL_BoxCollider(glm::vec2(0.0f),glm::vec3(0.0f),glm::vec2(1.0f));
 	_collisionBehaviourComponent=new GLS::GL_CollisionBehaviour(&GLS::behaviourDoNothing);
 	_shaderComponent=shaderComponent;
 
-	_gameObjectLinearVelocity=glm::vec3{};
-	_gameObjectRotationalVelocity=glm::vec3{}; // These two assignments will be moved to GL_Physics
-
 	_shouldDestroy=GL_FALSE;
 	_meshComponent->enableRender();
+	_physicsComponent=nullptr;
 }
-GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader* shaderComponent,GLuint polygonCount,glm::vec3 location,glm::vec3 rotation,glm::vec3 scale){
+GLS::GL_GameObject::GL_GameObject(GLS::GL_Shader* shaderComponent,GLuint polygonCount,glm::vec2 location,glm::vec3 rotation,glm::vec2 scale){
 	_GL_GameObjectCounter++;
 
 	_name="GL_GameObject" + _GL_GameObjectCounter;
 	_transformComponent=new GLS::GL_Transform(location,rotation,scale);
-	_meshComponent=new GLS::GL_Mesh(polygonCount,glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
-	_colliderComponent=new GLS::GL_BoxCollider(glm::vec3(0.0f),glm::vec3(0.0f),glm::vec3(1.0f));
+	_meshComponent=new GLS::GL_Mesh(polygonCount,glm::vec2(0.0f),glm::vec3(0.0f),glm::vec2(1.0f));
+	_colliderComponent=new GLS::GL_BoxCollider(glm::vec2(0.0f),glm::vec3(0.0f),glm::vec2(1.0f));
 	_collisionBehaviourComponent=new GLS::GL_CollisionBehaviour(&GLS::behaviourDoNothing);
 	_shaderComponent=shaderComponent;
 
-	_gameObjectLinearVelocity=glm::vec3{};
-	_gameObjectRotationalVelocity=glm::vec3{}; // These two assignments will be moved to GL_Physics
-
 	_shouldDestroy=GL_FALSE;
 	_meshComponent->enableRender();
+	_physicsComponent=nullptr;
 }
 GLS::GL_GameObject::GL_GameObject(){
 	_GL_GameObjectCounter++;
@@ -51,16 +48,11 @@ GLS::GL_GameObject::GL_GameObject(){
 	_shaderComponent=nullptr;
 	_colliderComponent=nullptr;
 	_collisionBehaviourComponent=nullptr;
-
-	_gameObjectLinearVelocity=glm::vec3{};
-	_gameObjectRotationalVelocity=glm::vec3{}; // These two assignments will be moved to GL_Physics
+	_physicsComponent=nullptr;
 
 	_shouldDestroy=GL_FALSE;
 }
 GLS::GL_GameObject::~GL_GameObject(){
-	delete _shapeComponentLocation;
-	delete _shapeComponentRotation;
-	delete _shapeComponentScale;
 	delete _transformComponent;
 	delete _meshComponent;
 	delete _colliderComponent;
@@ -68,7 +60,7 @@ GLS::GL_GameObject::~GL_GameObject(){
 	_GL_GameObjectCounter--;
 }
 ////////////////////////////////////////////////////////////////// GL_Transform interface
-glm::vec3 GLS::GL_GameObject::getLocation()const{
+glm::vec2 GLS::GL_GameObject::getLocation()const{
 	if(_transformComponent==nullptr){
 		std::string exceptionText="Transform component is missing in GL_GameObject "+_name;
 		throw std::runtime_error(exceptionText.c_str());
@@ -82,14 +74,14 @@ glm::vec3 GLS::GL_GameObject::getRotation()const{
 	}
 	return _transformComponent->getRotation();
 }
-glm::vec3 GLS::GL_GameObject::getScale()const{
+glm::vec2 GLS::GL_GameObject::getScale()const{
 	if(_transformComponent==nullptr){
 		std::string exceptionText="Transform component is missing in GL_GameObject "+_name;
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	return _transformComponent->getScale();
 }
-void GLS::GL_GameObject::setLocation(glm::vec3 location){
+void GLS::GL_GameObject::setLocation(glm::vec2 location){
 	if(_transformComponent==nullptr){
 		std::string exceptionText="Transform component is missing in GL_GameObject "+_name;
 		throw std::runtime_error(exceptionText.c_str());
@@ -102,16 +94,15 @@ void GLS::GL_GameObject::setRotation(glm::vec3 rotation){
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->setRotation(rotation);
-	_colliderComponent->updateBoundingBoxSize(_transformComponent->getRotation()); // Rotation will be normalzied by GL_Transform object
 }
-void GLS::GL_GameObject::setScale(glm::vec3 scale) {
+void GLS::GL_GameObject::setScale(glm::vec2 scale) {
 	if (_transformComponent == nullptr) {
 		std::string exceptionText = "Transform component is missing in GL_GameObject " + _name;
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->setScale(scale);
 }
-void GLS::GL_GameObject::move(glm::vec3 delta){
+void GLS::GL_GameObject::move(glm::vec2 delta){
 	if(_transformComponent==nullptr){
 		std::string exceptionText="Transform component is missing in GL_GameObject "+_name;
 		throw std::runtime_error(exceptionText.c_str());
@@ -124,28 +115,54 @@ void GLS::GL_GameObject::rotate(glm::vec3 delta){
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->rotate(delta);
-	_colliderComponent->updateBoundingBoxSize(_transformComponent->getRotation()); // Rotation will be normalzied by GL_Transform object
 }
-////////////////////////////////////////////////////////////////// GL_Physics interface (in near future)
-glm::vec3 GLS::GL_GameObject::getGameObjectLinearVelocity()const{
-	return _gameObjectLinearVelocity;
+void GLS::GL_GameObject::scaleBy(glm::vec2 delta){
+	if(_transformComponent == nullptr){
+		std::string exceptionText="Transform component is missing in GL_GameObject " + _name;
+		throw std::runtime_error(exceptionText.c_str());
+	}
+	_transformComponent->scaleBy(delta);
 }
-glm::vec3 GLS::GL_GameObject::getGameObjectRotationalVelocity()const{
-	return _gameObjectRotationalVelocity;
+////////////////////////////////////////////////////////////////// GL_Physics interface
+glm::vec2 GLS::GL_GameObject::getGameObjectLinearVelocity()const{
+	if(_physicsComponent==nullptr){
+		std::string exceptionText="Physics component is missing in GL_GameObject " + _name;
+		throw std::runtime_error(exceptionText.c_str());
+	}
+	return _physicsComponent->getLinearVelocity();
 }
-void GLS::GL_GameObject::setGameObjectLinearVelocity(glm::vec3 gameObjectLinearVelocity){
-	_gameObjectLinearVelocity=gameObjectLinearVelocity;
+glm::vec3 GLS::GL_GameObject::getGameObjectAngularVelocity()const{
+	if(_physicsComponent==nullptr){
+		std::string exceptionText="Physics component is missing in GL_GameObject " + _name;
+		throw std::runtime_error(exceptionText.c_str());
+	}
+	return _physicsComponent->getAngularVelocity();
 }
-void GLS::GL_GameObject::setGameObjectRotationalVelocity(glm::vec3 gameObjectRotationalVelocity){
-	_gameObjectRotationalVelocity=gameObjectRotationalVelocity;
+void GLS::GL_GameObject::setGameObjectLinearVelocity(glm::vec2 gameObjectLinearVelocity){
+	if(_physicsComponent==nullptr){
+		std::string exceptionText="Physics component is missing in GL_GameObject " + _name;
+		throw std::runtime_error(exceptionText.c_str());
+	}
+	_physicsComponent->setLinearVelocity(gameObjectLinearVelocity);
+}
+void GLS::GL_GameObject::setGameObjectAngularVelocity(glm::vec3 gameObjectRotationalVelocity){
+	if(_physicsComponent==nullptr){
+		std::string exceptionText="Physics component is missing in GL_GameObject " + _name;
+		throw std::runtime_error(exceptionText.c_str());
+	}
+	_physicsComponent->setAngularVelocity(gameObjectRotationalVelocity);
 }
 void GLS::GL_GameObject::updateGameObjectLocation(GLfloat deltaTime){
 	if(_transformComponent==nullptr){
 		std::string exceptionText="Transform component is missing in GL_GameObject "+_name;
 		throw std::runtime_error(exceptionText.c_str());
 	} // For now, velocities also must exist but in GL_Physics
-	glm::vec3 positionIntegral=_gameObjectLinearVelocity*deltaTime;
-	glm::vec3 rotationIntegral=_gameObjectRotationalVelocity*deltaTime;
+	if(_physicsComponent==nullptr){
+		std::string exceptionText="Physics component is missing in GL_GameObject " + _name;
+		throw std::runtime_error(exceptionText.c_str());
+	}
+	glm::vec2 positionIntegral=_physicsComponent->getLinearVelocity()*deltaTime;
+	glm::vec3 rotationIntegral=_physicsComponent->getAngularVelocity()*deltaTime;
 
 	_transformComponent->move(positionIntegral);
 	_transformComponent->rotate(rotationIntegral);
@@ -220,20 +237,32 @@ GLS::GL_Collider*GLS::GL_GameObject::getColliderComponent(){
 GLS::GL_CollisionBehaviour*GLS::GL_GameObject::getCollisionBehaviourComponent(){
 	return _collisionBehaviourComponent;
 }
-void GLS::GL_GameObject::createTransformComponent(glm::vec3 location,glm::vec3 rotation,glm::vec3 scale){
+void GLS::GL_GameObject::createTransformComponent(glm::vec2 location,glm::vec3 rotation,glm::vec2 scale){
 	_transformComponent=new GLS::GL_Transform(location,rotation,scale);
 }
-void GLS::GL_GameObject::createMeshComponent(std::string meshType,glm::vec3 location,glm::vec3 rotation, glm::vec3 scale){
-	_shapeComponentLocation=new glm::vec3{};
-	_shapeComponentRotation=new glm::vec3{};
-	_shapeComponentScale=new glm::vec3{1.0f,1.0f,1.0f};
+void GLS::GL_GameObject::createMeshComponent(std::string meshType,glm::vec2 location,glm::vec3 rotation, glm::vec2 scale){
 	_meshComponent=new GLS::GL_Mesh(meshType);
+	_meshComponent->setLocalLocation(location);
+	_meshComponent->setLocalRotation(rotation);
+	_meshComponent->setLocalScale(scale);
 }
 void GLS::GL_GameObject::assignShaderComponent(GLS::GL_Shader*component){
 	_shaderComponent=component;
 }
-void GLS::GL_GameObject::createCollisionComponent(glm::vec3 location,glm::vec3 rotation,glm::vec3 size,GLuint collisionGroup){
-	_colliderComponent=new GLS::GL_Collider(location,rotation,size,collisionGroup);
+void GLS::GL_GameObject::createCollisionComponent(glm::vec2 location,glm::vec3 rotation,glm::vec2 scale,std::string colliderType,GLuint collisionGroup){
+	if(colliderType=="BoxCollider"){
+		_colliderComponent=new GLS::GL_BoxCollider(location,rotation,scale,collisionGroup);
+	}
+	else if(colliderType=="SphereCollider"){
+
+	}
+	else if(colliderType=="MeshCollider"){
+
+	}
+	else{
+		std::string exceptionText="Trying to create undefined collider component in GL_GameObject " + _name+" Collider type "+colliderType;
+		throw std::runtime_error(exceptionText.c_str());
+	}
 }
 void GLS::GL_GameObject::createCollisionBehaviourComponent(void(*behaviourFunPtr)(GLS::GL_GameObject*,GLS::GL_GameObject*)){
 	_collisionBehaviourComponent=new GLS::GL_CollisionBehaviour(behaviourFunPtr);

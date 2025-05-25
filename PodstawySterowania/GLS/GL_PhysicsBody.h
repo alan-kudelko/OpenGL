@@ -34,13 +34,13 @@ namespace GLS{
 		
 		GLfloat _mass; // [kg]
 		
-		glm::vec3 _linearVelocity; // [m/s]
+		glm::vec2 _linearVelocity; // [m/s]
 		glm::vec3 _angularVelocity; // [rad/s]
 		
-		glm::vec3 _linearAcceleration; // [m/s^2]
+		glm::vec2 _linearAcceleration; // [m/s^2]
 		glm::vec3 _angularAcceleration; // [rad/s^2]
 		
-		glm::vec3 _centerOffMass; // Center of mass offset [m]
+		glm::vec2 _centerOffMass; // Center of mass offset [m]
 	public:
 		GL_PhysicsBody();
 		~GL_PhysicsBody();
@@ -56,14 +56,14 @@ namespace GLS{
 		GLfloat getMass()const;		
 		void setMass(GLfloat mass);
 ////////////////////////////////////////////////////////////////// Linear velocity operations
-		glm::vec3 getLinearVelocity()const;		
-		void setLinearVelocity(glm::vec3 linearVelocity);
+		glm::vec2 getLinearVelocity()const;		
+		void setLinearVelocity(glm::vec2 linearVelocity);
 ////////////////////////////////////////////////////////////////// Angular velocity operations
 		glm::vec3 getAngularVelocity()const;		
 		void setAngularVelocity(glm::vec3 angularVelocity);
 ////////////////////////////////////////////////////////////////// Linear acceleration operations
-		glm::vec3 getLinearAcceleration()const;	
-		void setLinearAcceleration(glm::vec3 linearAcceleration);
+		glm::vec2 getLinearAcceleration()const;	
+		void setLinearAcceleration(glm::vec2 linearAcceleration);
 ////////////////////////////////////////////////////////////////// Angular acceleration operations
 		glm::vec3 getAngularAcceleration()const;	
 		void setAngularAcceleration(glm::vec3 angularAcceleration);

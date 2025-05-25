@@ -6,7 +6,7 @@ namespace GLS{
     extern GL_ResourceManager GL_resourceManager;
 }
 
-GLS::GL_Mesh::GL_Mesh(std::string meshType,glm::vec3 location, glm::vec3 rotation,glm::vec3 scale){
+GLS::GL_Mesh::GL_Mesh(std::string meshType,glm::vec2 location, glm::vec3 rotation,glm::vec2 scale){
 	_meshGeometry=GLS::GL_resourceManager.getGeometryByName(meshType);
 	_localTransform.setLocation(location);
 	_localTransform.setRotation(rotation);
@@ -14,16 +14,15 @@ GLS::GL_Mesh::GL_Mesh(std::string meshType,glm::vec3 location, glm::vec3 rotatio
 	_renderEnable=GL_TRUE;
 	_renderMode=GL_TRIANGLES;
 
-	_vertices = new glm::vec3[_meshGeometry->getVertCount()];
+	_vertices = new glm::vec2[_meshGeometry->getVertCount()];
 	const GLS::GL_VertexData*vertices=_meshGeometry->getVertices();
 	for(GLuint i=0;i<_meshGeometry->getVertCount();i++){
 		_vertices[i]=vertices[i].getXYZ();
-		//std::cout << _vertices[i][0] << ':' << _vertices[i][1] << ':' << _vertices[i][2] << std::endl;
 	}
 
 	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
 }
-GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec3 location, glm::vec3 rotation,glm::vec3 scale){
+GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec2 location, glm::vec3 rotation,glm::vec2 scale){
 	_meshGeometry=GLS::GL_resourceManager.getGeometryByVertCount(vertN);
 	_localTransform.setLocation(location);
 	_localTransform.setRotation(rotation);
@@ -31,11 +30,10 @@ GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec3 location, glm::vec3 rotation,glm::v
 	_renderEnable=GL_TRUE;
 	_renderMode=GL_TRIANGLES;
 
-	_vertices=new glm::vec3[_meshGeometry->getVertCount()];
+	_vertices=new glm::vec2[_meshGeometry->getVertCount()];
 	const GLS::GL_VertexData* vertices=_meshGeometry->getVertices();
 	for(GLuint i=0;i < _meshGeometry->getVertCount();i++){
 		_vertices[i]=vertices[i].getXYZ();
-		//std::cout << _vertices[i][0] << ':' << _vertices[i][1] << ':' << _vertices[i][2] << std::endl;
 	}
 
 	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
@@ -43,22 +41,22 @@ GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec3 location, glm::vec3 rotation,glm::v
 GLS::GL_Mesh::~GL_Mesh(){
 	delete[]_vertices;
 }
-glm::vec3 GLS::GL_Mesh::getLocalLocation()const{
+glm::vec2 GLS::GL_Mesh::getLocalLocation()const{
 	return _localTransform.getLocation();
 }
 glm::vec3 GLS::GL_Mesh::getLocalRotation()const{
 	return _localTransform.getRotation();
 }
-glm::vec3 GLS::GL_Mesh::getLocalScale()const{
+glm::vec2 GLS::GL_Mesh::getLocalScale()const{
 	return _localTransform.getScale();
 }
-void GLS::GL_Mesh::setLocalLocation(glm::vec3 location){
+void GLS::GL_Mesh::setLocalLocation(glm::vec2 location){
 	_localTransform.setLocation(location);
 }
 void GLS::GL_Mesh::setLocalRotation(glm::vec3 rotation){
 	_localTransform.setRotation(rotation);
 }
-void GLS::GL_Mesh::setLocalScale(glm::vec3 scale){
+void GLS::GL_Mesh::setLocalScale(glm::vec2 scale){
 	_localTransform.setScale(scale);
 }
 const GLS::GL_Shape*GLS::GL_Mesh::getGeometry()const{
@@ -103,6 +101,6 @@ glm::vec4 GLS::GL_Mesh::getColor()const{
 void GLS::GL_Mesh::setColor(glm::vec4 color){
 	_color=color;
 }
-glm::vec3*GLS::GL_Mesh::getVertices()const{
+glm::vec2*GLS::GL_Mesh::getVertices()const{
 	return _vertices;
 }

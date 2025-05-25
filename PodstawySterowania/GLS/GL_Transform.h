@@ -32,39 +32,27 @@
 
 namespace GLS{
 	class GL_Transform:public GL_Component{
-		glm::vec3 _location;
-		glm::vec3 _rotation;
-		glm::vec3 _scale;
+		glm::vec2 _location;
+		glm::vec3 _rotation; // Retained as glm::vec3 for future compability
+		glm::vec2 _scale;
 	public:
-		static glm::vec3 normalizeAngles(glm::vec3 rotation);
+		static glm::vec3 normalizeAngles(glm::vec3 rotation); // Retained as glm::vec3 for future compability
 
-		GL_Transform(glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
+		GL_Transform(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f));
 		~GL_Transform();
 
-		glm::vec3 getLocation()const;
+		glm::vec2 getLocation()const;
 		glm::vec3 getRotation()const;
-		glm::vec3 getScale()const;
+		glm::vec2 getScale()const;
 
-		void move(const glm::vec3&delta);
+		void move(const glm::vec2&delta);
 		void rotate(const glm::vec3&delta);
-		void scaleBy(const glm::vec3&factor);
+		void scaleBy(const glm::vec2&factor);
 
-		void setLocation(const glm::vec3&location);
+		void setLocation(const glm::vec2&location);
 		void setRotation(const glm::vec3&rotation);
-		void setScale(const glm::vec3&scale);
+		void setScale(const glm::vec2&scale);
 
 		void reset();
 	};
 }
-/*
- * Class GL_Transform
- * ------------------
- * Component representing an object's transformation in 3D space.
- * Stores and manages position (_location), rotation (_rotation), and scale (_scale).
- *
- * Provides methods to move, rotate, scale, and reset the transform.
- * Rotation angles are normalized to the range [0, 360) degrees.
- *
- * Intended to be used as a reusable component for any game object or mesh
- * that requires transformations.
- */

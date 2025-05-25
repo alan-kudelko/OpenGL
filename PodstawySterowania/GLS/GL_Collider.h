@@ -48,51 +48,51 @@ namespace GLS{
 		GLboolean _collisionEnable;
 		GLuint _collisionGroup;
 		GLS::GL_Transform _localTransform;
-		glm::vec3 _transformedScale; // Size needs to be recalculated after each rotation
+		glm::vec2 _AABBvertices[4]{};
 	public:
-		GL_Collider(glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f),GLuint collisionGroup=1);
-		~GL_Collider();
+		GL_Collider(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
+		virtual ~GL_Collider()=0;
 
 		GLuint getCollisionGroup()const;
-		glm::vec3 getLocalLocation()const;
+		glm::vec2 getLocalLocation()const;
 		glm::vec3 getLocalRotation()const;
-		glm::vec3 getLocalScale()const;
-
-		glm::vec3 getBoundingBoxMin()const; // Used by GL_ColliderManager only
-		glm::vec3 getBoundingBoxMax()const; // Same
+		glm::vec2 getLocalScale()const;
 
 		void setCollisionGroup(GLuint collisionGroup);
-		void setLocalLocation(glm::vec3 location);
+		void setLocalLocation(glm::vec2 location);
 		void setLocalRotation(glm::vec3 rotation);
-		void setLocalScale(glm::vec3 scale);
+		void setLocalScale(glm::vec2 scale);
 
-		void updateBoundingBoxSize(glm::vec3 rotation); // Used to recalculate bounding box dimensions after rotation
 		void enableCollisions();
 		void disableCollisions();
 		GLboolean shouldCollide()const; // Returns wheter collider should interact with other objects
+
+		void getAABBvertices(glm::vec2* AABB)const;
+		void setAABBvertices(glm::vec2* AABB);
 	};
 
 	class GL_BoxCollider:public GL_Collider{
-		glm::vec3*_boxVertices;
+		glm::vec2*_boxVertices;
 	public:
-		GL_BoxCollider(glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f));
+		GL_BoxCollider(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
 		~GL_BoxCollider();
 
-		void getBoxVertices(glm::vec3*vertices)const;
+		void getBoxVertices(glm::vec2*vertices)const;
 		// In the future there should be interface for changing location of indivudals vertices
 	};
 	class GL_MeshCollider:public GL_Collider{
-		glm::vec3* _meshVertices;
+		glm::vec2* _meshVertices;
 		GLboolean _isConvex; // Will be needed for triangulation
 	public:
 		GL_MeshCollider();
 		~GL_MeshCollider();
 	};
 	class GL_SphereCollider:public GL_Collider{
+		GLfloat* semiMajor;
+		GLfloat* semiMinor;
 	public:
-		GL_SphereCollider(glm::vec3 location=glm::vec3(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec3 scale=glm::vec3(1.0f),GLuint collisionGroup=1);
+		GL_SphereCollider(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
 		~GL_SphereCollider();
 	};
-	
 }
 

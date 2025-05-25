@@ -45,10 +45,10 @@ void GLS::GL_PhysicsBody::setMass(GLfloat mass){
 	_mass=mass;
 }
 ////////////////////////////////////////////////////////////////// Linear velocity operations
-glm::vec3 GLS::GL_PhysicsBody::getLinearVelocity()const{
+glm::vec2 GLS::GL_PhysicsBody::getLinearVelocity()const{
 	return _linearVelocity;
 }
-void GLS::GL_PhysicsBody::setLinearVelocity(glm::vec3 linearVelocity){
+void GLS::GL_PhysicsBody::setLinearVelocity(glm::vec2 linearVelocity){
 	_linearVelocity=linearVelocity;
 }
 ////////////////////////////////////////////////////////////////// Angular velocity operations
@@ -59,10 +59,10 @@ void GLS::GL_PhysicsBody::setAngularVelocity(glm::vec3 angularVelocity){
 	_angularVelocity=angularVelocity;
 }
 ////////////////////////////////////////////////////////////////// Linear acceleration operations
-glm::vec3 GLS::GL_PhysicsBody::getLinearAcceleration()const{
+glm::vec2 GLS::GL_PhysicsBody::getLinearAcceleration()const{
 	return _linearAcceleration;
 }
-void GLS::GL_PhysicsBody::setLinearAcceleration(glm::vec3 linearAcceleration){
+void GLS::GL_PhysicsBody::setLinearAcceleration(glm::vec2 linearAcceleration){
 	_linearAcceleration=linearAcceleration;
 }
 ////////////////////////////////////////////////////////////////// Angular acceleration operations

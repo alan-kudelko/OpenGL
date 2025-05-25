@@ -40,26 +40,26 @@
 
 namespace GLS{
 	class GL_VertexData{
-		glm::vec3 _xyz; // Vertex's coordinates
+		glm::vec2 _xyz; // Vertex's coordinates
 		glm::vec4 _rgba; // Vertex's color #RGBA
 		glm::vec2 _uv; // Vertex's texture coordinates
 		// In the future this class can be extended by adding normals, binormals and other verterx parameters if needed
 	public:
 		GL_VertexData(GLfloat*vertex);
-		GL_VertexData(glm::vec3 xyz={},glm::vec4 rgba={},glm::vec2 uv={});
+		GL_VertexData(glm::vec2 xyz={},glm::vec4 rgba={},glm::vec2 uv={});
 		void getVertexData(GLfloat*vetexData)const;
-		glm::vec3 getXYZ()const;
+		glm::vec2 getXYZ()const;
 		glm::vec4 getRGBA()const;
 		glm::vec2 getUV()const;
-		void setVertexData(glm::vec3 xyz={},glm::vec4 rgba={},glm::vec2 uv={});
+		void setVertexData(glm::vec2 xyz={},glm::vec4 rgba={},glm::vec2 uv={});
 		void setVertexData(GLfloat*vertexData);
-		void setXYZ(glm::vec3 xyz);
+		void setXYZ(glm::vec2 xyz);
 		void setRGBA(glm::vec4 rgba);
 		void setUV(glm::vec2 uv);
 
 		GL_VertexData&operator=(const GLS::GL_VertexData&vertexData);
 
-		enum{GL_VERTEX_SIZE=9}; //Total number of attributes 3+4+2
+		enum{GL_VERTEX_SIZE=8}; //Total number of attributes 3+4+2
 	};
 	// Abstract virtual base class describing shape and all of its parameters
     class GL_Shape:public GL_Component{

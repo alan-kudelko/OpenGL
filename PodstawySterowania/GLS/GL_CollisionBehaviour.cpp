@@ -5,12 +5,12 @@ void GLS::behaviourDestroyAfterCollision(GLS::GL_GameObject*obj1,GLS::GL_GameObj
 	obj1->markForDestruction();
 }
 void GLS::behaviourReverseVelocityAfterCollision(GLS::GL_GameObject*obj1,GLS::GL_GameObject*obj2){
-	glm::vec3 obj1LinearVelocity=obj1->getGameObjectLinearVelocity();
-	glm::vec3 obj1NormalizedVelocityVector=obj1LinearVelocity/obj1LinearVelocity;
+	glm::vec2 obj1LinearVelocity=obj1->getGameObjectLinearVelocity();
+	glm::vec2 obj1NormalizedVelocityVector=obj1LinearVelocity/obj1LinearVelocity;
 	
 	// I think i need to know which direction is outside of GL_Collider
 	
-	glm::vec3 velocity=obj1->getGameObjectLinearVelocity();
+	glm::vec2 velocity=obj1->getGameObjectLinearVelocity();
 
 	obj1->setGameObjectLinearVelocity(-velocity);
 }

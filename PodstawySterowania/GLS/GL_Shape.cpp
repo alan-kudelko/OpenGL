@@ -5,28 +5,28 @@ GLS::GL_VertexData::GL_VertexData(GLfloat*vertex){
 	if(vertex==nullptr)
 		return;
 	GLuint i=0;
-	for(;i<3;i++)
+	for(;i<2;i++)
 		_xyz[i]=vertex[i];
-	for(i=0;i<3;i++)
+	for(i=0;i<2;i++)
 		_rgba[i]=vertex[i+3];
 	for(i=0;i<2;i++)
 		_uv[i]=vertex[i+7];
 }
-GLS::GL_VertexData::GL_VertexData(glm::vec3 xyz,glm::vec4 rgba,glm::vec2 uv){
+GLS::GL_VertexData::GL_VertexData(glm::vec2 xyz,glm::vec4 rgba,glm::vec2 uv){
 	_xyz=xyz;
 	_rgba=_rgba;
 	_uv=uv;
 }
 void GLS::GL_VertexData::getVertexData(GLfloat*vertexData)const{
 	GLuint i=0;
-	for(;i<3;i++)
+	for(;i<2;i++)
 		vertexData[i]=_xyz[i];
-	for(i=0;i<4;i++)
-		vertexData[i+3]=_rgba[i];
+	for(i=0;i<3;i++)
+		vertexData[i+2]=_rgba[i];
 	for(i=0;i<2;i++)
-		vertexData[i+7]=_xyz[i];
+		vertexData[i+6]=_xyz[i];
 }
-glm::vec3 GLS::GL_VertexData::getXYZ()const{
+glm::vec2 GLS::GL_VertexData::getXYZ()const{
 	return _xyz;
 }
 glm::vec4 GLS::GL_VertexData::getRGBA()const{
@@ -35,7 +35,7 @@ glm::vec4 GLS::GL_VertexData::getRGBA()const{
 glm::vec2 GLS::GL_VertexData::getUV()const{
 	return _uv;
 }
-void GLS::GL_VertexData::setVertexData(glm::vec3 xyz,glm::vec4 rgba,glm::vec2 uv){
+void GLS::GL_VertexData::setVertexData(glm::vec2 xyz,glm::vec4 rgba,glm::vec2 uv){
 	_xyz=xyz;
 	_rgba=_rgba;
 	_uv=uv;
@@ -43,7 +43,7 @@ void GLS::GL_VertexData::setVertexData(glm::vec3 xyz,glm::vec4 rgba,glm::vec2 uv
 void GLS::GL_VertexData::setVertexData(GLfloat*vertexData){
 	this->operator=(vertexData);
 }
-void GLS::GL_VertexData::setXYZ(glm::vec3 xyz){
+void GLS::GL_VertexData::setXYZ(glm::vec2 xyz){
 	_xyz=xyz;
 }
 void GLS::GL_VertexData::setRGBA(glm::vec4 rgba){
@@ -97,9 +97,9 @@ GLS::GL_Triangle::GL_Triangle(GLS::GL_VertexData*vertices,GLenum memoryLocation)
 	glBindBuffer(GL_ARRAY_BUFFER,_VBO);
 	glBufferData(GL_ARRAY_BUFFER,GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN*sizeof(GLfloat),_vertices,_memoryLocation);
 
-	glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)0);
-	glVertexAttribPointer(1,4,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(3*sizeof(GLfloat)));
-	glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(7*sizeof(GLfloat)));
+	glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)0);
+	glVertexAttribPointer(1,4,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(2*sizeof(GLfloat)));
+	glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(6*sizeof(GLfloat)));
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -116,7 +116,7 @@ GLS::GL_Triangle::GL_Triangle(GLenum memoryLocation):GL_Shape(memoryLocation){
 	GLfloat angle=60.0f;
 	GLfloat angleIncrement=360.0f/_vertN;
 	GLfloat radius=0.5;
-	glm::vec3 xyz{};
+	glm::vec2 xyz{};
 
 	for(GLuint i=0;i<_vertN;i++){
 		xyz[0]=std::sin(angle*M_PI/180.0f)*radius;
@@ -134,9 +134,9 @@ GLS::GL_Triangle::GL_Triangle(GLenum memoryLocation):GL_Shape(memoryLocation){
 	glBindBuffer(GL_ARRAY_BUFFER,_VBO);
 	glBufferData(GL_ARRAY_BUFFER,GLS::GL_VertexData::GL_VERTEX_SIZE*_vertN*sizeof(GLfloat),test,_memoryLocation);
 
-	glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)0);
-	glVertexAttribPointer(1,4,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(3*sizeof(GLfloat)));
-	glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(7*sizeof(GLfloat)));
+	glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)0);
+	glVertexAttribPointer(1,4,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(2*sizeof(GLfloat)));
+	glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(6*sizeof(GLfloat)));
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -170,7 +170,7 @@ GLS::GL_Polygon::GL_Polygon(GLuint vertN,GLenum memoryLocation):GL_Shape(memoryL
 	GLfloat angle=45.0f;
 	GLfloat angleIncrement=360.0f/_vertN;
 	GLfloat radius=vertN==4?sqrt(2)/2:0.5;
-	glm::vec3 xyz{};
+	glm::vec2 xyz{};
 
 	for(GLuint i=0;i<_vertN;i++,angle+=angleIncrement){
 		xyz[0]=std::sin(angle*M_PI/180.0f)*radius;
@@ -191,9 +191,9 @@ GLS::GL_Polygon::GL_Polygon(GLuint vertN,GLenum memoryLocation):GL_Shape(memoryL
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(GLuint)*_indicesN,_indices,GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)0);
-	glVertexAttribPointer(1,4,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(3*sizeof(GLfloat)));
-	glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(7*sizeof(GLfloat)));
+	glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)0);
+	glVertexAttribPointer(1,4,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(2*sizeof(GLfloat)));
+	glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,GLS::GL_VertexData::GL_VERTEX_SIZE*sizeof(GLfloat),(void*)(6*sizeof(GLfloat)));
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

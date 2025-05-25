@@ -53,14 +53,14 @@ namespace GLS{
 	struct GL_CollisionInfo{
 		GLS::GL_GameObject *obj1;
 		GLS::GL_GameObject *obj2;
-		glm::vec3 contactPoint;
-		glm::vec3 normalVector;
+		glm::vec2 contactPoint;
+		glm::vec2 normalVector;
 		GLfloat penetrationDepth;
 		// In the future collision time
 	};
 	class GL_CollisionManager{
-		GLboolean _checkAABBCollision(glm::vec3 obj1BoundingBoxMin,glm::vec3 obj1BoundingBoxMax,glm::vec3 obj2BoundingBoxMin,glm::vec3 obj2BoundingBoxMax);
-		GLboolean _checkSATCollision(glm::vec3*obj1Vertices,GLuint obj1VertCount,glm::vec3*obj2Vertices,GLuint obj2VertCount);
+		GLboolean _checkAABBCollision(glm::vec2 obj1BoundingBoxMin,glm::vec2 obj1BoundingBoxMax,glm::vec2 obj2BoundingBoxMin,glm::vec2 obj2BoundingBoxMax);
+		GLboolean _checkSATCollision(glm::vec2*obj1Vertices,GLuint obj1VertCount,glm::vec2*obj2Vertices,GLuint obj2VertCount);
 	public:
 		GL_CollisionManager();
 		~GL_CollisionManager();

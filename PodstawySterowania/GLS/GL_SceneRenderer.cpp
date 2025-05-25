@@ -13,20 +13,16 @@ void GLS::GL_SceneRenderer::renderCollider(GLS::GL_GameObject& gameObject){
     const GL_Shader* shaderComponent=gameObject.getShaderComponent();
     if(!shaderComponent) return;
 
-    glm::vec3 goPos=gameObject.getLocation();
-    glm::vec3 goScale=gameObject.getScale();
-    glm::vec3 colPos=colliderComponent->getLocalLocation();
-    glm::vec3 colScale=colliderComponent->getLocalScale();
-
-
-    // GL_Collider should be normalized to <-0.5f,0.5f> and then scaled just like any GL_Mesh
-    // This will let me to avoid scale and rotation problems I created earlier
+    glm::vec2 goPos=gameObject.getLocation();
+    glm::vec2 goScale=gameObject.getScale();
+    glm::vec2 colPos=colliderComponent->getLocalLocation();
+    glm::vec2 colScale=colliderComponent->getLocalScale();
     
     GLfloat vertices[]={
-        0.5f,    0.5f,    0.5f,
-        0.5f,   -0.5f,    0.5f,
-        -0.5f,  -0.5f,    0.5f,
-        -0.5f,   0.5f,    0.5f
+        0.5f,    0.5f,
+        0.5f,   -0.5f,
+        -0.5f,  -0.5f,
+        -0.5f,   0.5f
     };
 
     GLuint indices[]={
@@ -40,23 +36,23 @@ void GLS::GL_SceneRenderer::renderCollider(GLS::GL_GameObject& gameObject){
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER,VBO);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_DYNAMIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3 * sizeof(float),(void*)0);
+    glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,2 * sizeof(float),(void*)0);
     glEnableVertexAttribArray(0);
 
 	glm::mat4 model=glm::mat4(1.0f);
 
-	glm::vec3 gameObjectLocation=gameObject.getLocation();
+	glm::vec2 gameObjectLocation=gameObject.getLocation();
 	glm::vec3 gameObjectRotation=gameObject.getRotation();
-	glm::vec3 gameObjectScale=gameObject.getScale();
+	glm::vec2 gameObjectScale=gameObject.getScale();
 
-	glm::vec3 colliderLocation=colliderComponent->getLocalLocation()/gameObjectScale;
+	glm::vec2 colliderLocation=colliderComponent->getLocalLocation()/gameObjectScale;
 	glm::vec3 colliderRotation=colliderComponent->getLocalRotation();
-	glm::vec3 colliderScale=colliderComponent->getLocalScale();
+	glm::vec2 colliderScale=colliderComponent->getLocalScale();
 
 	glm::mat3 boundingBoxRotation=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
 
@@ -66,9 +62,9 @@ void GLS::GL_SceneRenderer::renderCollider(GLS::GL_GameObject& gameObject){
 		return m;
 	};
 
-	gameObjectScale=mat3abs(boundingBoxRotation) *gameObjectScale;
+	gameObjectScale=mat3abs(boundingBoxRotation) *glm::vec3(gameObjectScale,1.0f);
 
-	model=glm::translate(model,gameObjectLocation)* glm::scale(model,gameObjectScale) * glm::translate(model,colliderLocation);
+	model=glm::translate(model,glm::vec3(gameObjectLocation,0.0f))* glm::scale(model,glm::vec3(gameObjectScale,1.0f)) * glm::translate(model,glm::vec3(colliderLocation,0.0f));
 
     glUseProgram(shaderComponent->getShaderID());
     glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(_projection));
@@ -106,15 +102,15 @@ void GLS::GL_SceneRenderer::renderObject(GLS::GL_GameObject&gameObject){
 
 	glm::mat4 model=glm::mat4(1.0f);
 
-	glm::vec3 gameObjectLocation=gameObject.getLocation();
+	glm::vec2 gameObjectLocation=gameObject.getLocation();
 	glm::vec3 gameObjectRotation=gameObject.getRotation();
-	glm::vec3 gameObjectScale=gameObject.getScale();
+	glm::vec2 gameObjectScale=gameObject.getScale();
 
-	glm::vec3 meshLocation=meshComponent->getLocalLocation();
+	glm::vec2 meshLocation=meshComponent->getLocalLocation();
 	glm::vec3 meshRotation=meshComponent->getLocalRotation();
-	glm::vec3 meshScale=meshComponent->getLocalScale();
+	glm::vec2 meshScale=meshComponent->getLocalScale();
 
-	model=glm::translate(model,gameObjectLocation)*glm::rotate(model,glm::radians(gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,gameObjectScale)*glm::translate(model,meshLocation)*glm::rotate(model,glm::radians(meshRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,meshScale);
+	model=glm::translate(model,glm::vec3(gameObjectLocation,0.0f))*glm::rotate(model,glm::radians(gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(gameObjectScale,1.0f))*glm::translate(model,glm::vec3(meshLocation,0.0f))*glm::rotate(model,glm::radians(meshRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(meshScale,1.0f));
 
 	glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(_projection));
 	glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"model"),1,GL_FALSE,glm::value_ptr(model));
