@@ -51,12 +51,13 @@ namespace GLS{
 		glm::vec2 _AABBvertices[4]{};
 	public:
 		GL_Collider(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
-		virtual ~GL_Collider()=0;
+		virtual ~GL_Collider();
 
 		GLuint getCollisionGroup()const;
-		glm::vec2 getLocalLocation()const;
-		glm::vec3 getLocalRotation()const;
-		glm::vec2 getLocalScale()const;
+		GLS::GL_Transform getLocalTransform()const;
+		glm::vec2 getLocalLocation()const; // Will be erased, no need for it
+		glm::vec3 getLocalRotation()const; // Will be erased, no need for it
+		glm::vec2 getLocalScale()const;    // Will be erased, no need for it
 
 		void setCollisionGroup(GLuint collisionGroup);
 		void setLocalLocation(glm::vec2 location);
@@ -67,8 +68,10 @@ namespace GLS{
 		void disableCollisions();
 		GLboolean shouldCollide()const; // Returns wheter collider should interact with other objects
 
-		void getAABBvertices(glm::vec2* AABB)const;
-		void setAABBvertices(glm::vec2* AABB);
+		void getAABBvertices(glm::vec2* AABB)const; // Gets global location of AABB vertices
+		void setAABBvertices(glm::vec2* AABB); // Sets global location of AABB vertices after transforms of GL_GameObject
+		void setAABBvertices(std::vector<glm::vec2> AABB)
+		// This way collision detection will be a bit faster than calculating position of AABB every frame
 	};
 
 	class GL_BoxCollider:public GL_Collider{

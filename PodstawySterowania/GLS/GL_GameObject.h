@@ -47,19 +47,12 @@ namespace GLS{
 		GL_Mesh*_meshComponent; // Pointer to existing GL_SHAPE component
 		GL_Shader*_shaderComponent; // Pointer to existing GL_SHADER component
 		GL_Collider*_colliderComponent; // Used for creation of new collider component for use in the class
-		GL_PhysicsBody*_physicsComponent;
+		GL_PhysicsBody*_physicsComponent; // Used for creation of new physics body
 		GL_CollisionBehaviour*_collisionBehaviourComponent; // Used for creation of new behaviour after collision
-		//GL_Physics Used for creation of new GL_Physics component for use in the class
 		//GL_TEXTURE*_textureComponentPtr;
 		//GL_INPUT_CONTROLLER*_inputControllerComponentPtr;
 		public:
 		////////////////////////////////////////////////////////////////// GL_GameObject interface
-		// New default constructor
-		// Creates new GL_Transform component with given parameters
-		// Creates new GL_Mesh existing geometry to GL_Shape (triangle, rectangle, pentagon etc.)
-		// Initializes GL_Shader with existing shader
-		// Creates new GL_BoxCollider with given parameters and collision group 1
-		// Creates new GL_CollisionBehavior component with default behaviour
 		GL_GameObject(GLS::GL_Shader*shaderComponent,std::string meshType="rectangle",glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f));
 		GL_GameObject(GLS::GL_Shader* shaderComponent,GLuint polygonCount=3,glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f));
 		// Another default constructor creating empty object (without any components)
@@ -92,6 +85,7 @@ namespace GLS{
 		void disableRender(); // Disables rendering on screen
 		GLboolean shouldRender()const; // Returns whether object is enabled for rendering on screen
 		////////////////////////////////////////////////////////////////// GL_Collider interface
+		void _recalculateAABB(); // Recalculates AABB vertices if GL_GameObject if transformed
 		void enableCollisions(); // Enables collisions
 		void disableCollisions(); // Disables collisions
 		GLboolean shouldCollide()const; // Returns whether object should be able to collide with other objects

@@ -30,6 +30,9 @@ enum { WINDOW_SIZE_X = 1000, WINDOW_SIZE_Y = 1000 };
 const char* vertexShaderPath = "shaders/orto_vertex_shader.vert";
 const char* fragmentShaderPath = "shaders/basic_fragment_shader.frag";
 
+const char* boundingBoxVertexShaderPath="shaders/orto_vertex_shader.vert";
+const char* boundingBoxfragmentShaderPath="shaders/basic_fragment_shader.frag";
+
 glm::vec3 locationUpdate{};
 glm::vec3 rotationUpdate{};
 
@@ -113,6 +116,7 @@ int main() {
         return -1;
 
     GLS::GL_resourceManager.createShader("basic", vertexShaderPath, fragmentShaderPath);
+    GLS::GL_resourceManager.createShader("boundingBoxShader",boundingBoxVertexShaderPath,boundingBoxfragmentShaderPath);
 
     GLS::GL_SceneManager sceneManager;
     GLS::GL_CollisionManager collisionManager;
@@ -145,7 +149,7 @@ int main() {
         sceneObjects[0]->move(locationUpdate);
         sceneObjects[0]->rotate(rotationUpdate);
 
-        sceneObjects[1]->rotate(glm::vec3(0.0f,0.0f,deltaTime*20));
+        //sceneObjects[1]->rotate(glm::vec3(0.0f,0.0f,deltaTime*20));
 
         sceneManager.updateScene();
         sceneRenderer.renderScene(sceneObjects);

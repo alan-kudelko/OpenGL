@@ -6,6 +6,8 @@
 #include "GL_Collider.h"
 #include "GL_CollisionBehaviour.h"
 #include "GL_PhysicsBody.h"
+#include <algorithm>
+#include <vector>
 
 ////////////////////////////////////////////////////////////////// GL_GameObject interface
 GLuint GLS::GL_GameObject::_GL_GameObjectCounter=0;
@@ -87,6 +89,10 @@ void GLS::GL_GameObject::setLocation(glm::vec2 location){
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->setLocation(location);
+
+	if(_colliderComponent==nullptr)
+		return;
+	this->_recalculateAABB();
 }
 void GLS::GL_GameObject::setRotation(glm::vec3 rotation){
 	if(_transformComponent==nullptr){
@@ -94,6 +100,9 @@ void GLS::GL_GameObject::setRotation(glm::vec3 rotation){
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->setRotation(rotation);
+	if(_colliderComponent==nullptr)
+		return;
+	this->_recalculateAABB();
 }
 void GLS::GL_GameObject::setScale(glm::vec2 scale) {
 	if (_transformComponent == nullptr) {
@@ -101,6 +110,9 @@ void GLS::GL_GameObject::setScale(glm::vec2 scale) {
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->setScale(scale);
+	if(_colliderComponent==nullptr)
+		return;
+	this->_recalculateAABB();
 }
 void GLS::GL_GameObject::move(glm::vec2 delta){
 	if(_transformComponent==nullptr){
@@ -108,6 +120,9 @@ void GLS::GL_GameObject::move(glm::vec2 delta){
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->move(delta);
+	if(_colliderComponent==nullptr)
+		return;
+	this->_recalculateAABB();
 }
 void GLS::GL_GameObject::rotate(glm::vec3 delta){
 	if(_transformComponent==nullptr){
@@ -115,6 +130,9 @@ void GLS::GL_GameObject::rotate(glm::vec3 delta){
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->rotate(delta);
+	if(_colliderComponent==nullptr)
+		return;
+	this->_recalculateAABB();
 }
 void GLS::GL_GameObject::scaleBy(glm::vec2 delta){
 	if(_transformComponent == nullptr){
@@ -122,6 +140,9 @@ void GLS::GL_GameObject::scaleBy(glm::vec2 delta){
 		throw std::runtime_error(exceptionText.c_str());
 	}
 	_transformComponent->scaleBy(delta);
+	if(_colliderComponent==nullptr)
+		return;
+	this->_recalculateAABB();
 }
 ////////////////////////////////////////////////////////////////// GL_Physics interface
 glm::vec2 GLS::GL_GameObject::getGameObjectLinearVelocity()const{
@@ -200,25 +221,64 @@ GLboolean GLS::GL_GameObject::shouldRender()const{
 	return _meshComponent->shouldRender();
 }
 ////////////////////////////////////////////////////////////////// GL_Collider interface
+void GLS::GL_GameObject::_recalculateAABB(){
+	GLS::GL_Transform colliderLocalTransform=_colliderComponent->getLocalTransform();
+
+	glm::mat4 model(1.0f);
+
+	model=glm::translate(model,glm::vec3(_transformComponent->getLocation(),0.0f))*
+		  glm::rotate(model,glm::radians(_transformComponent->getRotation().z),glm::vec3(0.0f,0.0f,1.0f))*
+		  glm::scale(model,glm::vec3(_transformComponent->getScale(),1.0f))*
+		  glm::translate(model,glm::vec3(colliderLocalTransform.getLocation(),0.0f))*
+		  glm::rotate(model,glm::radians(colliderLocalTransform.getRotation().z),glm::vec3(0.0f,0.0f,1.0f))*
+		  glm::scale(model,glm::vec3(colliderLocalTransform.getScale(),1.0f));
+		
+	std::vector<glm::vec2>newAABBVertices{
+		glm::vec2(0.5f,0.5f),
+		glm::vec2(0.5f,-0.5f),
+		glm::vec2(-0.5f,-0.5f),
+		glm::vec2(-0.5f,0.5f)
+	};
+
+	for(GLuint i=0;i<4;i++){
+		newAABBVertices[i]=glm::vec2(model*glm::vec4(newAABBVertices[i],0.0f,1.0f));
+	}
+	
+	glm::vec2 min{};
+	glm::vec2 max{};
+
+	for(GLuint i=0;i<newAABBVertices.size();i++) {
+		min.x=std::min(min.x,newAABBVertices[i].x);
+		min.y=std::min(min.y,newAABBVertices[i].y);
+		max.x=std::max(max.x,newAABBVertices[i].x);
+		max.y=std::max(max.y,newAABBVertices[i].y);
+	}
+	newAABBVertices[0]=glm::vec2(max.x,max.y);
+	newAABBVertices[1]=glm::vec2(max.x,min.y);
+	newAABBVertices[2]=glm::vec2(min.x,min.y);
+	newAABBVertices[3]=glm::vec2(min.x,max.y);
+	
+	_colliderComponent->setAABBvertices(newAABBVertices);
+}
 void GLS::GL_GameObject::enableCollisions(){
 	if(_colliderComponent==nullptr){
 		std::string exceptionText="Collider component is missing in GL_GameObject "+_name;
 		throw std::runtime_error(exceptionText.c_str());
-	} // For now, velocities also must exist but in GL_Physics
+	}
 	_colliderComponent->enableCollisions();
 }
 void GLS::GL_GameObject::disableCollisions(){
 	if(_colliderComponent==nullptr){
 		std::string exceptionText="Collider component is missing in GL_GameObject "+_name;
 		throw std::runtime_error(exceptionText.c_str());
-	} // For now, velocities also must exist but in GL_Physics
+	}
 	_colliderComponent->disableCollisions();
 }
 GLboolean GLS::GL_GameObject::shouldCollide()const{
 	if(_colliderComponent==nullptr){
 		std::string exceptionText="Collider component is missing in GL_GameObject "+_name;
 		throw std::runtime_error(exceptionText.c_str());
-	} // For now, velocities also must exist but in GL_Physics
+	}
 	return _colliderComponent->shouldCollide();
 }
 ////////////////////////////////////////////////////////////////// GL_GameObject interface for component management

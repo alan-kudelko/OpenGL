@@ -1,5 +1,6 @@
 #include "GL_Collider.h"
 #include "GL_Transform.h"
+#include <vector>
 
 ////////////////////////////////////////////////////////////////// GL_Collider
 GLS::GL_Collider::GL_Collider(glm::vec2 location,glm::vec3 rotation,glm::vec2 scale,GLuint collisionGroup){
@@ -9,8 +10,14 @@ GLS::GL_Collider::GL_Collider(glm::vec2 location,glm::vec3 rotation,glm::vec2 sc
 	_collisionGroup=collisionGroup;
 	_collisionEnable=GL_TRUE;
 }
+GLS::GL_Collider::~GL_Collider(){
+
+}
 GLuint GLS::GL_Collider::getCollisionGroup()const{
 	return _collisionGroup;
+}
+GLS::GL_Transform GLS::GL_Collider::getLocalTransform()const{
+	return _localTransform;
 }
 glm::vec2 GLS::GL_Collider::getLocalLocation()const{
 	return _localTransform.getLocation();
@@ -47,6 +54,10 @@ void GLS::GL_Collider::getAABBvertices(glm::vec2* AABB)const{
 		AABB[i]=_AABBvertices[i];
 }
 void GLS::GL_Collider::setAABBvertices(glm::vec2* AABB){
+	for(GLuint i=0;i<4;i++)
+		_AABBvertices[i]=AABB[i];
+}
+void GLS::GL_Collider::setAABBvertices(std::vector<glm::vec2> AABB){
 	for(GLuint i=0;i<4;i++)
 		_AABBvertices[i]=AABB[i];
 }
