@@ -1,6 +1,5 @@
 #include "GL_Collider.h"
 #include "GL_Transform.h"
-#include <vector>
 
 ////////////////////////////////////////////////////////////////// GL_Collider
 GLS::GL_Collider::GL_Collider(glm::vec2 location,glm::vec3 rotation,glm::vec2 scale,GLuint collisionGroup){

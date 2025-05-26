@@ -8,6 +8,7 @@
 #include "GL_PhysicsBody.h"
 #include <algorithm>
 #include <vector>
+#include <climits>
 
 ////////////////////////////////////////////////////////////////// GL_GameObject interface
 GLuint GLS::GL_GameObject::_GL_GameObjectCounter=0;
@@ -226,13 +227,13 @@ void GLS::GL_GameObject::_recalculateAABB(){
 
 	glm::mat4 model(1.0f);
 
-	model=glm::translate(model,glm::vec3(_transformComponent->getLocation(),0.0f))*
-		  glm::rotate(model,glm::radians(_transformComponent->getRotation().z),glm::vec3(0.0f,0.0f,1.0f))*
-		  glm::scale(model,glm::vec3(_transformComponent->getScale(),1.0f))*
-		  glm::translate(model,glm::vec3(colliderLocalTransform.getLocation(),0.0f))*
-		  glm::rotate(model,glm::radians(colliderLocalTransform.getRotation().z),glm::vec3(0.0f,0.0f,1.0f))*
-		  glm::scale(model,glm::vec3(colliderLocalTransform.getScale(),1.0f));
-		
+	model=glm::translate(model,glm::vec3(_transformComponent->getLocation(),0.0f)) *
+		glm::rotate(model,glm::radians(_transformComponent->getRotation().z),glm::vec3(0.0f,0.0f,1.0f)) *
+		glm::scale(model,glm::vec3(_transformComponent->getScale(),1.0f)) *
+		glm::translate(model,glm::vec3(colliderLocalTransform.getLocation(),0.0f)) *
+		glm::rotate(model,glm::radians(colliderLocalTransform.getRotation().z),glm::vec3(0.0f,0.0f,1.0f)) *
+		glm::scale(model,glm::vec3(colliderLocalTransform.getScale(),1.0f));
+
 	std::vector<glm::vec2>newAABBVertices{
 		glm::vec2(0.5f,0.5f),
 		glm::vec2(0.5f,-0.5f),
@@ -240,12 +241,12 @@ void GLS::GL_GameObject::_recalculateAABB(){
 		glm::vec2(-0.5f,0.5f)
 	};
 
-	for(GLuint i=0;i<4;i++){
-		newAABBVertices[i]=glm::vec2(model*glm::vec4(newAABBVertices[i],0.0f,1.0f));
+	for(GLuint i=0;i < 4;i++){
+		newAABBVertices[i]=glm::vec2(model * glm::vec4(newAABBVertices[i],0.0f,1.0f));
 	}
-	
-	glm::vec2 min{};
-	glm::vec2 max{};
+
+	glm::vec2 min{std::numeric_limits<float>::max(),std::numeric_limits<float>::max()};
+	glm::vec2 max{std::numeric_limits<float>::min(),std::numeric_limits<float>::min()};
 
 	for(GLuint i=0;i<newAABBVertices.size();i++) {
 		min.x=std::min(min.x,newAABBVertices[i].x);

@@ -26,6 +26,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -70,7 +71,7 @@ namespace GLS{
 
 		void getAABBvertices(glm::vec2* AABB)const; // Gets global location of AABB vertices
 		void setAABBvertices(glm::vec2* AABB); // Sets global location of AABB vertices after transforms of GL_GameObject
-		void setAABBvertices(std::vector<glm::vec2> AABB)
+		void setAABBvertices(std::vector<glm::vec2> AABB);
 		// This way collision detection will be a bit faster than calculating position of AABB every frame
 	};
 

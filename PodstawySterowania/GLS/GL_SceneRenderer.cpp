@@ -4,78 +4,34 @@
 #include "GL_Shader.h"
 #include "GL_GameObject.h"
 #include "GL_Collider.h"
+#include "GL_ResourceManager.h"
 
+namespace GLS{
+	extern GL_ResourceManager GL_resourceManager;
+}
 
 void GLS::GL_SceneRenderer::renderCollider(GLS::GL_GameObject& gameObject){
     GLS::GL_Collider* colliderComponent=gameObject.getColliderComponent();
     if(!colliderComponent) return;
 
-    const GL_Shader* shaderComponent=gameObject.getShaderComponent();
+    const GL_Shader* shaderComponent=GLS::GL_resourceManager.getShaderByName("boundingBoxShader");
     if(!shaderComponent) return;
-
-    glm::vec2 goPos=gameObject.getLocation();
-    glm::vec2 goScale=gameObject.getScale();
-    glm::vec2 colPos=colliderComponent->getLocalLocation();
-    glm::vec2 colScale=colliderComponent->getLocalScale();
     
-    GLfloat vertices[]={
-        0.5f,    0.5f,
-        0.5f,   -0.5f,
-        -0.5f,  -0.5f,
-        -0.5f,   0.5f
-    };
+	glm::vec2 vertices[4]{};
 
-    GLuint indices[]={
-        0, 1, 2, 3, 0
-    };
-    GLuint VAO,VBO,EBO;
-    glGenVertexArrays(1,&VAO);
-    glGenBuffers(1,&VBO);
-    glGenBuffers(1,&EBO);
+	colliderComponent->getAABBvertices(vertices);
 
-    glBindVertexArray(VAO);
+	GLuint vao;
+	glGenVertexArrays(1,&vao);
+	glBindVertexArray(vao);
 
-    glBindBuffer(GL_ARRAY_BUFFER,VBO);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_DYNAMIC_DRAW);
+	glUseProgram(shaderComponent->getShaderID());
+	glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(_projection));
+	glUniform2fv(glGetUniformLocation(shaderComponent->getShaderID(),"u_AABB"),4,&vertices[0].x);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
+	glDrawArrays(GL_LINE_LOOP,0,4);
 
-    glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,2 * sizeof(float),(void*)0);
-    glEnableVertexAttribArray(0);
-
-	glm::mat4 model=glm::mat4(1.0f);
-
-	glm::vec2 gameObjectLocation=gameObject.getLocation();
-	glm::vec3 gameObjectRotation=gameObject.getRotation();
-	glm::vec2 gameObjectScale=gameObject.getScale();
-
-	glm::vec2 colliderLocation=colliderComponent->getLocalLocation()/gameObjectScale;
-	glm::vec3 colliderRotation=colliderComponent->getLocalRotation();
-	glm::vec2 colliderScale=colliderComponent->getLocalScale();
-
-	glm::mat3 boundingBoxRotation=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
-
-	auto mat3abs=[](glm::mat3& m){
-		for(GLuint i=0;i < 3;i++)
-			m[i]=glm::abs(m[i]);
-		return m;
-	};
-
-	gameObjectScale=mat3abs(boundingBoxRotation) *glm::vec3(gameObjectScale,1.0f);
-
-	model=glm::translate(model,glm::vec3(gameObjectLocation,0.0f))* glm::scale(model,glm::vec3(gameObjectScale,1.0f)) * glm::translate(model,glm::vec3(colliderLocation,0.0f));
-
-    glUseProgram(shaderComponent->getShaderID());
-    glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(_projection));
-    glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"model"),1,GL_FALSE,glm::value_ptr(model));
-
-    glBindVertexArray(VAO);
-    glDrawElements(GL_LINE_STRIP,5,GL_UNSIGNED_INT,0);
-
-    glDeleteBuffers(1,&VBO);
-    glDeleteBuffers(1,&EBO);
-    glDeleteVertexArrays(1,&VAO);
+	glDeleteVertexArrays(1,&vao);
 }
 GLS::GL_SceneRenderer::GL_SceneRenderer(glm::mat4 projection){
 	_projection=projection;
@@ -112,6 +68,8 @@ void GLS::GL_SceneRenderer::renderObject(GLS::GL_GameObject&gameObject){
 
 	model=glm::translate(model,glm::vec3(gameObjectLocation,0.0f))*glm::rotate(model,glm::radians(gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(gameObjectScale,1.0f))*glm::translate(model,glm::vec3(meshLocation,0.0f))*glm::rotate(model,glm::radians(meshRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(meshScale,1.0f));
 
+	glUseProgram(shaderComponent->getShaderID());
+
 	glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(_projection));
 	glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"model"),1,GL_FALSE,glm::value_ptr(model));
 
@@ -119,14 +77,12 @@ void GLS::GL_SceneRenderer::renderObject(GLS::GL_GameObject&gameObject){
 
 	const GLS::GL_Triangle*triangle=dynamic_cast<const GLS::GL_Triangle*>(geometryMesh);
 	if(triangle){
-		glUseProgram(shaderComponent->getShaderID());
 		glBindVertexArray(triangle->getVAO());
 		glDrawArrays(meshComponent->getRenderMode(),0,3);
 		return;
 	}
 	const GLS::GL_Polygon*polygon=dynamic_cast<const GLS::GL_Polygon*>(geometryMesh);
 	if(polygon){
-		glUseProgram(shaderComponent->getShaderID());
 		glBindVertexArray(polygon->getVAO());
 		glDrawElements(meshComponent->getRenderMode(),polygon->getIndicesN(),GL_UNSIGNED_INT,0);
 		return;

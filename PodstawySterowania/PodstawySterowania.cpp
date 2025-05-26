@@ -30,8 +30,8 @@ enum { WINDOW_SIZE_X = 1000, WINDOW_SIZE_Y = 1000 };
 const char* vertexShaderPath = "shaders/orto_vertex_shader.vert";
 const char* fragmentShaderPath = "shaders/basic_fragment_shader.frag";
 
-const char* boundingBoxVertexShaderPath="shaders/orto_vertex_shader.vert";
-const char* boundingBoxfragmentShaderPath="shaders/basic_fragment_shader.frag";
+const char* boundingBoxVertexShaderPath="shaders/orto_collider_vertex_shader.vert";
+const char* boundingBoxfragmentShaderPath="shaders/collider_fragment_shader.frag";
 
 glm::vec3 locationUpdate{};
 glm::vec3 rotationUpdate{};
@@ -129,6 +129,7 @@ int main() {
 
     GLS::GL_GameObject* obj2=new GLS::GL_GameObject(GLS::GL_resourceManager.getShaderByName("basic"),4,glm::vec2(500.0f,400.0f),glm::vec3(0.0f),glm::vec2(100.0f,100.0f));
     sceneManager.addNewGameObject(obj2);
+    obj2->getColliderComponent()->setLocalLocation(glm::vec2(1.0f,0.0f));
 
     GLS::GL_BoxCollider x;
 
@@ -149,7 +150,7 @@ int main() {
         sceneObjects[0]->move(locationUpdate);
         sceneObjects[0]->rotate(rotationUpdate);
 
-        //sceneObjects[1]->rotate(glm::vec3(0.0f,0.0f,deltaTime*20));
+        sceneObjects[1]->rotate(glm::vec3(0.0f,0.0f,deltaTime*20));
 
         sceneManager.updateScene();
         sceneRenderer.renderScene(sceneObjects);
