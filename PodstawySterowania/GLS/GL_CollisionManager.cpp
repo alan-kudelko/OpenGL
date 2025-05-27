@@ -94,17 +94,14 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 			GLboolean canObj1SAT=GL_FALSE;
 			GLboolean canObj2SAT=GL_FALSE;
 
-			canObj1SAT=typeid(*obj1Collider).name()==typeid(GLS::GL_BoxCollider).name();
-			if(!canObj1SAT)
-				canObj1SAT=typeid(*obj1Collider).name()==typeid(GLS::GL_MeshCollider).name();
-
-			canObj2SAT=typeid(*obj2Collider).name()==typeid(GLS::GL_BoxCollider).name();
-			if(!canObj2SAT)
-				canObj2SAT=typeid(*obj2Collider).name()==typeid(GLS::GL_MeshCollider).name();
+			canObj1SAT=typeid(*obj1Collider).name()==typeid(GLS::GL_VertexCollider).name();
+			canObj2SAT=typeid(*obj2Collider).name()==typeid(GLS::GL_VertexCollider).name();
 
 			if(canObj1SAT&&canObj2SAT){
-				glm::vec2* obj1Vertices=new glm::vec2[obj1Collider->getVertexCount()];
-				glm::vec2* obj2Vertices=new glm::vec2[obj2Collider->getVertexCount()];
+				GLS::GL_VertexCollider*obj1VertexCollider=dynamic_cast<GLS::GL_VertexCollider*>(obj1Collider);
+				GLS::GL_VertexCollider*obj2VertexCollider=dynamic_cast<GLS::GL_VertexCollider*>(obj2Collider);
+				glm::vec2* obj1Vertices=new glm::vec2[obj1VertexCollider->getVertCount()];
+				glm::vec2* obj2Vertices=new glm::vec2[obj2VertexCollider->getVertCount()];
 
 
 

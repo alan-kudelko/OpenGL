@@ -73,5 +73,6 @@ namespace GLS{
 		void setColor(glm::vec4 color);
 
 		glm::vec2*getVertices()const;
+		GLuint getVertCount()const;
     };
 }

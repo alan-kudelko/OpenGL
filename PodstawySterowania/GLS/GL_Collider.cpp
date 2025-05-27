@@ -74,6 +74,9 @@ GLS::GL_VertexCollider::GL_VertexCollider(glm::vec2 location,glm::vec3 rotation,
 	_colliderVertCount=0;
 	_isConvex=GL_TRUE;
 }
+GLS::GL_VertexCollider::~GL_VertexCollider(){
+
+}
 void GLS::GL_VertexCollider::getVertices(glm::vec2*vertices)const{
 	for(GLuint i=0;i < 4;i++) {
 		vertices[i]=_colliderVertices[i];
@@ -114,7 +117,8 @@ GLS::GL_MeshCollider::~GL_MeshCollider(){
 	// Do not delete geometry as it is managed by GL_Mesh
 }
 void GLS::GL_MeshCollider::setVertices(glm::vec2* vertices,GLuint vertCount){
-
+	_colliderVertices=vertices;
+	_colliderVertCount=vertCount;
 }
 ////////////////////////////////////////////////////////////////// GL_SphereCollider
 GLS::GL_SphereCollider::GL_SphereCollider(glm::vec2 location,glm::vec3 rotation,glm::vec2 scale,GLuint collisionGroup):GL_Collider(location,rotation,scale,collisionGroup){

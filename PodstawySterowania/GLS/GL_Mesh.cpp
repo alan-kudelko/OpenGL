@@ -104,3 +104,6 @@ void GLS::GL_Mesh::setColor(glm::vec4 color){
 glm::vec2*GLS::GL_Mesh::getVertices()const{
 	return _vertices;
 }
+GLuint GLS::GL_Mesh::getVertCount()const{
+	return _meshGeometry->getVertCount();
+}

@@ -315,10 +315,15 @@ void GLS::GL_GameObject::createCollisionComponent(glm::vec2 location,glm::vec3 r
 		_colliderComponent=new GLS::GL_BoxCollider(location,rotation,scale,collisionGroup);
 	}
 	else if(colliderType=="SphereCollider"){
-
+		std::string exceptionText="Sphere collider not added yet in GL_GameObject " + _name;
+		throw std::runtime_error(exceptionText.c_str());
 	}
 	else if(colliderType=="MeshCollider"){
-
+		if(_meshComponent == nullptr){
+			std::string exceptionText="Cannot create GL_MeshCollider if mesh component is missing in GL_GameObject " + _name;
+			throw std::runtime_error(exceptionText.c_str());
+		}
+		_colliderComponent=new GLS::GL_MeshCollider(_meshComponent->getVertices(),_meshComponent->getVertCount(),location,rotation,scale,collisionGroup);
 	}
 	else{
 		std::string exceptionText="Trying to create undefined collider component in GL_GameObject " + _name+" Collider type "+colliderType;
