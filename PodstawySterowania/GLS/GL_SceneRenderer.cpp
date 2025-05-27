@@ -26,6 +26,7 @@ void GLS::GL_SceneRenderer::renderCollider(GLS::GL_GameObject& gameObject){
 	glBindVertexArray(vao);
 
 	glUseProgram(shaderComponent->getShaderID());
+	glUniform4fv(glGetUniformLocation(shaderComponent->getShaderID(),"u_color"),1,glm::value_ptr(colliderComponent->getRenderColor()));
 	glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(_projection));
 	glUniform2fv(glGetUniformLocation(shaderComponent->getShaderID(),"u_AABB"),4,&vertices[0].x);
 
@@ -69,7 +70,7 @@ void GLS::GL_SceneRenderer::renderObject(GLS::GL_GameObject&gameObject){
 	model=glm::translate(model,glm::vec3(gameObjectLocation,0.0f))*glm::rotate(model,glm::radians(gameObjectRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(gameObjectScale,1.0f))*glm::translate(model,glm::vec3(meshLocation,0.0f))*glm::rotate(model,glm::radians(meshRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3(meshScale,1.0f));
 
 	glUseProgram(shaderComponent->getShaderID());
-
+	glUniform4fv(glGetUniformLocation(shaderComponent->getShaderID(),"u_color"),1,glm::value_ptr(meshComponent->getColor()));
 	glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"projection"),1,GL_FALSE,glm::value_ptr(_projection));
 	glUniformMatrix4fv(glGetUniformLocation(shaderComponent->getShaderID(),"model"),1,GL_FALSE,glm::value_ptr(model));
 

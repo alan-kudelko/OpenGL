@@ -5,6 +5,7 @@
 
 #include <climits>
 #include <algorithm>
+
 GLboolean GLS::GL_CollisionManager::_checkAABBCollision(glm::vec2 obj1BoundingBoxMin,glm::vec2 obj1BoundingBoxMax,glm::vec2 obj2BoundingBoxMin,glm::vec2 obj2BoundingBoxMax){
 	if((obj1BoundingBoxMax.x>=obj2BoundingBoxMin.x&&obj1BoundingBoxMin.x<=obj2BoundingBoxMax.x)&&
            (obj1BoundingBoxMax.y>=obj2BoundingBoxMin.y&&obj1BoundingBoxMin.y<=obj2BoundingBoxMax.y)){
@@ -57,8 +58,8 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 	std::vector<GLS::GL_CollisionInfo>collisionInfoStruct;
 	for(auto it=gameObjects.begin()+1;it!=gameObjects.end();++it){
 		for(auto jt=gameObjects.begin();jt!=it;++jt){
-			const GLS::GL_Collider*obj1Collider=(*it)->getColliderComponent();
-			const GLS::GL_Collider*obj2Collider=(*jt)->getColliderComponent();
+			GLS::GL_Collider*obj1Collider=(*it)->getColliderComponent();
+			GLS::GL_Collider*obj2Collider=(*jt)->getColliderComponent();
 
 			if(obj1Collider==nullptr)
 				return collisionInfoStruct;
@@ -69,77 +70,54 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 			if(!(obj1Collider->shouldCollide())&&(obj2Collider->shouldCollide()))
 				return collisionInfoStruct;
 
-			glm::vec2 contactPoint;
-			glm::vec2 normalVector;
-			GLfloat penetrationDepth=0.0f;
+			glm::vec2 boundingBoxVertices[4]{};
 
-			glm::vec2 obj1GoLocation=(*it)->getLocation();
-			glm::vec3 obj1GoRotation=(*it)->getRotation();		
-			glm::vec2 obj1GoScale=(*it)->getScale();
+			obj1Collider->getAABBvertices(boundingBoxVertices);
 
-			glm::vec2 obj1ColLocation=(*it)->getColliderComponent()->getLocalLocation();
-			glm::vec3 obj1ColRotation=(*it)->getColliderComponent()->getLocalRotation();
-			glm::vec2 obj1ColScale=(*it)->getColliderComponent()->getLocalScale();
-			
-			glm::vec2 obj2GoLocation=(*jt)->getLocation();
-			glm::vec3 obj2GoRotation=(*jt)->getRotation();
-			glm::vec2 obj2GoScale=(*jt)->getScale();
+			glm::vec2 obj1BoundingBoxMin=boundingBoxVertices[2];
+			glm::vec2 obj1BoundingBoxMax=boundingBoxVertices[0];
 
-			glm::vec2 obj2ColLocation=(*jt)->getColliderComponent()->getLocalLocation();
-			glm::vec3 obj2ColRotation=(*jt)->getColliderComponent()->getLocalRotation();
-			glm::vec2 obj2ColScale=(*jt)->getColliderComponent()->getLocalScale();
-
-			auto mat3abs=[](glm::mat3 m){
-				for(GLuint i=0;i<3;i++)
-					m[i]=glm::abs(m[i]);
-				return m;
-			};
-
-			glm::mat3 obj1GoRotationMatrix=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
-
-			glm::vec2 obj1GoScaleNew=mat3abs(obj1GoRotationMatrix)*glm::vec3(obj1GoScale,1.0f);
-
-			glm::mat3 obj2GoRotationMatrix=glm::mat3(glm::rotate(glm::mat4(1.0f),glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f)));
-
-			glm::vec2 obj2GoScaleNew=mat3abs(obj2GoRotationMatrix)*glm::vec3(obj2GoScale,1.0f);
-
-			glm::vec2 obj1ColMin=obj1GoLocation- obj1GoScaleNew /2.0f;
-			glm::vec2 obj1ColMax=obj1GoLocation+ obj1GoScaleNew /2.0f;
-			
-			glm::vec2 obj2ColMin=obj2GoLocation- obj2GoScaleNew /2.0f;
-			glm::vec2 obj2ColMax=obj2GoLocation+ obj2GoScaleNew /2.0f;
+			obj2Collider->getAABBvertices(boundingBoxVertices);
+			glm::vec2 obj2BoundingBoxMin=boundingBoxVertices[2];
+			glm::vec2 obj2BoundingBoxMax=boundingBoxVertices[0];
 
 			// AABB
-			if(this->_checkAABBCollision(obj1ColMin,obj1ColMax,obj2ColMin,obj2ColMax)){
-				std::cout<<"AABB collision"<<std::endl;
-				const GLS::GL_BoxCollider*obj1BoxCollider=dynamic_cast<const GLS::GL_BoxCollider*>(obj1Collider);
-				const GLS::GL_BoxCollider*obj2BoxCollider=dynamic_cast<const GLS::GL_BoxCollider*>(obj2Collider);
-				if((obj1BoxCollider==nullptr)||(obj2BoxCollider==nullptr))
-					return collisionInfoStruct;
-
-				glm::vec2 obj1BoxColliderVertices[4];
-				obj1BoxCollider->getBoxVertices(obj1BoxColliderVertices);
-				glm::vec2 obj2BoxColliderVertices[4];
-				obj2BoxCollider->getBoxVertices(obj2BoxColliderVertices);
-				// SAT algorithm
-				glm::mat3 model(1.0f);
-				for(GLuint i=0;i<4;i++){
-					//obj1BoxColliderVertices[i]=glm::translate(model,obj1GoLocation)*glm::rotate(model,glm::radians(obj1GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,obj1GoScale)*glm::translate(model,obj1ColLocation)*glm::rotate(model,glm::radians(obj1ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,obj1ColScale)*glm::vec4(obj1BoxColliderVertices[i],1.0f);
-
-					//obj2BoxColliderVertices[i]=glm::translate(model,obj2GoLocation)*glm::rotate(model,glm::radians(obj2GoRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,obj2GoScale)*glm::translate(model,obj2ColLocation)*glm::rotate(model,glm::radians(obj2ColRotation.z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,obj2ColScale)*glm::vec4(obj2BoxColliderVertices[i],1.0f);
-
-				}
-				if(this->_checkSATCollision(obj1BoxColliderVertices,4,obj2BoxColliderVertices,4)){
-					GLS::GL_CollisionInfo collisionInfo;
-					collisionInfo.obj1=(*it);
-					collisionInfo.obj2=(*jt);
-					collisionInfo.contactPoint=contactPoint;
-					collisionInfo.normalVector=normalVector;
-					collisionInfo.penetrationDepth=penetrationDepth;
-					collisionInfoStruct.push_back(collisionInfo);
-					std::cout << "SAT collision" << std::endl;
-				}
+			if(!this->_checkAABBCollision(obj1BoundingBoxMin,obj1BoundingBoxMax,obj2BoundingBoxMin,obj2BoundingBoxMax)){
+				obj1Collider->setRenderColor(glm::vec4(1.0f,1.0f,1.0f,1.0f));
+				obj2Collider->setRenderColor(glm::vec4(1.0f,1.0f,1.0f,1.0f));
+				continue;
 			}
+			obj1Collider->setRenderColor(glm::vec4(1.0f,0.0f,0.0f,1.0f));
+			obj2Collider->setRenderColor(glm::vec4(1.0f,0.0f,0.0f,1.0f));
+			// Colors are for now
+
+			GLboolean canObj1SAT=GL_FALSE;
+			GLboolean canObj2SAT=GL_FALSE;
+
+			canObj1SAT=typeid(*obj1Collider).name()==typeid(GLS::GL_BoxCollider).name();
+			if(!canObj1SAT)
+				canObj1SAT=typeid(*obj1Collider).name()==typeid(GLS::GL_MeshCollider).name();
+
+			canObj2SAT=typeid(*obj2Collider).name()==typeid(GLS::GL_BoxCollider).name();
+			if(!canObj2SAT)
+				canObj2SAT=typeid(*obj2Collider).name()==typeid(GLS::GL_MeshCollider).name();
+
+			if(canObj1SAT&&canObj2SAT){
+				glm::vec2* obj1Vertices=new glm::vec2[obj1Collider->getVertexCount()];
+				glm::vec2* obj2Vertices=new glm::vec2[obj2Collider->getVertexCount()];
+
+
+
+			}
+
+
+
+			//if(!this->_checkSATCollision()){
+
+			//}
+
+
+
 		}
 	}
 	return collisionInfoStruct; // Returns two nullptr if objects did not collide

@@ -50,6 +50,7 @@ namespace GLS{
 		GLuint _collisionGroup;
 		GLS::GL_Transform _localTransform;
 		glm::vec2 _AABBvertices[4]{};
+		glm::vec4 _renderColor; // For now
 	public:
 		GL_Collider(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
 		virtual ~GL_Collider();
@@ -65,6 +66,9 @@ namespace GLS{
 		void setLocalRotation(glm::vec3 rotation);
 		void setLocalScale(glm::vec2 scale);
 
+		glm::vec4 getRenderColor()const;
+		void setRenderColor(glm::vec4 color);
+
 		void enableCollisions();
 		void disableCollisions();
 		GLboolean shouldCollide()const; // Returns wheter collider should interact with other objects
@@ -74,23 +78,38 @@ namespace GLS{
 		void setAABBvertices(std::vector<glm::vec2> AABB);
 		// This way collision detection will be a bit faster than calculating position of AABB every frame
 	};
+	////////////////////////////////////////////////////////////////// GL_VertexCollider
+	class GL_VertexCollider:public GL_Collider{
+	protected:
+		glm::vec2* _colliderVertices;
+		GLuint _colliderVertCount;
+		GLboolean _isConvex;
+	public:
+		GL_VertexCollider(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
+		virtual ~GL_VertexCollider()=0;
 
-	class GL_BoxCollider:public GL_Collider{
-		glm::vec2*_boxVertices;
+		void getVertices(glm::vec2* vertices)const;
+		GLuint getVertCount()const;
+	};
+	////////////////////////////////////////////////////////////////// GL_BoxCollider
+	class GL_BoxCollider:public GL_VertexCollider{
 	public:
 		GL_BoxCollider(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
 		~GL_BoxCollider();
 
-		void getBoxVertices(glm::vec2*vertices)const;
+		void setVertices(glm::vec2* vertices);
+
 		// In the future there should be interface for changing location of indivudals vertices
 	};
-	class GL_MeshCollider:public GL_Collider{
-		glm::vec2* _meshVertices;
-		GLboolean _isConvex; // Will be needed for triangulation
+	////////////////////////////////////////////////////////////////// GL_MeshCollider
+	class GL_MeshCollider:public GL_VertexCollider{
 	public:
-		GL_MeshCollider();
+		GL_MeshCollider(glm::vec2*vertices,GLuint vertCount,glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
 		~GL_MeshCollider();
+
+		void setVertices(glm::vec2* vertices,GLuint vertCount);
 	};
+	////////////////////////////////////////////////////////////////// GL_SphereCollider
 	class GL_SphereCollider:public GL_Collider{
 		GLfloat* semiMajor;
 		GLfloat* semiMinor;

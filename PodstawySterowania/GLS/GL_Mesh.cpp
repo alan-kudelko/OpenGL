@@ -20,7 +20,7 @@ GLS::GL_Mesh::GL_Mesh(std::string meshType,glm::vec2 location, glm::vec3 rotatio
 		_vertices[i]=vertices[i].getXYZ();
 	}
 
-	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
+	_color=glm::vec4(0.5f,0.5f,0.5f,1.0f);
 }
 GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec2 location, glm::vec3 rotation,glm::vec2 scale){
 	_meshGeometry=GLS::GL_resourceManager.getGeometryByVertCount(vertN);
@@ -36,7 +36,7 @@ GLS::GL_Mesh::GL_Mesh(GLuint vertN,glm::vec2 location, glm::vec3 rotation,glm::v
 		_vertices[i]=vertices[i].getXYZ();
 	}
 
-	_color=glm::vec4(1.0f,0.0f,0.0f,1.0f);
+	_color=glm::vec4(0.5f,0.5f,0.5f,1.0f);
 }
 GLS::GL_Mesh::~GL_Mesh(){
 	delete[]_vertices;

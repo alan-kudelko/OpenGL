@@ -1,0 +1,2 @@
+Error in: shaders/basic_fragment_shader.frag 0(4) : error C1503: undefined variable "u_color"
+
