@@ -2,6 +2,7 @@
 #include "GL_GameObject.h"
 #include "GL_Collider.h"
 #include "GL_CollisionResolve.h"
+#include "GL_Mesh.h"
 
 #include <climits>
 #include <algorithm>
@@ -94,27 +95,39 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 			GLboolean canObj1SAT=GL_FALSE;
 			GLboolean canObj2SAT=GL_FALSE;
 
-			canObj1SAT=typeid(*obj1Collider).name()==typeid(GLS::GL_VertexCollider).name();
-			canObj2SAT=typeid(*obj2Collider).name()==typeid(GLS::GL_VertexCollider).name();
+			canObj1SAT=dynamic_cast<GLS::GL_VertexCollider*>(obj1Collider)!=nullptr;
+			canObj2SAT=dynamic_cast<GLS::GL_VertexCollider*>(obj2Collider)!=nullptr;
 
 			if(canObj1SAT&&canObj2SAT){
 				GLS::GL_VertexCollider*obj1VertexCollider=dynamic_cast<GLS::GL_VertexCollider*>(obj1Collider);
 				GLS::GL_VertexCollider*obj2VertexCollider=dynamic_cast<GLS::GL_VertexCollider*>(obj2Collider);
+
 				glm::vec2* obj1Vertices=new glm::vec2[obj1VertexCollider->getVertCount()];
 				glm::vec2* obj2Vertices=new glm::vec2[obj2VertexCollider->getVertCount()];
+				
+				obj1VertexCollider->getVertices(obj1Vertices);
+				obj2VertexCollider->getVertices(obj2Vertices);
 
-
+				glm::mat4 model(1.0f);
+				
+				for(GLuint i=0;i<obj1VertexCollider->getVertCount();i++){
+					obj1Vertices[i]=glm::vec2(glm::translate(model,glm::vec3((*it)->getLocation(),0.0f))*glm::rotate(model,glm::radians((*it)->getRotation().z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3((*it)->getScale(),1.0f))*glm::vec4(obj1Vertices[i],0.0f,1.0f));
+				}
+				model=glm::mat4(1.0f);
+				for(GLuint i=0;i<obj2VertexCollider->getVertCount();i++){
+					obj2Vertices[i]=glm::vec2(glm::translate(model,glm::vec3((*jt)->getLocation(),0.0f))*glm::rotate(model,glm::radians((*jt)->getRotation().z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3((*jt)->getScale(),1.0f))*glm::vec4(obj2Vertices[i],0.0f,1.0f));
+				}
+				if(this->_checkSATCollision(obj1Vertices,obj1VertexCollider->getVertCount(),obj2Vertices,obj2VertexCollider->getVertCount())){
+					(*it)->getMeshComponent()->setColor(glm::vec4(1.0f,0.5f,0.5f,1.0f));
+					(*jt)->getMeshComponent()->setColor(glm::vec4(1.0f,0.5f,0.5f,1.0f));
+				}
+				else{
+					(*it)->getMeshComponent()->setColor(glm::vec4(0.5f,0.5f,0.5f,1.0f));
+					(*jt)->getMeshComponent()->setColor(glm::vec4(0.5f,0.5f,0.5f,1.0f));
+				}
+				
 
 			}
-
-
-
-			//if(!this->_checkSATCollision()){
-
-			//}
-
-
-
 		}
 	}
 	return collisionInfoStruct; // Returns two nullptr if objects did not collide

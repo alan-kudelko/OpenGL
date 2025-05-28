@@ -112,10 +112,11 @@ namespace GLS{
 	////////////////////////////////////////////////////////////////// GL_SphereCollider
 	class GL_SphereCollider:public GL_Collider{
 		GLfloat* semiMajor;
-		GLfloat* semiMinor;
+		GLfloat* semiMinor; // Perhaps not needed as the GL_Transform component can store that
 	public:
 		GL_SphereCollider(glm::vec2 location=glm::vec2(0.0f),glm::vec3 rotation=glm::vec3(0.0f),glm::vec2 scale=glm::vec2(1.0f),GLuint collisionGroup=1);
 		~GL_SphereCollider();
+		
 	};
 }
 
