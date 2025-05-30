@@ -4,19 +4,26 @@
  * GitHub: https://github.com/alan-kudelko
  * License: MIT
  *
- * Class GL_GeometryManager & Struct GL_ShapeEntry
- * -----------------------------------------------
- * Centralized manager for geometric shape instances used in rendering.
+ * Class GL_ResourceManager & Structs GL_ShapeEntry, GL_ShaderEntry
+ * -----------------------------------------------------------------
+ * Centralized manager for geometric and shader resources used in rendering.
+ * Prevents redundant creation of reusable shapes and shaders by maintaining
+ * internal registries with fast lookup based on name or configuration.
  *
- * GL_ShapeEntry: Struct storing a pointer to a shape (GL_Shape)
- *   and its corresponding vertex count. Used internally to track reusable shapes.
+ * - GL_ShapeEntry: Stores a pointer to a GL_Shape instance and its vertex count.
+ *   Used internally for matching or retrieving shared mesh data.
  *
- * GL_ResourceManager: Provides mechanisms to retrieve or reuse predefined geometry
- *   either by name (e.g., "triangle", "quad") or by raw vertex count.
- *   Internally maintains a record of created shapes for efficient lookup.
+ * - GL_ShaderEntry: Stores a pointer to a compiled shader program and metadata
+ *   such as name and original source file paths. Allows for organized shader reuse.
  *
- * Intended to support geometry sharing and caching across multiple mesh instances,
- * reducing redundant shape creation and improving performance.
+ * - GL_ResourceManager: 
+ *   - Provides access to predefined shapes (e.g., "triangle", "quad") or shapes
+ *     matching a specific vertex count
+ *   - Caches and returns existing GL_Shape and GL_Shader objects
+ *   - Supports dynamic shader creation from source files
+ *
+ * Intended to improve runtime performance, memory efficiency, and modularity
+ * by decoupling geometry and shader creation from individual mesh or object logic.
  */
 
 #pragma once

@@ -6,18 +6,21 @@
  *
  * Class GL_SceneManager
  * ----------------------
- * High-level manager responsible for storing and updating game objects in a scene.
+ * High-level manager responsible for storing, updating, and organizing game objects
+ * within a runtime scene.
  *
- * Maintains a list of pointers to GL_GameObject instances representing entities in the 3D scene.
- * Provides methods for adding, accessing, and managing the lifecycle of scene objects.
+ * Maintains a dynamic list of pointers to GL_GameObject instances representing active
+ * entities in the scene. Provides mechanisms for adding, accessing, clearing, and updating
+ * objects as part of the game loop.
  *
  * Core Features:
- * - Immutable and mutable access to stored objects
+ * - Immutable and mutable access to stored scene objects
  * - Scene clearing and reset support
- * - Object update routine (e.g., post-collision cleanup)
+ * - Lifecycle management for transient or disposable entities (e.g., after collisions)
+ * - Offset-based update control for batched or staged processing
  *
- * Intended as the central point of control for organizing runtime game entities
- * and handling their logical grouping and updates.
+ * Designed to serve as the central registry of game entities, supporting modular
+ * integration with systems such as rendering, physics, input, and collision handling.
  */
 
 #pragma once

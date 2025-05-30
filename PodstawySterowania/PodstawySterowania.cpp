@@ -129,7 +129,7 @@ int main() {
 
     GLS::GL_GameObject* obj2=new GLS::GL_GameObject(GLS::GL_resourceManager.getShaderByName("basic"),4,glm::vec2(500.0f,400.0f),glm::vec3(0.0f),glm::vec2(100.0f,100.0f));
     sceneManager.addNewGameObject(obj2);
-    obj2->getColliderComponent()->setLocalLocation(glm::vec2(1.0f,0.0f));
+    //obj2->getColliderComponent()->setLocalLocation(glm::vec2(1.0f,0.0f));
 
     GLS::GL_BoxCollider x;
 

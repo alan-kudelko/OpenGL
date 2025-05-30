@@ -6,13 +6,20 @@
  *
  * Class GL_Transform
  * ------------------
- * Component representing an object's transformation in 3D space.
- * Stores and manages position (_location), rotation (_rotation), and scale (_scale).
+ * Component representing an object's transformation in 2D space with optional future extension to 3D.
+ * Stores and manages local position (_location), rotation (_rotation), and scale (_scale).
  *
- * Provides methods to move, rotate, scale, and reset the transform.
- * Rotation angles are normalized to the range [0, 360) degrees.
+ * Core Features:
+ * - Provides utility methods for translating, rotating, scaling and resetting the transform
+ * - Rotation is stored as vec3 for forward compatibility with 3D transforms
+ * - Includes static method to normalize angles to the range [0, 360) degrees
  *
- * Intended to be used as a reusable component for any game object, mesh, collider or future objects yet to be implemented that requires transformations.
+ * Designed to be attached to any object requiring spatial representation:
+ * - Game entities
+ * - Colliders
+ * - Renderable meshes
+ *
+ * Serves as the transformation base for object hierarchy, physics simulation and rendering calculations.
  */
 
 #pragma once

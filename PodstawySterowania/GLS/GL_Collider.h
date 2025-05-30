@@ -4,21 +4,30 @@
  * GitHub: https://github.com/alan-kudelko
  * License: MIT
  *
- * Class GL_Collider
- * ------------------
- * Component representing an object's collision properties in 3D space.
- * Manages local transformation, collision group assignment, and bounding box recalculations.
+ * Class GL_Collider and derived types
+ * ------------------------------------
+ * Component representing collision properties and shapes of game objects in 2D space.
+ * Supports local transformation, group filtering, and bounding box caching for efficient collision checks.
  *
  * Core Features:
- * - Local transform-based bounding box (axis-aligned)
- * - Dynamic bounding box recalculation based on rotation
- * - Collision group filtering for broad-phase optimization
- * - Toggleable collision participation per object
+ * - Local transform-based collision shape definition
+ * - Bounding box (AABB) storage and management
+ * - Collision group masking for broad-phase optimization
+ * - Support for convex polygonal shapes and basic primitives (box, mesh, circle)
+ * - Toggleable collision participation (enabled/disabled state)
  *
- * Intended as a base class for future extensions such as:
- * - Geometry-based collider generation
- * - Support for custom shapes (e.g., spheres, polygons)
- * - Two-phase collision detection via GL_CollisionManager
+ * Class Hierarchy:
+ * - GL_Collider (base): generic transform + bounding box + group system
+ * - GL_VertexCollider (abstract): adds vertex-based shape support
+ *   - GL_BoxCollider: axis-aligned or rotated box
+ *   - GL_MeshCollider: arbitrary convex polygon
+ * - GL_SphereCollider: circular shape based on ellipse approximation
+ *
+ * Intended to be integrated with GL_CollisionManager for two-phase detection:
+ * - Broad-phase using bounding boxes
+ * - Narrow-phase using SAT or analytical tests
+ *
+ * Designed for future expansion with custom collider generation from geometry.
  */
 
 #pragma once
@@ -38,10 +47,7 @@
 #include "GL_Transform.h"
 
 namespace GLS{
-	// For sure there should be some kind of interface to generate collider based on geometry of an object but that will be for child classes
-	// Another possibilities are simple prefabs like triangle or polygon
-	// GL_Collider should contain size, location and rotation of collision box
-	// Maybe size isn't a good idea, I think it should be more generalized
+	// GL_Collider should contain size, location and rotation of collider as a whole
 	// Good idea is to add collisions groups to optimize collision detection
 	// Additionally I will use two stage collision detection algorithm utilizing bounding box for broad phase and some fancier algorithm for narrow phase
 	// Collision handling will be processed by class GL_CollisionManager

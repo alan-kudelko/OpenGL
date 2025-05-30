@@ -6,17 +6,20 @@
  *
  * Class GL_SceneRenderer
  * -----------------------
- * Responsible for rendering game objects in a 3D scene using OpenGL.
- * Handles projection matrix setup and provides methods for drawing individual
- * objects as well as full scenes.
+ * Responsible for rendering game objects in a 2D/3D scene using OpenGL.
+ * Manages projection matrix state and dispatches draw calls to render scene objects
+ * including optional debug colliders.
  *
  * Core Features:
- * - Scene-wide projection matrix management
- * - Rendering of both standard geometry and debug colliders (toggleable)
- * - Efficient rendering of scene object containers
+ * - Scene-wide orthographic or perspective projection matrix management
+ * - Rendering of both visual geometry and optional collider overlays
+ * - Efficient rendering of containers with scene objects (batched or sequential)
  *
- * Intended to be used as a rendering backend that connects scene management
- * (GL_SceneManager) with low-level OpenGL draw calls.
+ * Connects high-level scene management (GL_SceneManager, GL_GameObject)
+ * with low-level OpenGL drawing logic.
+ *
+ * Intended as a modular rendering backend, enabling custom rendering logic,
+ * debug visualization, and dynamic scene composition.
  */
 
 #pragma once
