@@ -69,13 +69,13 @@ Build the project with your preferred CMake or Makefile setup and run the entry 
 ---
 
 ## 📁 Folder Structure
-├── GL_Component.h 
-├── GL_Shape.h / .cpp 
-├── GL_Shader.h / .cpp 
-├── GL_Collider.h / .cpp 
-├── GL_GameObject.h / .cpp 
-├── GL_SceneManager.h / .cpp 
-├── GL_SceneRenderer.h / .cpp 
-├── GL_CollisionManager.h / .cpp 
-├── GL_PhysicsBody.h / .cpp 
-└── ... 
+├── GL_Component.h <br/>
+├── GL_Shape.h / .cpp <br/>
+├── GL_Shader.h / .cpp <br/>
+├── GL_Collider.h / .cpp <br/>
+├── GL_GameObject.h / .cpp <br/>
+├── GL_SceneManager.h / .cpp <br/>
+├── GL_SceneRenderer.h / .cpp <br/>
+├── GL_CollisionManager.h / .cpp <br/>
+├── GL_PhysicsBody.h / .cpp <br/>
+└── ... <br/>
