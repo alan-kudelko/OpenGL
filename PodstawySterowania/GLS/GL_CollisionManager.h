@@ -53,7 +53,7 @@ namespace GLS{
 	};
 	class GL_CollisionManager{
 		GLboolean _checkAABBCollision(glm::vec2 obj1BoundingBoxMin,glm::vec2 obj1BoundingBoxMax,glm::vec2 obj2BoundingBoxMin,glm::vec2 obj2BoundingBoxMax);
-		GLboolean _checkSATCollision(glm::vec2*obj1Vertices,GLuint obj1VertCount,glm::vec2*obj2Vertices,GLuint obj2VertCount);
+		GLboolean _checkSATCollision(glm::vec2*obj1Vertices,GLuint obj1VertCount,glm::vec2*obj2Vertices,GLuint obj2VertCount,GLS::GL_CollisionInfo*collisionInfo);
 	public:
 		GL_CollisionManager();
 		~GL_CollisionManager();

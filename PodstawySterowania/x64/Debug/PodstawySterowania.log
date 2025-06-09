@@ -1,36 +1,3 @@
-﻿  GL_Collider.cpp
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_Collider.cpp(94,16): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-  GL_CollisionManager.cpp
-  GL_GameObject.cpp
-  GL_Mesh.cpp
-  GL_ResourceManager.cpp
-  GL_SceneManager.cpp
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_SceneManager.cpp(26,29): warning C4267: 'return': conversion from 'size_t' to 'GLuint', possible loss of data
-  GL_SceneRenderer.cpp
-  GL_Shape.cpp
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_Shape.cpp(122,37): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_Shape.cpp(123,37): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_Shape.cpp(172,16): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_Shape.cpp(176,37): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Projekty\OpenGL\PodstawySterowania\GLS\GL_Shape.cpp(177,37): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-  GL_Transform.cpp
-  PodstawySterowania.cpp
-  Generating Code...
+﻿  GL_CollisionManager.cpp
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   PodstawySterowania.vcxproj -> D:\Projekty\OpenGL\PodstawySterowania\x64\Debug\PodstawySterowania.exe

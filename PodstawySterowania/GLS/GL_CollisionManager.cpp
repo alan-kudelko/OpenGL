@@ -15,7 +15,10 @@ GLboolean GLS::GL_CollisionManager::_checkAABBCollision(glm::vec2 obj1BoundingBo
 	return GL_FALSE;
 }
 GLboolean GLS::GL_CollisionManager::_checkSATCollision(glm::vec2* obj1Vertices,GLuint obj1VertCount,
-	glm::vec2* obj2Vertices,GLuint obj2VertCount) {
+	glm::vec2* obj2Vertices,GLuint obj2VertCount,GLS::GL_CollisionInfo*collisionInfo) {
+	GLfloat minPenetration=std::numeric_limits<float>::infinity();
+	glm::vec2 bestAxis;
+	
 	auto checkAxes=[&](glm::vec2* vertices,GLuint count) {
 		for(GLuint i=0; i < count; i++) {
 			glm::vec2 p1=glm::vec2(vertices[i]);
@@ -36,9 +39,21 @@ GLboolean GLS::GL_CollisionManager::_checkSATCollision(glm::vec2* obj1Vertices,G
 			auto [min2,max2]=std::minmax_element(proj2.begin(),proj2.end());
 
 			if(*max1 < *min2 || *max2 < *min1)
-				return false;
+				return GL_FALSE;
+
+			GLfloat penetration=std::min(*max1,*max2) - std::max(*min1,*min2);
+
+			if(penetration<minPenetration){
+				minPenetration=penetration;
+				bestAxis=axis;
+
+				glm::vec2 center1=(*min1 + *max1) * 0.5f * axis;
+				glm::vec2 center2=(*min2 + *max2) * 0.5f * axis;
+				if(glm::dot(center2 - center1,bestAxis) < 0)
+					bestAxis=-bestAxis;
+			}
 		}
-		return true;
+		return GL_TRUE;
 	};
 
 	if(!checkAxes(obj1Vertices,obj1VertCount)) return GL_FALSE;
@@ -117,9 +132,13 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 				for(GLuint i=0;i<obj2VertexCollider->getVertCount();i++){
 					obj2Vertices[i]=glm::vec2(glm::translate(model,glm::vec3((*jt)->getLocation(),0.0f))*glm::rotate(model,glm::radians((*jt)->getRotation().z),glm::vec3(0.0f,0.0f,1.0f))*glm::scale(model,glm::vec3((*jt)->getScale(),1.0f))*glm::vec4(obj2Vertices[i],0.0f,1.0f));
 				}
-				if(this->_checkSATCollision(obj1Vertices,obj1VertexCollider->getVertCount(),obj2Vertices,obj2VertexCollider->getVertCount())){
+
+				GLS::GL_CollisionInfo collisionInfo{};
+
+				if(this->_checkSATCollision(obj1Vertices,obj1VertexCollider->getVertCount(),obj2Vertices,obj2VertexCollider->getVertCount(),&collisionInfo)){
 					(*it)->getMeshComponent()->setColor(glm::vec4(1.0f,0.5f,0.5f,1.0f));
 					(*jt)->getMeshComponent()->setColor(glm::vec4(1.0f,0.5f,0.5f,1.0f));
+
 				}
 				else{
 					(*it)->getMeshComponent()->setColor(glm::vec4(0.5f,0.5f,0.5f,1.0f));
