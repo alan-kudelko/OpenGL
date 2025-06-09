@@ -69,7 +69,7 @@ Build the project with your preferred CMake or Makefile setup and run the entry 
 ---
 
 ## 📁 Folder Structure
-/GLS
+/GLS </br>
 ├── GL_Component.h </br>
 ├── GL_Shape.h / .cpp </br>
 ├── GL_Shader.h / .cpp </br>
