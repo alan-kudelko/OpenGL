@@ -82,4 +82,4 @@ Build the project with your preferred CMake or Makefile setup and run the entry 
 └── ... </br>
 
 ## Demo
-<img src="./PodstawySterowania/ScreenShots/ProjectDemo_Collisions.gif"/>
+<img src="./PodstawySterowania/Screenshots/ProjectDemo_Collisions.gif"/>
