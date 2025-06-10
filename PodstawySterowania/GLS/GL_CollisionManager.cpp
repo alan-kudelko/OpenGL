@@ -17,22 +17,23 @@ GLboolean GLS::GL_CollisionManager::_checkAABBCollision(glm::vec2 obj1BoundingBo
 GLboolean GLS::GL_CollisionManager::_checkSATCollision(glm::vec2* obj1Vertices,GLuint obj1VertCount,
 	glm::vec2* obj2Vertices,GLuint obj2VertCount,GLS::GL_CollisionInfo*collisionInfo) {
 	GLfloat minPenetration=std::numeric_limits<float>::infinity();
+	GLfloat maxPenetration=-std::numeric_limits<float>::infinity();
 	glm::vec2 bestAxis;
 	
 	auto checkAxes=[&](glm::vec2* vertices,GLuint count) {
-		for(GLuint i=0; i < count; i++) {
+		for(GLuint i=0;i<count;i++){
 			glm::vec2 p1=glm::vec2(vertices[i]);
-			glm::vec2 p2=glm::vec2(vertices[(i + 1) % count]);
+			glm::vec2 p2=glm::vec2(vertices[(i+1)%count]);
 			glm::vec2 edge=p2 - p1;
 			glm::vec2 axis=glm::normalize(glm::vec2(-edge.y,edge.x));
 
 			std::vector<float> proj1(obj1VertCount);
 			std::vector<float> proj2(obj2VertCount);
 
-			for(GLuint j=0; j < obj1VertCount; j++)
+			for(GLuint j=0;j<obj1VertCount;j++)
 				proj1[j]=glm::dot(glm::vec2(obj1Vertices[j]),axis);
 
-			for(GLuint j=0; j < obj2VertCount; j++)
+			for(GLuint j=0;j<obj2VertCount;j++)
 				proj2[j]=glm::dot(glm::vec2(obj2Vertices[j]),axis);
 
 			auto [min1,max1]=std::minmax_element(proj1.begin(),proj1.end());
@@ -42,6 +43,8 @@ GLboolean GLS::GL_CollisionManager::_checkSATCollision(glm::vec2* obj1Vertices,G
 				return GL_FALSE;
 
 			GLfloat penetration=std::min(*max1,*max2) - std::max(*min1,*min2);
+			if(penetration>maxPenetration)
+				maxPenetration=penetration;
 
 			if(penetration<minPenetration){
 				minPenetration=penetration;
@@ -59,6 +62,9 @@ GLboolean GLS::GL_CollisionManager::_checkSATCollision(glm::vec2* obj1Vertices,G
 	if(!checkAxes(obj1Vertices,obj1VertCount)) return GL_FALSE;
 	if(!checkAxes(obj2Vertices,obj2VertCount)) return GL_FALSE;
 
+	collisionInfo->normalVector=bestAxis;
+	collisionInfo->penetrationDepth=minPenetration;
+	collisionInfo->contactPoint=maxPenetration-bestAxis*(minPenetration*0.5f);
 	return GL_TRUE;
 }
 
@@ -138,7 +144,10 @@ std::vector<GLS::GL_CollisionInfo>GLS::GL_CollisionManager::checkCollisions(std:
 				if(this->_checkSATCollision(obj1Vertices,obj1VertexCollider->getVertCount(),obj2Vertices,obj2VertexCollider->getVertCount(),&collisionInfo)){
 					(*it)->getMeshComponent()->setColor(glm::vec4(1.0f,0.5f,0.5f,1.0f));
 					(*jt)->getMeshComponent()->setColor(glm::vec4(1.0f,0.5f,0.5f,1.0f));
-
+					collisionInfo.obj1=(*it);
+					collisionInfo.obj2=(*jt);
+					collisionInfoStruct.push_back(collisionInfo);
+					(*it)->move(-collisionInfo.normalVector*collisionInfo.penetrationDepth);
 				}
 				else{
 					(*it)->getMeshComponent()->setColor(glm::vec4(0.5f,0.5f,0.5f,1.0f));
