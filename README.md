@@ -80,3 +80,6 @@ Build the project with your preferred CMake or Makefile setup and run the entry 
 ├── GL_CollisionManager.h / .cpp </br>
 ├── GL_PhysicsBody.h / .cpp </br>
 └── ... </br>
+
+## Demo
+<img src="./PodstawySterowania/ScreenShots/ProjectDemo_Collisions.gif"/>
