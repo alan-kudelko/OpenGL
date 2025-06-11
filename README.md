@@ -11,7 +11,7 @@ Welcome to my OpenGL framework – a modular, component-based foundation for bui
 
 All custom engine code resides in the `GLS` folder and is built around a component-based architecture, enabling maximum flexibility and reuse across subsystems.
 
-### 📦 Core Modules
+### 📦 Core Classes
 
 | Class | Description |
 |-------|-------------|
