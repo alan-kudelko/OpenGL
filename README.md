@@ -1,6 +1,6 @@
 # OpenGL Framework – WIP Engine by Alan Kudełko
 
-Welcome to my OpenGL framework – a modular, component-based foundation for building real-time 2D/3D applications in C++ using OpenGL. This project serves as both a learning journey and a functional base for developing larger projects, including games such as an Arkanoid-style clone.
+Welcome to my OpenGL framework – a modular, component-based foundation for building real-time 2D/3D applications in C++ using OpenGL. This project serves as both a learning journey and a functional base for developing larger projects, including games such as an Arkanoid-style clone. At the moment, the framework mainly operates with 2D logic, but it is planned to be expanded to full 3D support.
 
 > 🔧 Status: In development  
 > 🎮 Goal: Build a lightweight OpenGL engine with clean architecture, modular components, and expandable systems for rendering, physics, and scripting.
