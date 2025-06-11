@@ -64,7 +64,7 @@ All custom engine code resides in the `GLS` folder and is built around a compone
 - GLFW
 - GLAD
 
-Build the project with your preferred CMake or Makefile setup and run the entry point containing your game loop.
+The project is ready to run immediately after cloning.
 
 ---
 
@@ -81,5 +81,5 @@ Build the project with your preferred CMake or Makefile setup and run the entry 
 ├── GL_PhysicsBody.h / .cpp </br>
 └── ... </br>
 
-## Demo
+## Collisions demo
 <img src="./PodstawySterowania/Screenshots/ProjectDemo_Collisions.gif"/>
